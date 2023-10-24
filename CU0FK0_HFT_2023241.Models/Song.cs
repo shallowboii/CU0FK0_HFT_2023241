@@ -21,9 +21,13 @@ namespace CU0FK0_HFT_2023241.Models
         [ForeignKey("ArtistID")]
         public int ArtistID { get; set; }
 
+        public int SongLenght { get; set; }
         public virtual ICollection<Artist> Collaborators { get; set; } // can be null
 
+        public Song()
+        {
 
+        }
 
     }
 }
