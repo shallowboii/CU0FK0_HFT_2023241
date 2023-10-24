@@ -18,11 +18,12 @@ namespace CU0FK0_HFT_2023241.Models
         [StringLength(50)]
         public string SongTitle { get; set; }
 
-        [ForeignKey("ArtistID")]
+        //[ForeignKey("ArtistID")]
         public int ArtistID { get; set; }
 
         public int SongLenght { get; set; }
         public virtual ICollection<Artist> Collaborators { get; set; } // can be null
+        public virtual Album Album { get; set; }
 
         public Song()
         {

@@ -22,6 +22,7 @@ namespace CU0FK0_HFT_2023241.Models
         public int ArtistID { get; set; }
 
         public virtual ICollection<Song> Songs { get; set; }
+        public virtual Artist Artist { get; set; }
 
         public Album()
         {
