@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="MyMusicDb.mdf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="MyMusicDb.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.14" />

@@ -20,8 +20,8 @@ namespace CU0FK0_HFT_2023241.Repository
         {
             if (!builder.IsConfigured)
             {
-                string conn = "";
-                builder.UseSqlServer()
+                string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\MyMusicDb.mdf;Integrated Security=True;MultipleActiveResultSets=true";
+                builder.UseSqlServer(conn)
                     .UseLazyLoadingProxies();
             }
         }
@@ -38,8 +38,8 @@ namespace CU0FK0_HFT_2023241.Repository
             .HasOne(song => song.Album)
             .WithMany(album => album.Songs)
             .HasForeignKey(song => song.ArtistID)
-            .OnDelete(DeleteBehavior.Cascade)
-                );
+            .OnDelete(DeleteBehavior.Cascade));
+                
 
             modelBuilder.Entity<Artist>(artist => artist
             .HasMany(artist => artist.Albums)
