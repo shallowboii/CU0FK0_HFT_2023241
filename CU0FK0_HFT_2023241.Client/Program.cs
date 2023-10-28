@@ -1,7 +1,7 @@
-﻿
-using CU0FK0_HFT_2023241.Models;
+﻿using CU0FK0_HFT_2023241.Models;
 using CU0FK0_HFT_2023241.Repository;
 using System;
+using System.Linq;
 
 namespace CU0FK0_HFT_2023241.Client
 {
@@ -10,6 +10,8 @@ namespace CU0FK0_HFT_2023241.Client
         static void Main(string[] args)
         {
             MyMusicDbContext ctx = new MyMusicDbContext();
+            ;
+
 
             
         }

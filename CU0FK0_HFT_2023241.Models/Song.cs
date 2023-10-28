@@ -19,7 +19,8 @@ namespace CU0FK0_HFT_2023241.Models
         public string SongTitle { get; set; }
 
         //[ForeignKey("ArtistID")]
-        public int ArtistID { get; set; }
+        //public int ArtistID { get; set; }
+        public int AlbumID { get; set; }
 
         public int SongLenght { get; set; }
         public virtual ICollection<Artist> Collaborators { get; set; } // can be null
@@ -28,6 +29,14 @@ namespace CU0FK0_HFT_2023241.Models
         public Song()
         {
 
+        }
+        public Song(int SongID,string SongTitle, int SongLenght, int albumID)
+        {
+            this.SongID = SongID;
+            this.SongTitle = SongTitle;
+            //this.ArtistID = ArtistID;
+            this.SongLenght = SongLenght;
+            AlbumID = albumID;
         }
 
     }

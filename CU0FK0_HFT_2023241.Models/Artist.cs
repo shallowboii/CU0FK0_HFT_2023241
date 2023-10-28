@@ -15,15 +15,20 @@ namespace CU0FK0_HFT_2023241.Models
         [StringLength(50)]
         public string ArtistName { get; set; }
 
-        public DateTime BirthYear { get; set; }
+        //public DateTime BirthYear { get; set; }
 
-        public virtual ICollection<Song> Songs { get; set; }
+        //public virtual ICollection<Song> Songs { get; set; }
         public virtual ICollection<Album> Albums { get; set; }
         
-
+        
         public Artist()
         {
 
+        }
+        public Artist(int ArtistID,string ArtistName)
+        {
+            this.ArtistID = ArtistID;
+            this.ArtistName = ArtistName;
         }
 
 
