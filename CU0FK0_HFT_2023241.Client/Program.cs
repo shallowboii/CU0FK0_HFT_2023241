@@ -9,8 +9,8 @@ namespace CU0FK0_HFT_2023241.Client
     {
         static void Main(string[] args)
         {
-            MyMusicDbContext ctx = new MyMusicDbContext();
-            ;
+           
+            
 
 
             
