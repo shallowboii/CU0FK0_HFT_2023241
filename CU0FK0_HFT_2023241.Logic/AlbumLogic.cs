@@ -12,6 +12,7 @@ namespace CU0FK0_HFT_2023241.Logic
     {
         IRepository<Album> repo;
 
+        #region CRUD_Methods
         public AlbumLogic(IRepository<Album> repo)
         {
             this.repo = repo;
@@ -58,6 +59,21 @@ namespace CU0FK0_HFT_2023241.Logic
         {
             repo.Update(item);
         }
+        #endregion
+
+
+        #region NON_CRUD_Methods
+        public Album BestAlbumOfArtist(Artist artist)
+        {
+            return repo.ReadAll()
+                .Where(t=> t.ArtistID==artist.ArtistID)
+                .OrderBy(t=>t.Rating)
+                .FirstOrDefault();
+        }
+
+
+
+        #endregion
 
     }
 }

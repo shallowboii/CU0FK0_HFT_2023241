@@ -11,7 +11,7 @@ namespace CU0FK0_HFT_2023241.Logic
     public class ArtistLogic : IArtistLogic
     {
         IRepository<Artist> repo;
-
+        #region CRUD_Methods
         public ArtistLogic(IRepository<Artist> repo)
         {
             this.repo = repo;
@@ -50,6 +50,16 @@ namespace CU0FK0_HFT_2023241.Logic
         {
             repo.Update(item);
         }
+        #endregion
+
+        #region Non-CRUD_Methods
+        //An artist's best album? 
+
+
+
+
+
+        #endregion
 
     }
 }
