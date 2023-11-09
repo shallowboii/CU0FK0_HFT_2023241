@@ -17,9 +17,10 @@ namespace CU0FK0_HFT_2023241.Models
         [Required]
         [StringLength(50)]
         public string AlbumTitle { get; set; }
-        public int Rating { get; set; }
+        public double Rating { get; set; }
 
         public int ArtistID { get; set; }
+        public int ReleaseYear { get; set; }
 
         public virtual ICollection<Song> Songs { get; set; }
         public virtual Artist Artist { get; set; }
@@ -28,12 +29,13 @@ namespace CU0FK0_HFT_2023241.Models
         {
 
         }
-        public Album(int AlbumID,string AlbumTitle, int ArtistID, int rating)
+        public Album(int AlbumID,string AlbumTitle, int ArtistID, double rating,int ReleaseYear)
         {
             this.AlbumID = AlbumID;
             this.AlbumTitle = AlbumTitle;
             this.ArtistID = ArtistID;
             Rating = rating;
+            this.ReleaseYear = ReleaseYear;
         }
 
 

@@ -3,6 +3,7 @@ using CU0FK0_HFT_2023241.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -63,13 +64,23 @@ namespace CU0FK0_HFT_2023241.Logic
 
 
         #region NON_CRUD_Methods
-        public Album BestAlbumOfArtist(Artist artist)
+        public IEnumerable<Album> BestAlbumOfArtist(Artist artist)
         {
-            return repo.ReadAll()
-                .Where(t=> t.ArtistID==artist.ArtistID)
-                .OrderBy(t=>t.Rating)
+            var album = repo.ReadAll()
+                .Where(t => t.ArtistID == artist.ArtistID)
+                .OrderBy(t => t.Rating)
                 .FirstOrDefault();
+
+            return new List<Album> { album };
+            
         }
+       //Ideas : If an album came out later than 2000 and artist is female
+       //An artist Every album which songs has better rating than 7 
+       //avarage rating : where artist = artist then get an avarage ratin in each album 
+
+        public IEnumerable<Album> 
+
+
 
 
 

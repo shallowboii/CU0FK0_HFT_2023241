@@ -17,7 +17,7 @@ namespace CU0FK0_HFT_2023241.Models
         [Required]
         [StringLength(50)]
         public string SongTitle { get; set; }
-        public int SongRating { get; set; }
+        public double SongRating { get; set; }
 
         public int AlbumID { get; set; }
 
@@ -29,7 +29,7 @@ namespace CU0FK0_HFT_2023241.Models
         {
 
         }
-        public Song(int SongID,string SongTitle, int SongLenght, int albumID, int songRating)
+        public Song(int SongID,string SongTitle, int SongLenght, int albumID, double songRating)
         {
             this.SongID = SongID;
             this.SongTitle = SongTitle;

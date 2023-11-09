@@ -14,6 +14,7 @@ namespace CU0FK0_HFT_2023241.Models
         [Required]
         [StringLength(50)]
         public string ArtistName { get; set; }
+        public string Gender { get; set; }
 
         //public DateTime BirthYear { get; set; }
 
@@ -25,10 +26,11 @@ namespace CU0FK0_HFT_2023241.Models
         {
 
         }
-        public Artist(int ArtistID,string ArtistName)
+        public Artist(int ArtistID,string ArtistName,string Gender)
         {
             this.ArtistID = ArtistID;
             this.ArtistName = ArtistName;
+            this.Gender = Gender;
         }
 
 
