@@ -20,8 +20,8 @@ namespace CU0FK0_HFT_2023241.Repository
         {
             if (!builder.IsConfigured)
             {
-                string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\MyMusicDb.mdf;Integrated Security=True;MultipleActiveResultSets=true";
-                builder.UseSqlServer(conn)
+               
+                builder.UseInMemoryDatabase("database")
                     .UseLazyLoadingProxies();
                     
             }
@@ -97,42 +97,7 @@ namespace CU0FK0_HFT_2023241.Repository
                 new Song(11, "Real", 191, 4, 4.4),
                 new Song(12, "Compton", 290, 4, 4.6),
 
-                //Kendrick To Pimp A Butterfly /5
 
-                new Song(182, "Wesley's Theory", 240, 5, 4.6),
-                new Song(183, "For Free? (Interlude)", 128, 5, 4.3),
-                new Song(184, "King Kunta", 234, 5, 4.7),
-                new Song(185, "Institutionalized", 315, 5, 4.5),
-                new Song(186, "These Walls", 325, 5, 4.6),
-                new Song(187, "u", 294, 5, 4.7),
-                new Song(188, "Alright", 186, 5, 4.8),
-                new Song(189, "For Sale? (Interlude)", 130, 5, 4.4),
-                new Song(190, "Momma", 273, 5, 4.6),
-                new Song(191, "Hood Politics", 271, 5, 4.5),
-                new Song(192, "How Much a Dollar Cost", 297, 5, 4.7),
-                new Song(193, "Complexion (A Zulu Love)", 280, 5, 4.5),
-                new Song(194, "The Blacker the Berry", 324, 5, 4.8),
-                new Song(195, "You Ain't Gotta Lie (Momma Said)", 194, 5, 4.6),
-                new Song(196, "i", 300, 5, 4.7),
-                new Song(197, "Mortal Man", 775, 5, 4.5),
-
-                //Kendrick Damn /6
-
-                new Song(198, "BLOOD.", 180, 6, 4.7),
-                new Song(199, "DNA.", 185, 6, 4.8),
-                new Song(200, "YAH.", 160, 6, 4.6),
-                new Song(201, "ELEMENT.", 215, 6, 4.5),
-                new Song(202, "FEEL.", 204, 6, 4.6),
-                new Song(203, "LOYALTY.", 226, 6, 4.7),
-                new Song(204, "PRIDE.", 224, 6, 4.6),
-                new Song(205, "HUMBLE.", 177, 6, 4.9),
-                new Song(206, "LUST.", 305, 6, 4.6),
-                new Song(207, "LOVE.", 213, 6, 4.5),
-                new Song(208, "XXX.", 266, 6, 4.7),
-                new Song(209, "FEAR.", 389, 6, 4.8),
-                new Song(210, "GOD.", 230, 6, 4.6),
-                new Song(211, "DUCKWORTH.", 194, 6, 4.7),
-                                
                 //Cardi B Invasion of Privacy /7
                 new Song(13, "Get Up 10", 214, 7, 4.6),
                 new Song(14, "Drip", 244, 7, 4.5),
@@ -147,6 +112,7 @@ namespace CU0FK0_HFT_2023241.Repository
                 new Song(23, "She Bad", 191, 7, 4.2),
                 new Song(24, "Thru Your Phone", 211, 7, 4.1),
                 new Song(25, "I Do", 224, 7, 4.0),
+
 
                 //Drake Take Care /8
                 new Song(26, "Over My Dead Body", 241, 8, 4.5),
@@ -168,56 +134,8 @@ namespace CU0FK0_HFT_2023241.Repository
                 new Song(42, "Practice", 318, 8, 4.1),
                 new Song(43, "The Ride", 277, 8, 4.3),
 
-                //Drake Views /9
-                new Song(212, "Keep the Family Close", 233, 9, 4.6),
-                new Song(213, "9", 226, 9, 4.5),
-                new Song(214, "U with Me?", 221, 9, 4.6),
-                new Song(215, "Feel No Ways", 248, 9, 4.7),
-                new Song(216, "Hype", 196, 9, 4.6),
-                new Song(217, "Weston Road Flows", 286, 9, 4.5),
-                new Song(218, "Redemption", 238, 9, 4.7),
-                new Song(219, "With You", 228, 9, 4.6),
-                new Song(220, "Faithful", 287, 9, 4.8),
-                new Song(221, "Still Here", 189, 9, 4.6),
-                new Song(222, "Controlla", 245, 9, 4.5),
-                new Song(223, "One Dance", 173, 9, 4.9),
-                new Song(224, "Grammys", 190, 9, 4.6),
-                new Song(225, "Childs Play", 251, 9, 4.7),
-                new Song(226, "Pop Style", 222, 9, 4.6),
-                new Song(227, "Too Good", 263, 9, 4.5),
-                new Song(228, "Summers Over Interlude", 77, 9, 4.4),
-                new Song(229, "Fire & Desire", 189, 9, 4.6),
-                new Song(230, "Views", 244, 9, 4.5),
-                new Song(231, "Hotline Bling", 267, 9, 4.7),
 
-                //Drake Scorpion /10
-                new Song(232, "Survival", 139, 10, 4.6),
-                new Song(233, "Nonstop", 216, 10, 4.7),
-                new Song(234, "Elevate", 197, 10, 4.5),
-                new Song(235, "Emotionless", 298, 10, 4.6),
-                new Song(236, "God's Plan", 199, 10, 4.8),
-                new Song(237, "I'm Upset", 208, 10, 4.6),
-                new Song(238, "8 Out of 10", 259, 10, 4.5),
-                new Song(239, "Mob Ties", 172, 10, 4.7),
-                new Song(240, "Can't Take a Joke", 171, 10, 4.6),
-                new Song(241, "Sandra's Rose", 191, 10, 4.5),
-                new Song(242, "Talk Up", 220, 10, 4.7),
-                new Song(243, "Is There More", 229, 10, 4.6),
-                new Song(244, "Peak", 217, 10, 4.5),
-                new Song(245, "Summer Games", 235, 10, 4.6),
-                new Song(246, "Jaded", 282, 10, 4.7),
-                new Song(247, "Nice for What", 205, 10, 4.8),
-                new Song(248, "Finesse", 134, 10, 4.6),
-                new Song(249, "Ratchet Happy Birthday", 179, 10, 4.5),
-                new Song(250, "That's How You Feel", 224, 10, 4.7),
-                new Song(251, "Blue Tint", 138, 10, 4.6),
-                new Song(252, "In My Feelings", 217, 10, 4.5),
-                new Song(253, "Don't Matter to Me", 247, 10, 4.7),
-                new Song(254, "After Dark", 257, 10, 4.6),
-                new Song(255, "Final Fantasy", 145, 10, 4.5),
-                new Song(256, "March 14", 284, 10, 4.6),
-                    
-                 //Megan Thee Stallion Good News //11
+                  //Megan Thee Stallion Good News //11
 
                 new Song(44, "Shots Fired", 272, 11, 4.2),
                 new Song(45, "Circles", 182, 11, 4.1),
@@ -248,26 +166,6 @@ namespace CU0FK0_HFT_2023241.Repository
                 new Song(68, "I Can Tell", 281, 12, 4.2),
                 new Song(69, "Apple Pie", 352, 12, 4.4),
 
-                //Travis Scott AstroWorld /13
-
-                new Song(257, "STARGAZING", 248, 13, 4.7),
-                new Song(258, "CAROUSEL", 192, 13, 4.6),
-                new Song(259, "SICKO MODE", 312, 13, 4.8),
-                new Song(260, "R.I.P. SCREW", 222, 13, 4.7),
-                new Song(261, "STOP TRYING TO BE GOD", 314, 13, 4.6),
-                new Song(262, "NO BYSTANDERS", 235, 13, 4.7),
-                new Song(263, "SKELETONS", 199, 13, 4.6),
-                new Song(264, "WAKE UP", 163, 13, 4.5),
-                new Song(265, "5% TINT", 166, 13, 4.7),
-                new Song(266, "NC-17", 169, 13, 4.6),
-                new Song(267, "ASTROTHUNDER", 184, 13, 4.7),
-                new Song(268, "YOSEMITE", 200, 13, 4.6),
-                new Song(269, "CAN'T SAY", 211, 13, 4.5),
-                new Song(270, "WHO? WHAT!", 133, 13, 4.7),
-                new Song(271, "BUTTERFLY EFFECT", 180, 13, 4.6),
-                new Song(272, "HOUSTONFORNICATION", 207, 13, 4.7),
-                new Song(273, "COFFEE BEAN", 183, 13, 4.6),
-                
 
                 //Nicki Minaj Pink Friday /14
                 new Song(70, "I'm the Best", 196, 14, 4.5),
@@ -288,31 +186,6 @@ namespace CU0FK0_HFT_2023241.Repository
                 new Song(85, "Muny", 236, 14, 4.4),
                 new Song(86, "Girls Fall Like Dominoes", 192, 14, 4.3),
 
-                //Nicki Minaj The Pinkprint /15
-
-                new Song(274, "All Things Go", 188, 15, 4.5),
-                new Song(275, "I Lied", 254, 15, 4.6),
-                new Song(276, "The Crying Game", 242, 15, 4.5),
-                new Song(277, "Get On Your Knees", 178, 15, 4.6),
-                new Song(278, "Feeling Myself", 229, 15, 4.7),
-                new Song(279, "Only", 234, 15, 4.6),
-                new Song(280, "Want Some More", 188, 15, 4.5),
-                new Song(281, "Four Door Aventador", 201, 15, 4.6),
-                new Song(282, "Favorite", 224, 15, 4.5),
-                new Song(283, "Buy a Heart", 190, 15, 4.6),
-                new Song(284, "Trini Dem Girls", 224, 15, 4.7),
-                new Song(285, "Anaconda", 227, 15, 4.6),
-                new Song(286, "The Night Is Still Young", 189, 15, 4.5),
-                new Song(287, "Pills N Potions", 235, 15, 4.6),
-                new Song(288, "Bed of Lies", 218, 15, 4.7),
-                new Song(289, "Grand Piano", 231, 15, 4.6),
-                new Song(290, "Big Daddy", 186, 15, 4.5),
-                new Song(291, "Shanghai", 187, 15, 4.6),
-                new Song(292, "Win Again", 194, 15, 4.5),
-                new Song(293, "Truffle Butter", 229, 15, 4.6),
-                new Song(294, "Mona Lisa", 155, 15, 4.7),
-                new Song(295, "Put You in a Room", 199, 15, 4.6),
-                new Song(296, "Tragik", 163, 15, 4.5),
 
                 //Jcole 2014 Forest Hills Drive /16
                 new Song(87, "Intro", 113, 16, 4.0),
@@ -328,21 +201,6 @@ namespace CU0FK0_HFT_2023241.Repository
                 new Song(97, "Apparently", 271, 16, 4.5),
                 new Song(98, "Love Yourz", 288, 16, 4.4),
                 new Song(99, "Note to Self", 775, 16, 4.1),
-
-                //Jcole KOD /17
-
-                new Song(297, "Intro", 214, 17, 4.6),
-                new Song(298, "KOD", 198, 17, 4.7),
-                new Song(299, "Photograph", 216, 17, 4.6),
-                new Song(300, "The Cut Off", 263, 17, 4.7),
-                new Song(301, "ATM", 220, 17, 4.6),
-                new Song(302, "Motiv8", 193, 17, 4.5),
-                new Song(303, "Kevin's Heart", 205, 17, 4.6),
-                new Song(304, "BRACKETS", 272, 17, 4.7),
-                new Song(305, "Once an Addict (Interlude)", 145, 17, 4.6),
-                new Song(306, "FRIENDS", 206, 17, 4.5),
-                new Song(307, "Window Pain (Outro)", 277, 17, 4.6),
-
 
 
                 //Lizzo Cuz I love you /18
@@ -389,27 +247,6 @@ namespace CU0FK0_HFT_2023241.Repository
                 new Song(136, "Hit This Hard", 237, 20, 4.2),
                 new Song(137, "Money Made Me Do It", 215, 20, 4.4),
                 new Song(138, "Feeling Whitney", 231, 20, 4.5),
-
-                //Post Malone Hollywood's Bleeding /21
-
-                new Song(308, "Hollywood's Bleeding", 182, 21, 4.5),
-                new Song(309, "Saint-Tropez", 159, 21, 4.6),
-                new Song(310, "Enemies", 195, 21, 4.7),
-                new Song(311, "Allergic", 149, 21, 4.6),
-                new Song(312, "A Thousand Bad Times", 188, 21, 4.5),
-                new Song(313, "Circles", 202, 21, 4.6),
-                new Song(314, "Die for Me", 248, 21, 4.7),
-                new Song(315, "On the Road", 239, 21, 4.6),
-                new Song(316, "Take What You Want", 245, 21, 4.5),
-                new Song(317, "I'm Gonna Be", 183, 21, 4.6),
-                new Song(318, "Staring at the Sun", 211, 21, 4.7),
-                new Song(319, "Sunflower", 158, 21, 4.6),
-                new Song(320, "Internet", 181, 21, 4.5),
-                new Song(321, "Goodbyes", 210, 21, 4.6),
-                new Song(322, "Myself", 141, 21, 4.7),
-                new Song(323, "I Know", 172, 21, 4.6),
-                new Song(324, "Wow.", 149, 21, 4.5),
-
 
 
                 //Tyler The Creator Igor /1
@@ -462,6 +299,180 @@ namespace CU0FK0_HFT_2023241.Repository
                 new Song(179, "Seigfried", 274, 3, 4.7),
                 new Song(180, "Godspeed", 174, 3, 4.8),
                 new Song(181, "Futura Free", 473, 3, 4.5),
+
+                //Kendrick To Pimp A Butterfly /5
+
+                new Song(182, "Wesley's Theory", 240, 5, 4.6),
+                new Song(183, "For Free? (Interlude)", 128, 5, 4.3),
+                new Song(184, "King Kunta", 234, 5, 4.7),
+                new Song(185, "Institutionalized", 315, 5, 4.5),
+                new Song(186, "These Walls", 325, 5, 4.6),
+                new Song(187, "u", 294, 5, 4.7),
+                new Song(188, "Alright", 186, 5, 4.8),
+                new Song(189, "For Sale? (Interlude)", 130, 5, 4.4),
+                new Song(190, "Momma", 273, 5, 4.6),
+                new Song(191, "Hood Politics", 271, 5, 4.5),
+                new Song(192, "How Much a Dollar Cost", 297, 5, 4.7),
+                new Song(193, "Complexion (A Zulu Love)", 280, 5, 4.5),
+                new Song(194, "The Blacker the Berry", 324, 5, 4.8),
+                new Song(195, "You Ain't Gotta Lie (Momma Said)", 194, 5, 4.6),
+                new Song(196, "i", 300, 5, 4.7),
+                new Song(197, "Mortal Man", 775, 5, 4.5),
+
+                //Kendrick Damn /6
+
+                new Song(198, "BLOOD.", 180, 6, 4.7),
+                new Song(199, "DNA.", 185, 6, 4.8),
+                new Song(200, "YAH.", 160, 6, 4.6),
+                new Song(201, "ELEMENT.", 215, 6, 4.5),
+                new Song(202, "FEEL.", 204, 6, 4.6),
+                new Song(203, "LOYALTY.", 226, 6, 4.7),
+                new Song(204, "PRIDE.", 224, 6, 4.6),
+                new Song(205, "HUMBLE.", 177, 6, 4.9),
+                new Song(206, "LUST.", 305, 6, 4.6),
+                new Song(207, "LOVE.", 213, 6, 4.5),
+                new Song(208, "XXX.", 266, 6, 4.7),
+                new Song(209, "FEAR.", 389, 6, 4.8),
+                new Song(210, "GOD.", 230, 6, 4.6),
+                new Song(211, "DUCKWORTH.", 194, 6, 4.7),
+                                
+                
+
+                
+
+                //Drake Views /9
+                new Song(212, "Keep the Family Close", 233, 9, 4.6),
+                new Song(213, "9", 226, 9, 4.5),
+                new Song(214, "U with Me?", 221, 9, 4.6),
+                new Song(215, "Feel No Ways", 248, 9, 4.7),
+                new Song(216, "Hype", 196, 9, 4.6),
+                new Song(217, "Weston Road Flows", 286, 9, 4.5),
+                new Song(218, "Redemption", 238, 9, 4.7),
+                new Song(219, "With You", 228, 9, 4.6),
+                new Song(220, "Faithful", 287, 9, 4.8),
+                new Song(221, "Still Here", 189, 9, 4.6),
+                new Song(222, "Controlla", 245, 9, 4.5),
+                new Song(223, "One Dance", 173, 9, 4.9),
+                new Song(224, "Grammys", 190, 9, 4.6),
+                new Song(225, "Childs Play", 251, 9, 4.7),
+                new Song(226, "Pop Style", 222, 9, 4.6),
+                new Song(227, "Too Good", 263, 9, 4.5),
+                new Song(228, "Summers Over Interlude", 77, 9, 4.4),
+                new Song(229, "Fire & Desire", 189, 9, 4.6),
+                new Song(230, "Views", 244, 9, 4.5),
+                new Song(231, "Hotline Bling", 267, 9, 4.7),
+
+                //Drake Scorpion /10
+                new Song(232, "Survival", 139, 10, 4.6),
+                new Song(233, "Nonstop", 216, 10, 4.7),
+                new Song(234, "Elevate", 197, 10, 4.5),
+                new Song(235, "Emotionless", 298, 10, 4.6),
+                new Song(236, "God's Plan", 199, 10, 4.8),
+                new Song(237, "I'm Upset", 208, 10, 4.6),
+                new Song(238, "8 Out of 10", 259, 10, 4.5),
+                new Song(239, "Mob Ties", 172, 10, 4.7),
+                new Song(240, "Can't Take a Joke", 171, 10, 4.6),
+                new Song(241, "Sandra's Rose", 191, 10, 4.5),
+                new Song(242, "Talk Up", 220, 10, 4.7),
+                new Song(243, "Is There More", 229, 10, 4.6),
+                new Song(244, "Peak", 217, 10, 4.5),
+                new Song(245, "Summer Games", 235, 10, 4.6),
+                new Song(246, "Jaded", 282, 10, 4.7),
+                new Song(247, "Nice for What", 205, 10, 4.8),
+                new Song(248, "Finesse", 134, 10, 4.6),
+                new Song(249, "Ratchet Happy Birthday", 179, 10, 4.5),
+                new Song(250, "That's How You Feel", 224, 10, 4.7),
+                new Song(251, "Blue Tint", 138, 10, 4.6),
+                new Song(252, "In My Feelings", 217, 10, 4.5),
+                new Song(253, "Don't Matter to Me", 247, 10, 4.7),
+                new Song(254, "After Dark", 257, 10, 4.6),
+                new Song(255, "Final Fantasy", 145, 10, 4.5),
+                new Song(256, "March 14", 284, 10, 4.6),
+                    
+               
+
+                //Travis Scott AstroWorld /13
+
+                new Song(257, "STARGAZING", 248, 13, 4.7),
+                new Song(258, "CAROUSEL", 192, 13, 4.6),
+                new Song(259, "SICKO MODE", 312, 13, 4.8),
+                new Song(260, "R.I.P. SCREW", 222, 13, 4.7),
+                new Song(261, "STOP TRYING TO BE GOD", 314, 13, 4.6),
+                new Song(262, "NO BYSTANDERS", 235, 13, 4.7),
+                new Song(263, "SKELETONS", 199, 13, 4.6),
+                new Song(264, "WAKE UP", 163, 13, 4.5),
+                new Song(265, "5% TINT", 166, 13, 4.7),
+                new Song(266, "NC-17", 169, 13, 4.6),
+                new Song(267, "ASTROTHUNDER", 184, 13, 4.7),
+                new Song(268, "YOSEMITE", 200, 13, 4.6),
+                new Song(269, "CAN'T SAY", 211, 13, 4.5),
+                new Song(270, "WHO? WHAT!", 133, 13, 4.7),
+                new Song(271, "BUTTERFLY EFFECT", 180, 13, 4.6),
+                new Song(272, "HOUSTONFORNICATION", 207, 13, 4.7),
+                new Song(273, "COFFEE BEAN", 183, 13, 4.6),
+                     
+
+                //Nicki Minaj The Pinkprint /15
+
+                new Song(274, "All Things Go", 188, 15, 4.5),
+                new Song(275, "I Lied", 254, 15, 4.6),
+                new Song(276, "The Crying Game", 242, 15, 4.5),
+                new Song(277, "Get On Your Knees", 178, 15, 4.6),
+                new Song(278, "Feeling Myself", 229, 15, 4.7),
+                new Song(279, "Only", 234, 15, 4.6),
+                new Song(280, "Want Some More", 188, 15, 4.5),
+                new Song(281, "Four Door Aventador", 201, 15, 4.6),
+                new Song(282, "Favorite", 224, 15, 4.5),
+                new Song(283, "Buy a Heart", 190, 15, 4.6),
+                new Song(284, "Trini Dem Girls", 224, 15, 4.7),
+                new Song(285, "Anaconda", 227, 15, 4.6),
+                new Song(286, "The Night Is Still Young", 189, 15, 4.5),
+                new Song(287, "Pills N Potions", 235, 15, 4.6),
+                new Song(288, "Bed of Lies", 218, 15, 4.7),
+                new Song(289, "Grand Piano", 231, 15, 4.6),
+                new Song(290, "Big Daddy", 186, 15, 4.5),
+                new Song(291, "Shanghai", 187, 15, 4.6),
+                new Song(292, "Win Again", 194, 15, 4.5),
+                new Song(293, "Truffle Butter", 229, 15, 4.6),
+                new Song(294, "Mona Lisa", 155, 15, 4.7),
+                new Song(295, "Put You in a Room", 199, 15, 4.6),
+                new Song(296, "Tragik", 163, 15, 4.5),
+
+
+                //Jcole KOD /17
+
+                new Song(297, "Intro", 214, 17, 4.6),
+                new Song(298, "KOD", 198, 17, 4.7),
+                new Song(299, "Photograph", 216, 17, 4.6),
+                new Song(300, "The Cut Off", 263, 17, 4.7),
+                new Song(301, "ATM", 220, 17, 4.6),
+                new Song(302, "Motiv8", 193, 17, 4.5),
+                new Song(303, "Kevin's Heart", 205, 17, 4.6),
+                new Song(304, "BRACKETS", 272, 17, 4.7),
+                new Song(305, "Once an Addict (Interlude)", 145, 17, 4.6),
+                new Song(306, "FRIENDS", 206, 17, 4.5),
+                new Song(307, "Window Pain (Outro)", 277, 17, 4.6),
+
+
+                //Post Malone Hollywood's Bleeding /21
+
+                new Song(308, "Hollywood's Bleeding", 182, 21, 4.5),
+                new Song(309, "Saint-Tropez", 159, 21, 4.6),
+                new Song(310, "Enemies", 195, 21, 4.7),
+                new Song(311, "Allergic", 149, 21, 4.6),
+                new Song(312, "A Thousand Bad Times", 188, 21, 4.5),
+                new Song(313, "Circles", 202, 21, 4.6),
+                new Song(314, "Die for Me", 248, 21, 4.7),
+                new Song(315, "On the Road", 239, 21, 4.6),
+                new Song(316, "Take What You Want", 245, 21, 4.5),
+                new Song(317, "I'm Gonna Be", 183, 21, 4.6),
+                new Song(318, "Staring at the Sun", 211, 21, 4.7),
+                new Song(319, "Sunflower", 158, 21, 4.6),
+                new Song(320, "Internet", 181, 21, 4.5),
+                new Song(321, "Goodbyes", 210, 21, 4.6),
+                new Song(322, "Myself", 141, 21, 4.7),
+                new Song(323, "I Know", 172, 21, 4.6),
+                new Song(324, "Wow.", 149, 21, 4.5)
                 
             }
                 );

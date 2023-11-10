@@ -64,21 +64,38 @@ namespace CU0FK0_HFT_2023241.Logic
 
 
         #region NON_CRUD_Methods
-        public IEnumerable<Album> BestAlbumOfArtist(Artist artist)
+        public IEnumerable<Album> BestAlbumOfArtist(int artistid)
         {
             var album = repo.ReadAll()
-                .Where(t => t.ArtistID == artist.ArtistID)
-                .OrderBy(t => t.Rating)
+                .Where(t => t.ArtistID == artistid)
+                .OrderByDescending(t => t.Rating)
                 .FirstOrDefault();
 
-            return new List<Album> { album };
+             return new List<Album> { album };
+
             
         }
        //Ideas : If an album came out later than 2000 and artist is female
        //An artist Every album which songs has better rating than 7 
        //avarage rating : where artist = artist then get an avarage ratin in each album 
 
-        public IEnumerable<Album> 
+        public IEnumerable<Album> FemaleAlbumsLaterThan2012()
+        {
+            var albums = repo.ReadAll()
+                .Where(t => t.Artist.Gender == "Female" && t.ReleaseYear > 2012)
+                .OrderBy(t => t.ArtistID);
+            return albums;
+        }
+
+        public IEnumerable<Song> EverySongFromAlbumBetterThan(double better)
+        {
+            var songs = repo.ReadAll()
+                .SelectMany(t => t.Songs)
+                .Where(t => t.Album.Rating > better)
+                .OrderBy(t => t.AlbumID);
+
+            return songs;
+        }
 
 
 

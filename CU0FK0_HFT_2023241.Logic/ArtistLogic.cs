@@ -55,6 +55,16 @@ namespace CU0FK0_HFT_2023241.Logic
         #region Non-CRUD_Methods
         //An artist's best album? 
 
+        public IEnumerable<double> AnArtistsBestAlbum(int artistID)
+        {
+            var album = repo.ReadAll()
+                .Where(t => t.ArtistID == artistID)
+                .Select(t => t.Albums.Max(t => t.Rating));
+                
+            return album;
+        }
+        
+
 
 
 
