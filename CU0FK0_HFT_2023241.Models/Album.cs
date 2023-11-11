@@ -38,6 +38,24 @@ namespace CU0FK0_HFT_2023241.Models
             this.ReleaseYear = ReleaseYear;
         }
 
+        public override bool Equals(object obj)
+        {
+            Album b = obj as Album;
+            if (b==null)
+            {
+                return false;
+            }
+            else
+            {
+                return this.AlbumID == b.AlbumID && this.AlbumTitle == b.AlbumTitle;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.AlbumID, this.AlbumTitle);
+        }
+
 
     }
 }
