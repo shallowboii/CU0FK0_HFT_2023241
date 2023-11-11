@@ -61,7 +61,15 @@ namespace CU0FK0_HFT_2023241.Logic
         #endregion
 
 
-        
+        public IEnumerable<Song> AnAlbumsBestSong(int albumID)
+        {
+            var songs = repo.ReadAll()
+                .Where(t => t.AlbumID == albumID)
+                .OrderByDescending(t => t.SongRating)
+                .FirstOrDefault();
+
+            return new List<Song> { songs };
+        }
 
 
     }

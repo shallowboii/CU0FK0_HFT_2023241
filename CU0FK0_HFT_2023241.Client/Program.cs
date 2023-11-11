@@ -62,6 +62,7 @@ namespace CU0FK0_HFT_2023241.Client
             Console.ReadLine();
         }
 
+
         static void Main(string[] args)
         {
             var ctx = new MyMusicDbContext();
@@ -77,40 +78,46 @@ namespace CU0FK0_HFT_2023241.Client
             //var bestalbum = albumLogic.BestAlbumOfEveryYear();
             var bestablumofartist = albumLogic.BestAlbumOfArtist(4);
 
-            var songs = albumLogic.EverySongFromAlbumBetterThan(4.7);
-
-            var bruh = artistLogic.ArtistsBestAlbum();
-            ;
-
-            //var ArtistSubMenu = new ConsoleMenu(args, level: 1)
-            //    .Add("List", () => List("Artist"))
-            //    .Add("Create", () => Create("Artist"))
-            //    .Add("Delete", () => Delete("Artist"))
-            //    .Add("Update", () => Update("Artist"))
-            //    .Add("Exit", ConsoleMenu.Close);
-
-            //var AlbumSubMenu = new ConsoleMenu(args, level: 1)
-            //    .Add("List", () => List("Album"))
-            //    .Add("Create", () => Create("Album"))
-            //    .Add("Delete", () => Delete("Album"))
-            //    .Add("Update", () => Update("Album"))
-            //    .Add("Exit", ConsoleMenu.Close);
-
-            //var SongSubMenu = new ConsoleMenu(args, level: 1)
-            //    .Add("List", () => List("Song"))
-            //    .Add("Create", () => Create("Song"))
-            //    .Add("Delete", () => Delete("Song"))
-            //    .Add("Update", () => Update("Song"))
-            //    .Add("Exit", ConsoleMenu.Close);
+            var songs = artistLogic.AnArtistsBestAlbumsRating(4);
 
 
-            //var menu = new ConsoleMenu(args, level: 0)
-            //    .Add("Song", () => SongSubMenu.Show())
-            //    .Add("Artist", () => ArtistSubMenu.Show())
-            //    .Add("Album", () => AlbumSubMenu.Show())
-            //    .Add("Exit", ConsoleMenu.Close);
 
-            //menu.Show();
+
+
+            var ArtistSubMenu = new ConsoleMenu(args, level: 1)
+                .Add("List", () => List("Artist"))
+                .Add("Create", () => Create("Artist"))
+                .Add("Delete", () => Delete("Artist"))
+                .Add("Update", () => Update("Artist"))
+                .Add("Exit", ConsoleMenu.Close);
+
+            var AlbumSubMenu = new ConsoleMenu(args, level: 1)
+                .Add("List", () => List("Album"))
+                .Add("Create", () => Create("Album"))
+                .Add("Delete", () => Delete("Album"))
+                .Add("Update", () => Update("Album"))
+                .Add("Exit", ConsoleMenu.Close);
+
+            var SongSubMenu = new ConsoleMenu(args, level: 1)
+                .Add("List", () => List("Song"))
+                .Add("Create", () => Create("Song"))
+                .Add("Delete", () => Delete("Song"))
+                .Add("Update", () => Update("Song"))
+                .Add("Exit", ConsoleMenu.Close);
+
+            var ElseSubMenu = new ConsoleMenu(args,level: 1)
+                .Add("What do you want?",() => Console.Write("what"))
+                .Add("Exit", ConsoleMenu.Close);
+
+
+            var menu = new ConsoleMenu(args, level: 0)
+                .Add("Song", () => SongSubMenu.Show())
+                .Add("Artist", () => ArtistSubMenu.Show())
+                .Add("Album", () => AlbumSubMenu.Show())
+                .Add("Else",()=> ElseSubMenu.Show())
+                .Add("Exit", ConsoleMenu.Close);
+
+            menu.Show();
 
         }
     }
