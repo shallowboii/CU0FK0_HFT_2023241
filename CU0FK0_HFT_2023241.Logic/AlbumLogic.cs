@@ -21,7 +21,7 @@ namespace CU0FK0_HFT_2023241.Logic
 
         public void Create(Album item)
         {
-            if (item.AlbumTitle.Length < 2)
+            if (item.AlbumTitle.Length <= 2)
             {
                 Console.WriteLine("Too short Album title");
             }
