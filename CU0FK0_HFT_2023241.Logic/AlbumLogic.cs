@@ -81,7 +81,8 @@ namespace CU0FK0_HFT_2023241.Logic
             var songs = repo.ReadAll()
                 .SelectMany(t => t.Songs)
                 .Where(t => t.Album.Rating > better)
-                .OrderBy(t => t.AlbumID);
+                .OrderBy(t => t.AlbumID)
+                .ToList();
 
             return songs;
         }
