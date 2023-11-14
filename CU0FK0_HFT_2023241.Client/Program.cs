@@ -80,10 +80,10 @@ namespace CU0FK0_HFT_2023241.Client
 
             var songs = artistLogic.AnArtistsBestAlbumsRating(4);
 
+            var artists = albumLogic.FemaleAlbumsLaterThan2012();
 
 
-
-
+            /*
             var ArtistSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Artist"))
                 .Add("Create", () => Create("Artist"))
@@ -118,7 +118,7 @@ namespace CU0FK0_HFT_2023241.Client
                 .Add("Exit", ConsoleMenu.Close);
 
             menu.Show();
-
+            */
         }
     }
 }

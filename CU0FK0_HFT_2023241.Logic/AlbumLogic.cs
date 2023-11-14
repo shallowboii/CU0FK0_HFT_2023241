@@ -23,7 +23,7 @@ namespace CU0FK0_HFT_2023241.Logic
         {
             if (item.AlbumTitle.Length <= 2)
             {
-                Console.WriteLine("Too short Album title");
+                throw new ArgumentException("Title is too short");
             }
             else
             {
@@ -36,7 +36,7 @@ namespace CU0FK0_HFT_2023241.Logic
             var album = repo.Read(id);
             if (album == null)
             {
-                Console.WriteLine("Album doesn't exists!");
+                throw new ArgumentException("Album does not exits");
             }
             else
             {
@@ -48,7 +48,7 @@ namespace CU0FK0_HFT_2023241.Logic
             var album = repo.Read(id);
             if (album == null)
             {
-                Console.WriteLine("Album doesn't exists!");
+                throw new ArgumentException("Album does not exits");
             }
             return repo.Read(id);
         }
@@ -82,8 +82,8 @@ namespace CU0FK0_HFT_2023241.Logic
         public IEnumerable<Album> FemaleAlbumsLaterThan2012()
         {
             var albums = repo.ReadAll()
-                .Where(t => t.Artist.Gender == "Female" && t.ReleaseYear > 2012)
-                .OrderBy(t => t.ArtistID);
+                .Where(t=>t.ReleaseYear>2012 && t.Artist.Gender=="Female")
+                .AsEnumerable();
             return albums;
         }
 
