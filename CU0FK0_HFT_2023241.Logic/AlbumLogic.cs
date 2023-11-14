@@ -36,7 +36,7 @@ namespace CU0FK0_HFT_2023241.Logic
             var album = repo.Read(id);
             if (album == null)
             {
-                throw new ArgumentException("Album does not exits");
+                throw new ArgumentException();
             }
             else
             {
@@ -64,17 +64,6 @@ namespace CU0FK0_HFT_2023241.Logic
 
 
         #region NON_CRUD_Methods
-        public IEnumerable<Album> BestAlbumOfArtist(int artistid)
-        {
-            var album = repo.ReadAll()
-                .Where(t => t.ArtistID == artistid)
-                .OrderByDescending(t => t.Rating)
-                .FirstOrDefault();
-
-             return new List<Album> { album };
-
-            
-        }
        //Ideas : If an album came out later than 2000 and artist is female
        //An artist Every album which songs has better rating than 7 
        //avarage rating : where artist = artist then get an avarage ratin in each album 
@@ -87,7 +76,7 @@ namespace CU0FK0_HFT_2023241.Logic
             return albums;
         }
 
-        public IEnumerable<Song> EverySongFromAlbumBetterThan(double better)
+        public IEnumerable<Song> EverySongFromAlbumBetterThan(double better) //client tested+ 
         {
             var songs = repo.ReadAll()
                 .SelectMany(t => t.Songs)
@@ -96,7 +85,21 @@ namespace CU0FK0_HFT_2023241.Logic
 
             return songs;
         }
-        
+         
+        public IEnumerable<string> MostAmountOfAlbums() //client tested+
+        {
+            var artistWithMostAlbums = repo.ReadAll()
+                .AsEnumerable()
+                .Select(t => t.Artist)
+                .GroupBy(album => album.Albums)
+                .OrderByDescending(group => group.Count())
+                .FirstOrDefault()
+                .Select(t => t.ArtistName)
+                .FirstOrDefault();
+
+            return new List<string> { artistWithMostAlbums };
+        }
+
         #endregion
 
     }

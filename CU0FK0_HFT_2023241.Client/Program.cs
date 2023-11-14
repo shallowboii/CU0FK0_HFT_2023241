@@ -75,15 +75,8 @@ namespace CU0FK0_HFT_2023241.Client
             artistLogic = new ArtistLogic(artistRepo);
             albumLogic = new AlbumLogic(albumRepo);
 
-            //var bestalbum = albumLogic.BestAlbumOfEveryYear();
-            var bestablumofartist = albumLogic.BestAlbumOfArtist(4);
-
-            var songs = artistLogic.AnArtistsBestAlbumsRating(4);
-
-            var artists = albumLogic.FemaleAlbumsLaterThan2012();
-
-
-            /*
+            var songs = albumLogic.EverySongFromAlbumBetterThan(0);
+            
             var ArtistSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Artist"))
                 .Add("Create", () => Create("Artist"))
@@ -118,7 +111,6 @@ namespace CU0FK0_HFT_2023241.Client
                 .Add("Exit", ConsoleMenu.Close);
 
             menu.Show();
-            */
         }
     }
 }

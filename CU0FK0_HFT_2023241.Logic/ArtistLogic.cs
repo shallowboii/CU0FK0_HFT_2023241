@@ -19,14 +19,21 @@ namespace CU0FK0_HFT_2023241.Logic
 
         public void Create(Artist item)
         {
-            repo.Create(item);
+            if (item.ArtistName.Length <= 2)
+            {
+                throw new ArgumentException();
+            }
+            else
+            {
+                repo.Create(item);
+            }
         }
         public void Delete(int id)
         {
             var album = repo.Read(id);
             if (album == null)
             {
-                Console.WriteLine("Artist doesn't exists!");//Exception handling
+                throw new ArgumentException();//Exception handling
             }
             else
             {
@@ -38,7 +45,7 @@ namespace CU0FK0_HFT_2023241.Logic
             var album = repo.Read(id);
             if (album == null)
             {
-                Console.WriteLine("Artist doesn't exists!");//Exception handling
+                throw new ArgumentException();//Exception handling
             }
             return repo.Read(id);
         }
@@ -55,16 +62,27 @@ namespace CU0FK0_HFT_2023241.Logic
         #region Non-CRUD_Methods
         //An artist's best album? 
 
-        public IEnumerable<double> AnArtistsBestAlbumsRating(int artistID) //maybe change later
+        public IEnumerable<Album> AnArtistsBestAlbum(int artistID) //client tested+
         {
             var album = repo.ReadAll()
                 .Where(t => t.ArtistID == artistID)
-                .Select(t => t.Albums.Max(t => t.Rating));
+                .Select(t => t.Albums.OrderByDescending(t => t.Rating).ToList())
+                .FirstOrDefault()
+                .FirstOrDefault();
                 
-            return album;
+            return new List<Album> { album};
         }
 
-        
+
+        public IEnumerable<double> ArtistsAvarageRating(int artistID)//client tested+
+        {
+            var artist = repo.ReadAll()
+                .Where(t => t.ArtistID == artistID)
+                .Select(t => t.Albums.Average(t => t.Rating))
+                .AsEnumerable();
+            return artist;
+        }
+
 
 
 
