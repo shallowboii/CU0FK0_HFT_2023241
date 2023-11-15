@@ -19,7 +19,7 @@ namespace CU0FK0_HFT_2023241.Logic
 
         public void Create(Artist item)
         {
-            if (item.ArtistName.Length <= 2)
+            if (item?.ArtistName.Length <= 2 || item is null)
             {
                 throw new ArgumentException();
             }
@@ -62,7 +62,7 @@ namespace CU0FK0_HFT_2023241.Logic
         #region Non-CRUD_Methods
         //An artist's best album? 
 
-        public IEnumerable<Album> AnArtistsBestAlbum(int artistID) //client tested+
+        public IEnumerable<Album> AnArtistsBestAlbum(int artistID) //client tested+, tested
         {
             var album = repo.ReadAll()
                 .Where(t => t.ArtistID == artistID)
@@ -70,7 +70,17 @@ namespace CU0FK0_HFT_2023241.Logic
                 .FirstOrDefault()
                 .FirstOrDefault();
                 
-            return new List<Album> { album};
+            return new List<Album> { album}; //need to test if an artist id is not found
+
+            try
+            {
+                repo.Read(artistID);
+            }
+            catch
+            {
+
+                throw new ArgumentException();
+            }
         }
 
 

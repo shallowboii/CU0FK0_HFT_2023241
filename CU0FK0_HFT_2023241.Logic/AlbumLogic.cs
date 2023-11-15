@@ -19,11 +19,11 @@ namespace CU0FK0_HFT_2023241.Logic
             this.repo = repo;
         }
 
-        public void Create(Album item)
+        public void Create(Album item) //3 tests done
         {
-            if (item.AlbumTitle.Length <= 2)
+            if (item?.AlbumTitle.Length <= 2 || item is null)
             {
-                throw new ArgumentException("Title is too short");
+                throw new ArgumentException("Title is too short or none existent");
             }
             else
             {
@@ -31,7 +31,7 @@ namespace CU0FK0_HFT_2023241.Logic
             }
 
         }
-        public void Delete(int id)
+        public void Delete(int id) // need like 2 tests
         {
             var album = repo.Read(id);
             if (album == null)
@@ -43,7 +43,7 @@ namespace CU0FK0_HFT_2023241.Logic
                 repo.Delete(id);
             }
         }
-        public Album Read(int id)
+        public Album Read(int id) // need like 2 tests
         {
             var album = repo.Read(id);
             if (album == null)
@@ -68,7 +68,7 @@ namespace CU0FK0_HFT_2023241.Logic
        //An artist Every album which songs has better rating than 7 
        //avarage rating : where artist = artist then get an avarage ratin in each album 
 
-        public IEnumerable<Album> FemaleAlbumsLaterThan2012()
+        public IEnumerable<Album> FemaleAlbumsLaterThan2012() //client tested +, tested
         {
             var albums = repo.ReadAll()
                 .Where(t=>t.ReleaseYear>2012 && t.Artist.Gender=="Female")
@@ -76,7 +76,7 @@ namespace CU0FK0_HFT_2023241.Logic
             return albums;
         }
 
-        public IEnumerable<Song> EverySongFromAlbumBetterThan(double better) //client tested+ 
+        public IEnumerable<Song> EverySongFromAlbumBetterThan(double better) //client tested+ , tested
         {
             var songs = repo.ReadAll()
                 .SelectMany(t => t.Songs)
@@ -87,7 +87,7 @@ namespace CU0FK0_HFT_2023241.Logic
             return songs;
         }
          
-        public IEnumerable<string> MostAmountOfAlbums() //client tested+
+        public IEnumerable<string> MostAmountOfAlbums() //client tested+, tested
         {
             var artistWithMostAlbums = repo.ReadAll()
                 .AsEnumerable()
