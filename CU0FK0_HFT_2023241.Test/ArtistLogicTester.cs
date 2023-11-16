@@ -306,20 +306,51 @@ namespace CU0FK0_HFT_2023241.Test
         {
             //ARRANGE
             int inputArtistID = 0;
-            IEnumerable<Album> expectedResult;
-            expectedResult = new List<Album>()
+            try
             {
-                new Album(5, "To Pimp a Butterfly",  4,  4.9, 2015)
-            };
+                var album = Artistlogic.AnArtistsBestAlbum(inputArtistID);
+            }
+            catch 
+            {
+
+            }
 
             //ACT
-            var album = Artistlogic.AnArtistsBestAlbum(inputArtistID);
+            
             //ASSERT 
-            Assert.That(album, Is.EqualTo(expectedResult));
+            Assert.That(() => Artistlogic.AnArtistsBestAlbum(0), Throws.TypeOf<ArgumentException>());
         }
 
+        [Test]
+        public void ArtistsAvarageRatingTest_WithNullID()
+        {
+            int inputArtistID = 0;
+            try
+            {
+                var album = Artistlogic.ArtistsAvarageRating(inputArtistID);
+            }
+            catch
+            {
 
+            }
 
+            //ACT
+
+            //ASSERT 
+            Assert.That(() => Artistlogic.ArtistsAvarageRating(0), Throws.TypeOf<ArgumentException>());
+        }
+        [Test]
+        public void ArtistsAvarageRatingTest_WithCorrectId()
+        {
+            int inputArtistID = 4;
+            IEnumerable<double> expectedResult;
+            expectedResult = new List<double> { 4.8 };
+
+            //ACT
+            var rating = Artistlogic.ArtistsAvarageRating(inputArtistID);
+            //ASSERT 
+            Assert.That(rating , Is.EqualTo(expectedResult));
+        }
 
     }
 }

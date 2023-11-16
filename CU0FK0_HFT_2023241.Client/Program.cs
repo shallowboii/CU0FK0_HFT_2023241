@@ -76,6 +76,7 @@ namespace CU0FK0_HFT_2023241.Client
             albumLogic = new AlbumLogic(albumRepo);
 
             var songs = albumLogic.EverySongFromAlbumBetterThan(0);
+            var number = artistLogic.ArtistsAvarageRating(4);
             
             var ArtistSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Artist"))

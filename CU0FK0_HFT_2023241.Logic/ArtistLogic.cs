@@ -64,17 +64,18 @@ namespace CU0FK0_HFT_2023241.Logic
 
         public IEnumerable<Album> AnArtistsBestAlbum(int artistID) //client tested+, tested
         {
-            var album = repo.ReadAll()
-                .Where(t => t.ArtistID == artistID)
-                .Select(t => t.Albums.OrderByDescending(t => t.Rating).ToList())
-                .FirstOrDefault()
-                .FirstOrDefault();
-                
-            return new List<Album> { album}; //need to test if an artist id is not found
+             //need to test if an artist id is not found
 
             try
             {
                 repo.Read(artistID);
+                var album = repo.ReadAll()
+                .Where(t => t.ArtistID == artistID)
+                .Select(t => t.Albums.OrderByDescending(t => t.Rating).ToList())
+                .FirstOrDefault()
+                .FirstOrDefault();
+
+                return new List<Album> { album };
             }
             catch
             {
@@ -86,11 +87,20 @@ namespace CU0FK0_HFT_2023241.Logic
 
         public IEnumerable<double> ArtistsAvarageRating(int artistID)//client tested+
         {
-            var artist = repo.ReadAll()
+            try
+            {
+                repo.Read(artistID);
+                var artist = repo.ReadAll()
                 .Where(t => t.ArtistID == artistID)
                 .Select(t => t.Albums.Average(t => t.Rating))
                 .AsEnumerable();
-            return artist;
+                return artist;
+            }
+            catch 
+            {
+
+                throw new ArgumentException();
+            }
         }
 
 
