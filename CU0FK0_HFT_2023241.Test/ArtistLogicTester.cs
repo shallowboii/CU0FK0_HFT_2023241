@@ -298,7 +298,7 @@ namespace CU0FK0_HFT_2023241.Test
         }
 
         [Test]
-        public void AnArtistsBestAlbumTest()
+        public void AnArtistsBestAlbumTest_WithCorrectID()
         {
             //ARRANGE
             int inputArtistID = 4;
@@ -326,9 +326,6 @@ namespace CU0FK0_HFT_2023241.Test
             {
 
             }
-
-            //ACT
-            
             //ASSERT 
             Assert.That(() => Artistlogic.AnArtistsBestAlbum(inputArtistID), Throws.TypeOf<ArgumentException>());
         }
@@ -345,9 +342,6 @@ namespace CU0FK0_HFT_2023241.Test
             {
 
             }
-
-            //ACT
-
             //ASSERT 
             Assert.That(() => Artistlogic.ArtistsAvarageRating(inputArtistID), Throws.TypeOf<ArgumentException>());
         }

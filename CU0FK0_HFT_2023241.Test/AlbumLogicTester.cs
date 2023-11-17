@@ -3,6 +3,7 @@ using CU0FK0_HFT_2023241.Models;
 using CU0FK0_HFT_2023241.Repository;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -282,91 +283,33 @@ namespace CU0FK0_HFT_2023241.Test
         public void EverySongFromAlbumBetterThanTest_With4Point5()
         {
             //ARRANGE
-            IEnumerable<Song> expectedResult;
+            
             double testInput = 4.5;
-            expectedResult = new List<Song>()
+            List<Song> expected = new List<Song>();
+            IEnumerable<Song> allsongs = Songlogic.ReadAll();
+            foreach (var song in allsongs)
             {
-                #region ExpectedResult
-                new Song(139, "IGOR'S THEME", 204, 1, 4.7),
-                new Song(140, "EARFQUAKE", 190, 1, 4.8),
-                new Song(141, "I THINK", 210, 1, 4.6),
-                new Song(142, "EXACTLY WHAT YOU RUN FROM YOU END UP CHASING", 268, 1, 4.5),
-                new Song(143, "RUNNING OUT OF TIME", 137, 1, 4.6),
-                new Song(144, "NEW MAGIC WAND", 202, 1, 4.7),
-                new Song(145, "A BOY IS A GUN*", 209, 1, 4.7),
-                new Song(146, "PUPPET", 196, 1, 4.6),
-                new Song(147, "WHAT'S GOOD", 122, 1, 4.6),
-                new Song(148, "GONE, GONE / THANK YOU", 278, 1, 4.7),
-                new Song(149, "I DON'T LOVE YOU ANYMORE", 215, 1, 4.6),
-                new Song(150, "ARE WE STILL FRIENDS?", 315, 1, 4.8),
-
-                new Song(13, "Get Up 10", 214, 7, 4.6),
-                new Song(14, "Drip", 244, 7, 4.5),
-                new Song(15, "Bickenhead", 180, 7, 4.4),
-                new Song(16, "Bodak Yellow", 200, 7, 4.9),
-                new Song(17, "Be Careful", 229, 7, 4.5),
-                new Song(18, "Best Life", 256, 7, 4.6),
-                new Song(19, "I Like It", 253, 7, 4.6),
-                new Song(20, "Ring", 236, 7 , 4.4),
-                new Song(21, "Money Bag", 190, 7, 4.3),
-                new Song(22, "Bartier Cardi", 220, 7, 4.4),
-                new Song(23, "She Bad", 191, 7, 4.2),
-                new Song(24, "Thru Your Phone", 211, 7, 4.1),
-                new Song(25, "I Do", 224, 7, 4.0),
-
-
-                new Song(1, "Bitch, Don't Kill My Vibe", 316, 4, 4.6),
-                new Song(2, "Backseat Freestyle", 204, 4, 4.4),
-                new Song(3, "The Art of Peer Pressure", 349, 4, 4.5),
-                new Song(4, "Money Trees", 397, 4, 4.7),
-                new Song(5, "Swimming Pools (Drank)", 235, 4, 4.8),
-                new Song(6, "m.A.A.d city", 288, 4, 4.7),
-                new Song(7, "Poe Man's Dreams (His Vice)", 200, 4, 4.4),
-                new Song(8, "good kid", 191, 4, 4.5),
-                new Song(9, "m.A.A.d city (Part II)", 286, 4, 4.6),
-                new Song(10, "Sing About Me, I'm Dying of Thirst", 811, 4, 4.9),
-                new Song(11, "Real", 191, 4, 4.4),
-                new Song(12, "Compton", 290, 4, 4.6),
-
-                new Song(182, "Wesley's Theory", 240, 5, 4.6),
-                new Song(183, "For Free? (Interlude)", 128, 5, 4.3),
-                new Song(184, "King Kunta", 234, 5, 4.7),
-                new Song(185, "Institutionalized", 315, 5, 4.5),
-                new Song(186, "These Walls", 325, 5, 4.6),
-                new Song(187, "u", 294, 5, 4.7),
-                new Song(188, "Alright", 186, 5, 4.8),
-                new Song(189, "For Sale? (Interlude)", 130, 5, 4.4),
-                new Song(190, "Momma", 273, 5, 4.6),
-                new Song(191, "Hood Politics", 271, 5, 4.5),
-                new Song(192, "How Much a Dollar Cost", 297, 5, 4.7),
-                new Song(193, "Complexion (A Zulu Love)", 280, 5, 4.5),
-                new Song(194, "The Blacker the Berry", 324, 5, 4.8),
-                new Song(195, "You Ain't Gotta Lie (Momma Said)", 194, 5, 4.6),
-                new Song(196, "i", 300, 5, 4.7),
-                new Song(197, "Mortal Man", 775, 5, 4.5),
-
-                new Song(198, "BLOOD.", 180, 6, 4.7),
-                new Song(199, "DNA.", 185, 6, 4.8),
-                new Song(200, "YAH.", 160, 6, 4.6),
-                new Song(201, "ELEMENT.", 215, 6, 4.5),
-                new Song(202, "FEEL.", 204, 6, 4.6),
-                new Song(203, "LOYALTY.", 226, 6, 4.7),
-                new Song(204, "PRIDE.", 224, 6, 4.6),
-                new Song(205, "HUMBLE.", 177, 6, 4.9),
-                new Song(206, "LUST.", 305, 6, 4.6),
-                new Song(207, "LOVE.", 213, 6, 4.5),
-                new Song(208, "XXX.", 266, 6, 4.7),
-                new Song(209, "FEAR.", 389, 6, 4.8),
-                new Song(210, "GOD.", 230, 6, 4.6),
-                new Song(211, "DUCKWORTH.", 194, 6, 4.7),
-                #endregion
-            }.AsEnumerable();
-
+                if (song.Album.Rating>testInput)
+                {
+                    expected.Add(song);
+                }
+            }
+            IEnumerable<Song> expectedResult = expected.OrderBy(t=>t.AlbumID).AsEnumerable();
             //ACT
             var songs = Albumlogic.EverySongFromAlbumBetterThan(testInput);
             //ASSERT
             Assert.That(songs, Is.EqualTo(expectedResult));
         }
+        [Test]
+        public void EverySongFromAlbumBetterThanTest_With5()
+        {
+            double testInput = 5;
+            List<Song> expected = new List<Song>();
+            IEnumerable<Song> expectedResult = expected.AsEnumerable();
+            var songs = Albumlogic.EverySongFromAlbumBetterThan(testInput);
+            Assert.That(songs, Is.EqualTo(expectedResult));
+        }
+
         [Test]
         public void MostAmountOfAlbumsTest()
         {
