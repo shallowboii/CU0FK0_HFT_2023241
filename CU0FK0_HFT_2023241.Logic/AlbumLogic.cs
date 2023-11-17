@@ -78,6 +78,7 @@ namespace CU0FK0_HFT_2023241.Logic
 
         public IEnumerable<Song> EverySongFromAlbumBetterThan(double better) //client tested+ , tested
         {
+            //need one if the double is more than 5 
             var songs = repo.ReadAll()
                 .SelectMany(t => t.Songs)
                 .Where(t => t.Album.Rating > better)

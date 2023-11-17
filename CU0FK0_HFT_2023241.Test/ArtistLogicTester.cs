@@ -217,10 +217,22 @@ namespace CU0FK0_HFT_2023241.Test
             mockAlbumRepo = new Mock<IRepository<Album>>();
             mockAlbumRepo.Setup(a => a.ReadAll()).Returns(albumList.AsQueryable());
             Albumlogic = new AlbumLogic(mockAlbumRepo.Object);
+            
 
             mockArtistRepo = new Mock<IRepository<Artist>>();
             mockArtistRepo.Setup(a => a.ReadAll()).Returns(artistList.AsQueryable());
             Artistlogic = new ArtistLogic(mockArtistRepo.Object);
+            
+            //Reads
+            #region Reads
+            mockArtistRepo.Setup(a => a.Read(1)).Returns(new Artist(1, "Tyler The Creator", "Male"));
+            mockArtistRepo.Setup(a => a.Read(2)).Returns(new Artist(2, "Frank Ocean", "Male"));
+            mockArtistRepo.Setup(a => a.Read(5)).Returns(new Artist(5, "Cardi B", "Female"));
+            mockArtistRepo.Setup(a => a.Read(9)).Returns(new Artist(9, "Nicki Minaj", "Female"));
+            mockArtistRepo.Setup(a => a.Read(4)).Returns(new Artist(4, "Kendrick Lamar", "Male"));
+
+            #endregion
+
 
             mockSongRepo = new Mock<IRepository<Song>>();
             mockSongRepo.Setup(a => a.ReadAll()).Returns(songList.AsQueryable());
@@ -318,7 +330,7 @@ namespace CU0FK0_HFT_2023241.Test
             //ACT
             
             //ASSERT 
-            Assert.That(() => Artistlogic.AnArtistsBestAlbum(0), Throws.TypeOf<ArgumentException>());
+            Assert.That(() => Artistlogic.AnArtistsBestAlbum(inputArtistID), Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
@@ -337,7 +349,7 @@ namespace CU0FK0_HFT_2023241.Test
             //ACT
 
             //ASSERT 
-            Assert.That(() => Artistlogic.ArtistsAvarageRating(0), Throws.TypeOf<ArgumentException>());
+            Assert.That(() => Artistlogic.ArtistsAvarageRating(inputArtistID), Throws.TypeOf<ArgumentException>());
         }
         [Test]
         public void ArtistsAvarageRatingTest_WithCorrectId()

@@ -217,6 +217,17 @@ namespace CU0FK0_HFT_2023241.Test
             mockAlbumRepo.Setup(a => a.ReadAll()).Returns(albumList.AsQueryable());
             Albumlogic = new AlbumLogic(mockAlbumRepo.Object);
 
+            mockAlbumRepo.Setup(a => a.Read(1)).Returns(new Album(1, "Igor", 1, 4.7, 2019));
+            mockAlbumRepo.Setup(a => a.Read(2)).Returns(new Album(2, "FlowerBoy", 1, 4.4, 2017));
+            mockAlbumRepo.Setup(a => a.Read(3)).Returns(new Album(3, "Blonde", 2, 4.5, 2016));
+            mockAlbumRepo.Setup(a => a.Read(4)).Returns(new Album(4, "good kid, m.A.A.d city", 4, 4.8, 2012));
+            mockAlbumRepo.Setup(a => a.Read(5)).Returns(new Album(5, "To Pimp a Butterfly", 4, 4.9, 2015));
+            mockAlbumRepo.Setup(a => a.Read(6)).Returns(new Album(6, "DAMN.", 4, 4.7, 2017));
+            mockAlbumRepo.Setup(a => a.Read(7)).Returns(new Album(7, "Invasion of Privacy", 5, 4.6, 2018));
+            mockAlbumRepo.Setup(a => a.Read(14)).Returns(new Album(14, "Pink Friday", 9, 4.4, 2010));
+            mockAlbumRepo.Setup(a => a.Read(15)).Returns(new Album(15, "The Pinkprint", 9, 4.5, 2014));
+
+
             mockArtistRepo = new Mock<IRepository<Artist>>();
             mockArtistRepo.Setup(a => a.ReadAll()).Returns(artistList.AsQueryable());
             Artistlogic = new ArtistLogic(mockArtistRepo.Object);
@@ -248,7 +259,7 @@ namespace CU0FK0_HFT_2023241.Test
             { 
                 new Album(15, "The Pinkprint", 9, 4.5, 2014),
                 new Album(7, "Invasion of Privacy", 5, 4.6, 2018),
-            };
+            }.AsEnumerable();
             //ACT
             var album = Albumlogic.FemaleAlbumsLaterThan2012();
             //ASSERT
@@ -267,6 +278,7 @@ namespace CU0FK0_HFT_2023241.Test
             //ASSERT
             Assert.That(songs, Is.EqualTo(expectedResult));
         }
+        [Test]
         public void EverySongFromAlbumBetterThanTest_With4Point5()
         {
             //ARRANGE

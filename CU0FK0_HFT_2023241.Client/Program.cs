@@ -77,7 +77,8 @@ namespace CU0FK0_HFT_2023241.Client
 
             var songs = albumLogic.EverySongFromAlbumBetterThan(0);
             var number = artistLogic.ArtistsAvarageRating(4);
-            
+            var number2 = artistLogic.ArtistsAvarageRating(0);
+
             var ArtistSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Artist"))
                 .Add("Create", () => Create("Artist"))
