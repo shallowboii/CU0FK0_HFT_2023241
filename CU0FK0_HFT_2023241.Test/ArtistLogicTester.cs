@@ -15,17 +15,20 @@ namespace CU0FK0_HFT_2023241.Test
     [TestFixture]
     public class ArtistLogicTester
     {
+        #region Fields
         AlbumLogic Albumlogic;
         ArtistLogic Artistlogic;
         SongLogic Songlogic;
         Mock<IRepository<Album>> mockAlbumRepo;
         Mock<IRepository<Artist>> mockArtistRepo;
         Mock<IRepository<Song>> mockSongRepo;
+        #endregion
 
         [SetUp]
         public void Init()
         {
 
+            #region Lists
             List<Album> albumList = new List<Album>() {
 
                 new Album(1, "Igor", 1, 4.7, 2019),
@@ -213,7 +216,9 @@ namespace CU0FK0_HFT_2023241.Test
                 new Song(25, "I Do", 224, 7, 4.0),
                 #endregion
             };
+            #endregion
 
+            #region ReadAlls()
             mockAlbumRepo = new Mock<IRepository<Album>>();
             mockAlbumRepo.Setup(a => a.ReadAll()).Returns(albumList.AsQueryable());
             Albumlogic = new AlbumLogic(mockAlbumRepo.Object);
@@ -222,9 +227,14 @@ namespace CU0FK0_HFT_2023241.Test
             mockArtistRepo = new Mock<IRepository<Artist>>();
             mockArtistRepo.Setup(a => a.ReadAll()).Returns(artistList.AsQueryable());
             Artistlogic = new ArtistLogic(mockArtistRepo.Object);
-            
-            //Reads
-            #region Reads
+
+
+            mockSongRepo = new Mock<IRepository<Song>>();
+            mockSongRepo.Setup(a => a.ReadAll()).Returns(songList.AsQueryable());
+            Songlogic = new SongLogic(mockSongRepo.Object);
+            #endregion
+
+            #region Reads()
             mockArtistRepo.Setup(a => a.Read(1)).Returns(new Artist(1, "Tyler The Creator", "Male"));
             mockArtistRepo.Setup(a => a.Read(2)).Returns(new Artist(2, "Frank Ocean", "Male"));
             mockArtistRepo.Setup(a => a.Read(5)).Returns(new Artist(5, "Cardi B", "Female"));
@@ -233,11 +243,7 @@ namespace CU0FK0_HFT_2023241.Test
 
             #endregion
 
-
-            mockSongRepo = new Mock<IRepository<Song>>();
-            mockSongRepo.Setup(a => a.ReadAll()).Returns(songList.AsQueryable());
-            Songlogic = new SongLogic(mockSongRepo.Object);
-
+            #region Connections Between Models
             //connection setup
             //Albums to Artist
             albumList.ForEach(album => { album.Artist = artistList.Find(x => x.ArtistID == album.ArtistID); });
@@ -248,8 +254,9 @@ namespace CU0FK0_HFT_2023241.Test
             albumList.ForEach(album => { album.Songs = songList.FindAll(song => song.AlbumID == album.AlbumID); });
             //Artist to Albums
             artistList.ForEach(artist => { artist.Albums = albumList.FindAll(album => album.ArtistID == artist.ArtistID); });
-
+            #endregion
         }
+        #region CRUD
         [Test]
         public void CreateArtistTestWithCorrectName()
         {
@@ -297,6 +304,36 @@ namespace CU0FK0_HFT_2023241.Test
             Assert.That(() => Artistlogic.Create(NullArtist), Throws.TypeOf<ArgumentException>());
         }
 
+        [Test]
+        public void UpdateTest_WithIncorrectAlbum()
+        {
+            Artist artist = new Artist(3, "Madonna", "Female");
+            try
+            {
+                Artistlogic.Update(artist);
+            }
+            catch
+            {
+            }
+            Assert.That(() => Artistlogic.Update(artist), Throws.TypeOf<ArgumentException>());
+        }
+
+        [Test]
+        public void UpdateTest_WitchCorrectAlbum()
+        {
+            Artist artist = new Artist(1, "Tyler The Creator", "Male");
+            try
+            {
+                Artistlogic.Update(artist);
+            }
+            catch
+            {
+            }
+            mockArtistRepo.Verify(r => r.Update(artist), Times.Once());
+        }
+        #endregion
+
+        #region Non_CRUD
         [Test]
         public void AnArtistsBestAlbumTest_WithCorrectID()
         {
@@ -357,6 +394,6 @@ namespace CU0FK0_HFT_2023241.Test
             //ASSERT 
             Assert.That(rating , Is.EqualTo(expectedResult));
         }
-
+        #endregion
     }
 }

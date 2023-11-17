@@ -26,7 +26,7 @@ namespace CU0FK0_HFT_2023241.Client
                 Console.WriteLine("Id" + "\t" + "Name");
                 foreach (var item in items)
                 {
-                    Console.WriteLine(item.ArtistID + "\t" + item.ArtistName);
+                    Console.WriteLine(item.ArtistID + "\t" + item.ArtistName );
                 }
             }
             else if (entity == "Song")
@@ -35,7 +35,7 @@ namespace CU0FK0_HFT_2023241.Client
                 Console.WriteLine("Id" + "\t" + "Name");
                 foreach (var item in items)
                 {
-                    Console.WriteLine(item.SongID + "\t" + item.SongTitle);
+                    Console.WriteLine(item.SongID + "\t" + item.SongTitle + "\t" + item.SongRating + "\t" + item.Album.AlbumTitle);
                 }
             }
             
@@ -45,7 +45,12 @@ namespace CU0FK0_HFT_2023241.Client
                 Console.WriteLine("Id" + "\t" + "Name");
                 foreach (var item in items)
                 {
-                    Console.WriteLine(item.AlbumID + "\t" + item.AlbumTitle);
+                    Console.WriteLine(item.AlbumID + "\t" + item.AlbumTitle + "\t" + item.Artist.ArtistName);
+                    Console.WriteLine("Songs:");
+                    foreach (var song in item.Songs)
+                    {
+                        Console.WriteLine("\t"+"\t" +song.SongTitle);
+                    }
                 }
             }
             Console.ReadLine();
@@ -76,6 +81,8 @@ namespace CU0FK0_HFT_2023241.Client
             albumLogic = new AlbumLogic(albumRepo);
 
             var songs = albumLogic.EverySongFromAlbumBetterThan(4.8);
+
+            var song = songlogic.AnAlbumsBestSong(0);
 
             var ArtistSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Artist"))

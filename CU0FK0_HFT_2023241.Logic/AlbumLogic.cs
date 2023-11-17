@@ -36,7 +36,7 @@ namespace CU0FK0_HFT_2023241.Logic
             var album = repo.Read(id);
             if (album == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Album does not exits!");
             }
             else
             {
@@ -48,7 +48,7 @@ namespace CU0FK0_HFT_2023241.Logic
             var album = repo.Read(id);
             if (album == null)
             {
-                throw new ArgumentException("Album does not exits");
+                throw new ArgumentException("Album does not exits!");
             }
             return repo.Read(id);
         }
@@ -58,7 +58,16 @@ namespace CU0FK0_HFT_2023241.Logic
         }
         public void Update(Album item)
         {
-            repo.Update(item);
+            try
+            {
+                Read(item.AlbumID);
+                repo.Update(item);
+            }
+            catch
+            {
+
+                throw new ArgumentException("Album does not exits!");
+            }
         }
         #endregion
 

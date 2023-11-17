@@ -19,9 +19,9 @@ namespace CU0FK0_HFT_2023241.Logic
 
         public void Create(Song item)
         {
-            if (item.SongTitle.Length < 2)
+            if (item?.SongTitle.Length <= 2 || item is null)
             {
-                Console.WriteLine("Too short Song title");//Exception handling
+                throw new ArgumentException("Song does not exits or the title is too short!");
             }
             else
             {
@@ -31,10 +31,10 @@ namespace CU0FK0_HFT_2023241.Logic
         }
         public void Delete(int id)
         {
-            var album = repo.Read(id);
-            if (album == null)
+            var song = repo.Read(id);
+            if (song == null)
             {
-                Console.WriteLine("Song doesn't exists!");//Exception handling
+                throw new ArgumentException("Song does not exits!");//Exception handling
             }
             else
             {
@@ -43,10 +43,10 @@ namespace CU0FK0_HFT_2023241.Logic
         }
         public Song Read(int id)
         {
-            var album = repo.Read(id);
-            if (album == null)
+            var song = repo.Read(id);
+            if (song == null)
             {
-                Console.WriteLine("Song doesn't exists!");//Exception handling
+                throw new ArgumentException("Song does not exits!");
             }
             return repo.Read(id);
         }
@@ -56,7 +56,15 @@ namespace CU0FK0_HFT_2023241.Logic
         }
         public void Update(Song item)
         {
-            repo.Update(item);
+            try
+            {
+                Read(item.SongID);
+                repo.Update(item);
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException("Song does not exits!");
+            }
         }
         #endregion
 
@@ -64,11 +72,20 @@ namespace CU0FK0_HFT_2023241.Logic
         public IEnumerable<Song> AnAlbumsBestSong(int albumID)
         {
             var songs = repo.ReadAll()
-                .Where(t => t.AlbumID == albumID)
-                .OrderByDescending(t => t.SongRating)
-                .FirstOrDefault();
+               .Where(t => t.AlbumID == albumID)
+               .OrderByDescending(t => t.SongRating)
+               .FirstOrDefault();
+            if (songs != null)
+            {
+                return new List<Song> { songs };
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
 
-            return new List<Song> { songs };
+
+
         }
 
 

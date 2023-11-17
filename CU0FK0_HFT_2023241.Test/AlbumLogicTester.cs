@@ -15,17 +15,20 @@ namespace CU0FK0_HFT_2023241.Test
     [TestFixture]
     public class AlbumLogicTester
     {
+        #region Fields
         AlbumLogic Albumlogic;
         ArtistLogic Artistlogic;
         SongLogic Songlogic;
         Mock<IRepository<Album>> mockAlbumRepo;
         Mock<IRepository<Artist>> mockArtistRepo;
         Mock<IRepository<Song>> mockSongRepo;
+        #endregion
 
         [SetUp]
         public void Init()
         {
-            
+
+            #region Lists
             List<Album> albumList = new List<Album>() {
 
                 new Album(1, "Igor", 1, 4.7, 2019),
@@ -213,11 +216,23 @@ namespace CU0FK0_HFT_2023241.Test
                 new Song(25, "I Do", 224, 7, 4.0),
                 #endregion
             };
+            #endregion
 
+            #region ReadAlls()
             mockAlbumRepo = new Mock<IRepository<Album>>();
             mockAlbumRepo.Setup(a => a.ReadAll()).Returns(albumList.AsQueryable());
             Albumlogic = new AlbumLogic(mockAlbumRepo.Object);
 
+            mockArtistRepo = new Mock<IRepository<Artist>>();
+            mockArtistRepo.Setup(a => a.ReadAll()).Returns(artistList.AsQueryable());
+            Artistlogic = new ArtistLogic(mockArtistRepo.Object);
+
+            mockSongRepo = new Mock<IRepository<Song>>();
+            mockSongRepo.Setup(a => a.ReadAll()).Returns(songList.AsQueryable());
+            Songlogic = new SongLogic(mockSongRepo.Object);
+            #endregion
+
+            #region Reads()
             mockAlbumRepo.Setup(a => a.Read(1)).Returns(new Album(1, "Igor", 1, 4.7, 2019));
             mockAlbumRepo.Setup(a => a.Read(2)).Returns(new Album(2, "FlowerBoy", 1, 4.4, 2017));
             mockAlbumRepo.Setup(a => a.Read(3)).Returns(new Album(3, "Blonde", 2, 4.5, 2016));
@@ -228,15 +243,9 @@ namespace CU0FK0_HFT_2023241.Test
             mockAlbumRepo.Setup(a => a.Read(14)).Returns(new Album(14, "Pink Friday", 9, 4.4, 2010));
             mockAlbumRepo.Setup(a => a.Read(15)).Returns(new Album(15, "The Pinkprint", 9, 4.5, 2014));
 
+            #endregion
 
-            mockArtistRepo = new Mock<IRepository<Artist>>();
-            mockArtistRepo.Setup(a => a.ReadAll()).Returns(artistList.AsQueryable());
-            Artistlogic = new ArtistLogic(mockArtistRepo.Object);
-
-            mockSongRepo = new Mock<IRepository<Song>>();
-            mockSongRepo.Setup(a => a.ReadAll()).Returns(songList.AsQueryable());
-            Songlogic = new SongLogic(mockSongRepo.Object);
-
+            #region Connections Between Models
             //connection setup
             //Albums to Artist
             albumList.ForEach(album => { album.Artist = artistList.Find(x => x.ArtistID == album.ArtistID); });
@@ -247,7 +256,7 @@ namespace CU0FK0_HFT_2023241.Test
             albumList.ForEach(album => { album.Songs = songList.FindAll(song => song.AlbumID == album.AlbumID); });
             //Artist to Albums
             artistList.ForEach(artist => { artist.Albums = albumList.FindAll(album => album.ArtistID == artist.ArtistID); });
-
+            #endregion
         }
 
         #region NON_CRUD Tests
@@ -374,6 +383,34 @@ namespace CU0FK0_HFT_2023241.Test
             {
             }
             Assert.That(() => Albumlogic.Create(NullAlbum), Throws.TypeOf<ArgumentException>());
+        }
+
+        [Test]
+        public void UpdateTest_WithIncorrectAlbum()
+        {
+            Album album = new Album(13, "Astroworld", 8, 4.8, 2018);
+            try
+            {
+                Albumlogic.Update(album);
+            }
+            catch
+            {
+            }
+            Assert.That(() => Albumlogic.Update(album), Throws.TypeOf<ArgumentException>());
+        }
+
+        [Test]
+        public void UpdateTest_WitchCorrectAlbum()
+        {
+            Album album = new Album(1, "Igor", 1, 4.7, 2020);
+            try
+            {
+                Albumlogic.Update(album);
+            }
+            catch
+            {
+            }
+            mockAlbumRepo.Verify(r => r.Update(album), Times.Once());
         }
 
         #endregion

@@ -11,6 +11,7 @@ namespace CU0FK0_HFT_2023241.Logic
     public class ArtistLogic : IArtistLogic
     {
         IRepository<Artist> repo;
+        
         #region CRUD_Methods
         public ArtistLogic(IRepository<Artist> repo)
         {
@@ -30,8 +31,8 @@ namespace CU0FK0_HFT_2023241.Logic
         }
         public void Delete(int id)
         {
-            var album = repo.Read(id);
-            if (album == null)
+            var artist = repo.Read(id);
+            if (artist == null)
             {
                 throw new ArgumentException();//Exception handling
             }
@@ -42,8 +43,8 @@ namespace CU0FK0_HFT_2023241.Logic
         }
         public Artist Read(int id)
         {
-            var album = repo.Read(id);
-            if (album == null)
+            var artist = repo.Read(id);
+            if (artist == null)
             {
                 throw new ArgumentException();
             }
@@ -55,7 +56,16 @@ namespace CU0FK0_HFT_2023241.Logic
         }
         public void Update(Artist item)
         {
-            repo.Update(item);
+            try
+            {
+                Read(item.ArtistID);
+                repo.Update(item);
+            }
+            catch (Exception)
+            {
+
+                throw new ArgumentException();
+            }
         }
         #endregion
 
@@ -109,15 +119,6 @@ namespace CU0FK0_HFT_2023241.Logic
             }
             
         }
-
-
-
-
-
-
-
-
-
         #endregion
 
     }
