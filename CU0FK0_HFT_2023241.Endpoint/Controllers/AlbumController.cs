@@ -20,31 +20,31 @@ namespace CU0FK0_HFT_2023241.Endpoint.Controllers
         [HttpGet]
         public IEnumerable<Album> ReadAll()
         {
-            return logic.ReadAll();
+            return this.logic.ReadAll();
         }
 
         [HttpGet("{id}")]
         public Album Read(int id)
         {
-            return logic.Read(id);
+            return this.logic.Read(id);
         }
 
         [HttpPost]
         public void Create([FromBody] Album value)
         {
-            logic.Create(value);
+            this.logic.Create(value);
         }
 
         [HttpPut]
         public void Update( [FromBody] Album value)
         {
-            logic.Update(value);
+            this.logic.Update(value);
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            logic.Delete(id);
+            this.logic.Delete(id);
         }
     }
 }

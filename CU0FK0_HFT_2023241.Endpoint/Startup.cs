@@ -41,20 +41,22 @@ namespace CU0FK0_HFT_2023241.Endpoint
         {
             if (env.IsDevelopment())
             {
+                
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(t => t.SwaggerEndpoint("/swagger/v1/swagger.json", "CU0FK0_HFT_2023241.Endpoint v1"));
+                
             }
 
             app.UseRouting();
 
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
+
         }
     }
 }

@@ -28,7 +28,7 @@ namespace CU0FK0_HFT_2023241.Test
         public void Init()
         {
 
-            #region Lists
+                #region Lists
             List<Album> albumList = new List<Album>() {
 
                 new Album(1, "Igor", 1, 4.7, 2019),
