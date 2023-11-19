@@ -1,56 +1,61 @@
 ﻿using ConsoleTools;
-using CU0FK0_HFT_2023241.Logic;
 using CU0FK0_HFT_2023241.Models;
-using CU0FK0_HFT_2023241.Repository;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace CU0FK0_HFT_2023241.Client
 {
     internal class Program
     {
-        static SongLogic songlogic;
-        static ArtistLogic artistLogic;
-        static AlbumLogic albumLogic;
-
+        static RestService rest;
         static void Create(string entity)
         {
-            Console.WriteLine(entity + " create");
-            Console.ReadLine();
+            if (entity == "Artist")
+            {
+                Console.WriteLine("Enter Artist Name: ");
+                string name = Console.ReadLine();
+                rest.Post(new Artist() { ArtistName = name }, "artist");
+            }
+            else if (entity == "Song")
+            {
+                Console.WriteLine("Enter Song Name: ");
+                string name = Console.ReadLine();
+                rest.Post(new Song() { SongTitle = name }, "song");
+            }
+            else if (entity == "Album")
+            {
+                Console.WriteLine("Enter Album Name: ");
+                string name = Console.ReadLine();
+                rest.Post(new Album() { AlbumTitle = name }, "album");
+            }
         }
         static void List(string entity)
         {
             if (entity == "Artist")
             {
-                var items = artistLogic.ReadAll();
-                Console.WriteLine("Id" + "\t" + "Name");
-                foreach (var item in items)
+                List<Artist> artists = rest.Get<Artist>("artist");
+                foreach (var item in artists)
                 {
-                    Console.WriteLine(item.ArtistID + "\t" + item.ArtistName );
+                    Console.WriteLine(item.ArtistID + ": " + item.ArtistName);
                 }
             }
             else if (entity == "Song")
             {
-                var items = songlogic.ReadAll();
-                Console.WriteLine("Id" + "\t" + "Name");
-                foreach (var item in items)
+                List<Song> songs = rest.Get<Song>("song");
+                foreach (var item in songs)
                 {
-                    Console.WriteLine(item.SongID + "\t" + item.SongTitle + "\t" + item.SongRating + "\t" + item.Album.AlbumTitle);
+                    Console.WriteLine(item.SongID + ": " + item.SongTitle);
                 }
             }
             
             else if (entity == "Album")
             {
-                var items = albumLogic.ReadAll();
-                Console.WriteLine("Id" + "\t" + "Name");
-                foreach (var item in items)
+                List<Album> albums = rest.Get<Album>("album");
+                foreach (var item in albums)
                 {
-                    Console.WriteLine(item.AlbumID + "\t" + item.AlbumTitle + "\t" + item.Artist.ArtistName);
-                    Console.WriteLine("Songs:");
-                    foreach (var song in item.Songs)
-                    {
-                        Console.WriteLine("\t"+"\t" +song.SongTitle);
-                    }
+                    Console.WriteLine(item.AlbumID + ": " + item.AlbumTitle);
                 }
             }
             Console.ReadLine();
@@ -58,31 +63,68 @@ namespace CU0FK0_HFT_2023241.Client
         }
         static void Update(string entity)
         {
-            Console.WriteLine(entity + " update");
-            Console.ReadLine();
+            if (entity == "Artist")
+            {
+                Console.Write("Enter Artist's id to update: ");
+                int id = int.Parse(Console.ReadLine());
+                Artist one = rest.Get<Artist>(id, "artist");
+                Console.Write($"New name [old: {one.ArtistName}]: ");
+                string name = Console.ReadLine();
+                one.ArtistName = name;
+                rest.Put(one, "artist");
+            }
+            else if (entity == "Song")
+            {
+                Console.Write("Enter Song's id to update: ");
+                int id = int.Parse(Console.ReadLine());
+                Song one = rest.Get<Song>(id, "song");
+                Console.Write($"New name [old: {one.SongTitle}]: ");
+                string name = Console.ReadLine();
+                one.SongTitle = name;
+                rest.Put(one, "song");
+            }
+            else if (entity == "Album")
+            {
+                Console.Write("Enter Album's id to update: ");
+                int id = int.Parse(Console.ReadLine());
+                Album one = rest.Get<Album>(id, "album");
+                Console.Write($"New name [old: {one.AlbumTitle}]: ");
+                string name = Console.ReadLine();
+                one.AlbumTitle = name;
+                rest.Put(one, "album");
+            }
         }
         static void Delete(string entity)
         {
-            Console.WriteLine(entity + " delete");
-            Console.ReadLine();
+            if (entity == "Artist")
+            {
+                Console.Write("Enter Artist's id to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "artist");
+            }
+            else if (entity == "Song")
+            {
+                Console.Write("Enter Song's id to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "song");
+            }
+
+            else if (entity == "Album")
+            {
+                Console.Write("Enter Album's id to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "album");
+            }
         }
+
+        
 
 
         static void Main(string[] args)
         {
-            var ctx = new MyMusicDbContext();
+            rest = new RestService("http://localhost:17161/","song");
 
-            var artistRepo = new ArtistRepository(ctx);
-            var songRepo = new SongRepository(ctx);
-            var albumRepo = new AlbumRepository(ctx);
             
-            songlogic = new SongLogic(songRepo);
-            artistLogic = new ArtistLogic(artistRepo);
-            albumLogic = new AlbumLogic(albumRepo);
-
-            var songs = albumLogic.EverySongFromAlbumBetterThan(4.8);
-
-            var song = songlogic.AnAlbumsBestSong(0);
 
             var ArtistSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Artist"))

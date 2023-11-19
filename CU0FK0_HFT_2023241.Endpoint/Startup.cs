@@ -2,6 +2,7 @@ using CU0FK0_HFT_2023241.Logic;
 using CU0FK0_HFT_2023241.Models;
 using CU0FK0_HFT_2023241.Repository;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace CU0FK0_HFT_2023241.Endpoint
@@ -47,6 +49,15 @@ namespace CU0FK0_HFT_2023241.Endpoint
                 app.UseSwaggerUI(t => t.SwaggerEndpoint("/swagger/v1/swagger.json", "CU0FK0_HFT_2023241.Endpoint v1"));
                 
             }
+
+            app.UseExceptionHandler(c => c.Run(async context =>
+            {
+                var exception = context.Features
+                .Get<IExceptionHandlerPathFeature>()
+                .Error;
+                var response = new { Msg = exception.Message };
+                await context.Response.WriteAsJsonAsync(response);
+            }));
 
             app.UseRouting();
 

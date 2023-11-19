@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -23,7 +24,6 @@ namespace CU0FK0_HFT_2023241.Models
         public int AlbumID { get; set; }
 
         public int SongLenght { get; set; }
-        [JsonIgnore]
         public virtual Album Album { get; set; }
 
 

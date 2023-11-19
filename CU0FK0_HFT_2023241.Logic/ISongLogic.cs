@@ -1,4 +1,5 @@
 ﻿using CU0FK0_HFT_2023241.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CU0FK0_HFT_2023241.Logic
@@ -10,5 +11,6 @@ namespace CU0FK0_HFT_2023241.Logic
         Song Read(int id);
         IQueryable<Song> ReadAll();
         void Update(Song item);
+        IEnumerable<Song> AnAlbumsBestSong(int albumID);
     }
 }

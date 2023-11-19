@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,7 +16,7 @@ namespace CU0FK0_HFT_2023241.Models
         [StringLength(50)]
         public string ArtistName { get; set; }
         public string Gender { get; set; }
-
+        [JsonIgnore]
         public virtual ICollection<Album> Albums { get; set; }
         
         
