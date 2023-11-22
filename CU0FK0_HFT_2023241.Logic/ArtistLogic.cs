@@ -76,62 +76,48 @@ namespace CU0FK0_HFT_2023241.Logic
         {
             //need to test if an artist id is not found
 
-            if (Read(artistID).Albums != null)
+            try
             {
-                try
-                {
-                    Read(artistID);
-                    var album = ReadAll()
-                    .Where(t => t.ArtistID == artistID)
-                    .Select(t => t.Albums.OrderByDescending(t => t.Rating).ToList())
-                    .FirstOrDefault()
-                    .FirstOrDefault();
+                Read(artistID);
+                var album = ReadAll()
+                .Where(t => t.ArtistID == artistID)
+                .Select(t => t.Albums.OrderByDescending(t => t.Rating).ToList())
+                .FirstOrDefault()
+                .FirstOrDefault();
 
-                    return new List<Album> { album };
-                }
-                catch (ArgumentException e)
-                {
-
-                    throw e;
-                }
+                return new List<Album> { album };
             }
-            else
+            catch (ArgumentException e)
             {
-                throw  new ArgumentException("Artist does not have an album");
+
+                throw e;
             }
         }
 
 
         public IEnumerable<double> ArtistsAvarageRating(int artistID)//client tested+
         {
-            if (Read(artistID).Albums != null)
+            try
             {
-                try
-                {
-                    //Read(artistID); //this one throws an exception if the id is not found , Argument exception
-                    //repo.Read(artistID)  // this one doesnt work when the id is correct
+                //Read(artistID); //this one throws an exception if the id is not found , Argument exception
+                //repo.Read(artistID)  // this one doesnt work when the id is correct
 
-                    Read(artistID);// this one doesnt throw an exception
-                                   //this one doesnt work when the id is incorrect
-                    var artist = repo.ReadAll()
-                    .Where(t => t.ArtistID == artistID)
-                    .Select(t => t.Albums.Average(t => t.Rating))
-                    .AsEnumerable();
-                    return artist;
+                Read(artistID);// this one doesnt throw an exception
+                               //this one doesnt work when the id is incorrect
+                var artist = repo.ReadAll()
+                .Where(t => t.ArtistID == artistID)
+                .Select(t => t.Albums.Average(t => t.Rating))
+                .AsEnumerable();
+                return artist;
 
-                }
-
-                catch (ArgumentException e) // this one happens when an id is not found and was thrown by the Read method
-                {
-
-                    throw e;
-                }
             }
-            else
+
+            catch (ArgumentException e) // this one happens when an id is not found and was thrown by the Read method
             {
-                throw new ArgumentException("Artist does not have an album");
+
+                throw e;
             }
-            
+
         }
         #endregion
 
