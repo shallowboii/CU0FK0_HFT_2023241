@@ -70,7 +70,7 @@ namespace CU0FK0_HFT_2023241.Client
             }
             return items;
         }
-
+        
         public T GetSingle<T>(string endpoint)
         {
             T item = default(T);
@@ -86,6 +86,7 @@ namespace CU0FK0_HFT_2023241.Client
             }
             return item;
         }
+        
 
         public T Get<T>(int id, string endpoint)
         {
@@ -102,7 +103,6 @@ namespace CU0FK0_HFT_2023241.Client
             }
             return item;
         }
-
         public void Post<T>(T item, string endpoint)
         {
             HttpResponseMessage response =
@@ -143,7 +143,112 @@ namespace CU0FK0_HFT_2023241.Client
 
             response.EnsureSuccessStatusCode();
         }
+        #region ARTIST_NONCRUD
+        public List<T> GetArtistBestAlbum<T>(string endpoint, string method, int id)
+        {
+            List<T> items = new List<T>();
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + method + "/" + id.ToString()).GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+            {
+                items = response.Content.ReadAsAsync<List<T>>().GetAwaiter().GetResult();
 
+            }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
+            return items;
+        }
+
+        public List<T> GetArtistsAvarageRating<T>(string endpoint, string method, int id)
+        {
+            List<T> items = new List<T>();
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + method + "/" + id.ToString()).GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+            {
+                items = response.Content.ReadAsAsync<List<T>>().GetAwaiter().GetResult();
+
+            }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
+            return items;
+        }
+        #endregion
+
+        #region SONG_NONCRUD
+        public List<T> GetAnAlbumsBestSong<T>(string endpoint, string method, int id)
+        {
+            List<T> items = new List<T>();
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + method + "/" + id.ToString()).GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+            {
+                items = response.Content.ReadAsAsync<List<T>>().GetAwaiter().GetResult();
+
+            }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
+            return items;
+        }
+        #endregion
+
+        #region ALBUM_NONCRUD
+        public List<T> GetFemaleAlbumsLaterThan2012<T>(string endpoint, string method)
+        {
+            List<T> items = new List<T>();
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + method).GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+            {
+                items = response.Content.ReadAsAsync<List<T>>().GetAwaiter().GetResult();
+
+            }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
+            return items;
+        }
+        public List<T> GetEverySongFromAlbumBetterThan<T>(string endpoint, string method, double number)
+        {
+            List<T> items = new List<T>();
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + method + "/" + number.ToString()).GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+            {
+                items = response.Content.ReadAsAsync<List<T>>().GetAwaiter().GetResult();
+
+            }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
+            return items;
+        }
+        public List<T> GetMostAmountOfAlbums<T>(string endpoint, string method)
+        {
+            List<T> items = new List<T>();
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + method).GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+            {
+                items = response.Content.ReadAsAsync<List<T>>().GetAwaiter().GetResult();
+
+            }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
+            return items;
+        }
+
+        #endregion
     }
     public class RestExceptionInfo
     {

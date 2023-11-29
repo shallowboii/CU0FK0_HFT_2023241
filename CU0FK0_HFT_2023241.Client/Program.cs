@@ -117,7 +117,79 @@ namespace CU0FK0_HFT_2023241.Client
             }
         }
 
-        
+        static void AnArtistsBestAlbum(string entity)
+        {
+            Console.Write("Enter Artist's ID:");
+            int id = int.Parse(Console.ReadLine());
+            var albums =rest.GetArtistBestAlbum<Album>(entity, "AnArtistsBestAlbum", id);
+            Console.WriteLine("Album:");
+            foreach (var album in albums)
+            {
+                Console.WriteLine(album.AlbumTitle + " and it's rating is : " + album.Rating);
+            }
+            Console.Read();
+        }
+        static void ArtistsAvarageRating(string entity)
+        {
+            Console.Write("Enter Artist's ID:");
+            int id = int.Parse(Console.ReadLine());
+            var results = rest.GetArtistsAvarageRating<double>(entity, "ArtistsAvarageRating", id);
+            var artist = rest.Get<Artist>(id, "artist");
+            Console.WriteLine("Album:");
+            foreach (var result in results)
+            {
+                Console.WriteLine(artist.ArtistName + ": " + result);
+            }
+            Console.Read();
+        }
+
+        static void AnAlbumsBestSong(string entity)
+        {
+            Console.Write("Enter Album's ID:");
+            int id = int.Parse(Console.ReadLine());
+            var results = rest.GetAnAlbumsBestSong<Song>(entity, "AnAlbumsBestSong", id);
+            var album = rest.Get<Album>(id, "album");
+            Console.WriteLine("Song:");
+            foreach (var result in results)
+            {
+                Console.WriteLine(album.AlbumTitle + "'s Best song is : " + result.SongTitle);
+            }
+            Console.Read();
+        }
+
+        static void FemaleAlbumsLaterThan2012(string entity)
+        {
+            var results = rest.GetFemaleAlbumsLaterThan2012<Album>(entity, "FemaleAlbumsLaterThan2012");
+            Console.WriteLine("Albums:");
+            foreach (var result in results)
+            {
+                Console.WriteLine(result.AlbumTitle + "by:" + result.Artist.ArtistName);
+            }
+            Console.Read();
+        }
+        static void EverySongFromAlbumBetterThan(string entity)
+        {
+            Console.Write("Enter a number (The rating is between 1-5):");
+            double better = Convert.ToDouble(Console.ReadLine());
+            var results = rest.GetEverySongFromAlbumBetterThan<Song>(entity, "EverySongFromAlbumBetterThan", better);
+            Console.WriteLine("Songs:");
+            foreach (var result in results)
+            {
+                Console.WriteLine(result.SongTitle+ "in:" + result.Album.AlbumTitle);
+            }
+            Console.Read();
+        }
+
+        static void MostAmountOfAlbums(string entity)
+        {
+            var results = rest.GetMostAmountOfAlbums<string>(entity, "MostAmountOfAlbums");
+            Console.WriteLine("The who has the most amout of Albums:");
+            foreach (var result in results)
+            {
+                Console.WriteLine(result);
+            }
+            Console.Read();
+        }
 
 
         static void Main(string[] args)
@@ -131,6 +203,8 @@ namespace CU0FK0_HFT_2023241.Client
                 .Add("Create", () => Create("Artist"))
                 .Add("Delete", () => Delete("Artist"))
                 .Add("Update", () => Update("Artist"))
+                .Add("ArtistsAvarageRating", () => ArtistsAvarageRating("ArtistNonCrud"))
+                .Add("AnArtistsBestAlbum", ()=>AnArtistsBestAlbum("ArtistNonCrud"))
                 .Add("Exit", ConsoleMenu.Close);
 
             var AlbumSubMenu = new ConsoleMenu(args, level: 1)
@@ -138,6 +212,9 @@ namespace CU0FK0_HFT_2023241.Client
                 .Add("Create", () => Create("Album"))
                 .Add("Delete", () => Delete("Album"))
                 .Add("Update", () => Update("Album"))
+                .Add("FemaleAlbumsLaterThan2012",()=> FemaleAlbumsLaterThan2012("AlbumNonCrud"))
+                .Add("EverySongFromAlbumBetterThan", () => EverySongFromAlbumBetterThan("AlbumNonCrud"))
+                .Add("MostAmountOfAlbums", () => MostAmountOfAlbums("AlbumNonCrud"))
                 .Add("Exit", ConsoleMenu.Close);
 
             var SongSubMenu = new ConsoleMenu(args, level: 1)
@@ -145,6 +222,7 @@ namespace CU0FK0_HFT_2023241.Client
                 .Add("Create", () => Create("Song"))
                 .Add("Delete", () => Delete("Song"))
                 .Add("Update", () => Update("Song"))
+                .Add("AnAlbumsBestSong", ()=> AnAlbumsBestSong("SongNonCrud"))
                 .Add("Exit", ConsoleMenu.Close);
 
             var ElseSubMenu = new ConsoleMenu(args,level: 1)
@@ -156,7 +234,6 @@ namespace CU0FK0_HFT_2023241.Client
                 .Add("Song", () => SongSubMenu.Show())
                 .Add("Artist", () => ArtistSubMenu.Show())
                 .Add("Album", () => AlbumSubMenu.Show())
-                .Add("Else",()=> ElseSubMenu.Show())
                 .Add("Exit", ConsoleMenu.Close);
 
             menu.Show();
