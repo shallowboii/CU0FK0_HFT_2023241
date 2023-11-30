@@ -119,15 +119,30 @@ namespace CU0FK0_HFT_2023241.Client
 
         static void AnArtistsBestAlbum(string entity)
         {
-            Console.Write("Enter Artist's ID:");
-            int id = int.Parse(Console.ReadLine());
-            var albums =rest.GetArtistBestAlbum<Album>(entity, "AnArtistsBestAlbum", id);
-            Console.WriteLine("Album:");
-            foreach (var album in albums)
+            try
             {
-                Console.WriteLine(album.AlbumTitle + " and it's rating is : " + album.Rating);
+                Console.Write("Enter Artist's ID:");
+                int id = int.Parse(Console.ReadLine());
+                var albums = rest.GetArtistBestAlbum<Album>(entity, "AnArtistsBestAlbum", id);
+                Console.WriteLine("Album:");
+                if (albums.ElementAtOrDefault(0)==null)
+                {
+                    Console.WriteLine("Artist does not have an album in our database");
+                }
+                else
+                {
+                    foreach (var album in albums)
+                    {
+                        Console.WriteLine(album.AlbumTitle + " and it's rating is : " + album.Rating);
+                    }
+                }
+                
+                Console.Read();
             }
-            Console.Read();
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
         static void ArtistsAvarageRating(string entity)
         {
