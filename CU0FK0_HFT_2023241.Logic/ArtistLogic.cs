@@ -98,22 +98,16 @@ namespace CU0FK0_HFT_2023241.Logic
         {
             try
             {
-                //Read(artistID); //this one throws an exception if the id is not found , Argument exception
-                //repo.Read(artistID)  // this one doesnt work when the id is correct
-
-                Read(artistID);// this one doesnt throw an exception
-                               //this one doesnt work when the id is incorrect
+                Read(artistID);
                 var artist = repo.ReadAll()
                 .Where(t => t.ArtistID == artistID)
                 .Select(t => t.Albums.Average(t => t.Rating))
                 .AsEnumerable();
                 return artist;
-
             }
 
-            catch (ArgumentException e) // this one happens when an id is not found and was thrown by the Read method
+            catch (ArgumentException e) 
             {
-
                 throw e;
             }
 

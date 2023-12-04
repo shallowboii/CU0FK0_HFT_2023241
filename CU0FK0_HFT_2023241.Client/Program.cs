@@ -10,25 +10,34 @@ namespace CU0FK0_HFT_2023241.Client
     internal class Program
     {
         static RestService rest;
+        
         static void Create(string entity)
         {
-            if (entity == "Artist")
+            try
             {
-                Console.WriteLine("Enter Artist Name: ");
-                string name = Console.ReadLine();
-                rest.Post(new Artist() { ArtistName = name }, "artist");
+                if (entity == "Artist")
+                {
+                    Console.WriteLine("Enter Artist Name: ");
+                    string name = Console.ReadLine();
+                    rest.Post(new Artist() { ArtistName = name }, "artist");
+                }
+                else if (entity == "Song")
+                {
+                    Console.WriteLine("Enter Song Name: ");
+                    string name = Console.ReadLine();
+                    rest.Post(new Song() { SongTitle = name }, "song");
+                }
+                else if (entity == "Album")
+                {
+                    Console.WriteLine("Enter Album Name: ");
+                    string name = Console.ReadLine();
+                    rest.Post(new Album() { AlbumTitle = name }, "album");
+                }
             }
-            else if (entity == "Song")
+            catch (Exception e)
             {
-                Console.WriteLine("Enter Song Name: ");
-                string name = Console.ReadLine();
-                rest.Post(new Song() { SongTitle = name }, "song");
-            }
-            else if (entity == "Album")
-            {
-                Console.WriteLine("Enter Album Name: ");
-                string name = Console.ReadLine();
-                rest.Post(new Album() { AlbumTitle = name }, "album");
+
+                Console.WriteLine(e.Message);
             }
         }
         static void List(string entity)
@@ -63,57 +72,73 @@ namespace CU0FK0_HFT_2023241.Client
         }
         static void Update(string entity)
         {
-            if (entity == "Artist")
+            try
             {
-                Console.Write("Enter Artist's id to update: ");
-                int id = int.Parse(Console.ReadLine());
-                Artist one = rest.Get<Artist>(id, "artist");
-                Console.Write($"New name [old: {one.ArtistName}]: ");
-                string name = Console.ReadLine();
-                one.ArtistName = name;
-                rest.Put(one, "artist");
+                if (entity == "Artist")
+                {
+                    Console.Write("Enter Artist's id to update: ");
+                    int id = int.Parse(Console.ReadLine());
+                    Artist one = rest.Get<Artist>(id, "artist");
+                    Console.Write($"New name [old: {one.ArtistName}]: ");
+                    string name = Console.ReadLine();
+                    one.ArtistName = name;
+                    rest.Put(one, "artist");
+                }
+                else if (entity == "Song")
+                {
+                    Console.Write("Enter Song's id to update: ");
+                    int id = int.Parse(Console.ReadLine());
+                    Song one = rest.Get<Song>(id, "song");
+                    Console.Write($"New name [old: {one.SongTitle}]: ");
+                    string name = Console.ReadLine();
+                    one.SongTitle = name;
+                    rest.Put(one, "song");
+                }
+                else if (entity == "Album")
+                {
+                    Console.Write("Enter Album's id to update: ");
+                    int id = int.Parse(Console.ReadLine());
+                    Album one = rest.Get<Album>(id, "album");
+                    Console.Write($"New name [old: {one.AlbumTitle}]: ");
+                    string name = Console.ReadLine();
+                    one.AlbumTitle = name;
+                    rest.Put(one, "album");
+                }
             }
-            else if (entity == "Song")
+            catch (Exception e)
             {
-                Console.Write("Enter Song's id to update: ");
-                int id = int.Parse(Console.ReadLine());
-                Song one = rest.Get<Song>(id, "song");
-                Console.Write($"New name [old: {one.SongTitle}]: ");
-                string name = Console.ReadLine();
-                one.SongTitle = name;
-                rest.Put(one, "song");
-            }
-            else if (entity == "Album")
-            {
-                Console.Write("Enter Album's id to update: ");
-                int id = int.Parse(Console.ReadLine());
-                Album one = rest.Get<Album>(id, "album");
-                Console.Write($"New name [old: {one.AlbumTitle}]: ");
-                string name = Console.ReadLine();
-                one.AlbumTitle = name;
-                rest.Put(one, "album");
+
+                Console.WriteLine(e.Message);
             }
         }
         static void Delete(string entity)
         {
-            if (entity == "Artist")
+            try
             {
-                Console.Write("Enter Artist's id to delete: ");
-                int id = int.Parse(Console.ReadLine());
-                rest.Delete(id, "artist");
-            }
-            else if (entity == "Song")
-            {
-                Console.Write("Enter Song's id to delete: ");
-                int id = int.Parse(Console.ReadLine());
-                rest.Delete(id, "song");
-            }
+                if (entity == "Artist")
+                {
+                    Console.Write("Enter Artist's id to delete: ");
+                    int id = int.Parse(Console.ReadLine());
+                    rest.Delete(id, "artist");
+                }
+                else if (entity == "Song")
+                {
+                    Console.Write("Enter Song's id to delete: ");
+                    int id = int.Parse(Console.ReadLine());
+                    rest.Delete(id, "song");
+                }
 
-            else if (entity == "Album")
+                else if (entity == "Album")
+                {
+                    Console.Write("Enter Album's id to delete: ");
+                    int id = int.Parse(Console.ReadLine());
+                    rest.Delete(id, "album");
+                }
+            }
+            catch (Exception e)
             {
-                Console.Write("Enter Album's id to delete: ");
-                int id = int.Parse(Console.ReadLine());
-                rest.Delete(id, "album");
+
+                Console.WriteLine(e.Message);
             }
         }
 
@@ -122,7 +147,8 @@ namespace CU0FK0_HFT_2023241.Client
             try
             {
                 Console.Write("Enter Artist's ID:");
-                int id = int.Parse(Console.ReadLine());
+                string beker = Console.ReadLine();
+                int id = int.Parse(beker);
                 var albums = rest.GetArtistBestAlbum<Album>(entity, "AnArtistsBestAlbum", id);
                 Console.WriteLine("Album:");
                 if (albums.ElementAtOrDefault(0)==null)
@@ -137,7 +163,7 @@ namespace CU0FK0_HFT_2023241.Client
                     }
                 }
                 
-                Console.Read();
+                Console.ReadLine();
             }
             catch (ArgumentException e)
             {
@@ -146,64 +172,103 @@ namespace CU0FK0_HFT_2023241.Client
         }
         static void ArtistsAvarageRating(string entity)
         {
-            Console.Write("Enter Artist's ID:");
-            int id = int.Parse(Console.ReadLine());
-            var results = rest.GetArtistsAvarageRating<double>(entity, "ArtistsAvarageRating", id);
-            var artist = rest.Get<Artist>(id, "artist");
-            Console.WriteLine("Album:");
-            foreach (var result in results)
+            try
             {
-                Console.WriteLine(artist.ArtistName + ": " + result);
+                Console.Write("Enter Artist's ID:");
+                int id = int.Parse(Console.ReadLine());
+                var results = rest.GetArtistsAvarageRating<double>(entity, "ArtistsAvarageRating", id);
+                var artist = rest.Get<Artist>(id, "artist");
+                Console.WriteLine("Album:");
+                foreach (var result in results)
+                {
+                    Console.WriteLine(artist.ArtistName + ": " + result);
+                }
             }
-            Console.Read();
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            Console.ReadLine();
         }
 
         static void AnAlbumsBestSong(string entity)
         {
-            Console.Write("Enter Album's ID:");
-            int id = int.Parse(Console.ReadLine());
-            var results = rest.GetAnAlbumsBestSong<Song>(entity, "AnAlbumsBestSong", id);
-            var album = rest.Get<Album>(id, "album");
-            Console.WriteLine("Song:");
-            foreach (var result in results)
+            try
             {
-                Console.WriteLine(album.AlbumTitle + "'s Best song is : " + result.SongTitle);
+                Console.Write("Enter Album's ID:");
+                int id = int.Parse(Console.ReadLine());
+                var results = rest.GetAnAlbumsBestSong<Song>(entity, "AnAlbumsBestSong", id);
+                var album = rest.Get<Album>(id, "album");
+                Console.WriteLine("Song:");
+                foreach (var result in results)
+                {
+                    Console.WriteLine(album.AlbumTitle + "'s Best song is : " + result.SongTitle);
+                }
+                Console.ReadLine();
             }
-            Console.Read();
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
         }
 
         static void FemaleAlbumsLaterThan2012(string entity)
         {
-            var results = rest.GetFemaleAlbumsLaterThan2012<Album>(entity, "FemaleAlbumsLaterThan2012");
-            Console.WriteLine("Albums:");
-            foreach (var result in results)
+            try
             {
-                Console.WriteLine(result.AlbumTitle + "by:" + result.Artist.ArtistName);
+                var results = rest.GetFemaleAlbumsLaterThan2012<Album>(entity, "FemaleAlbumsLaterThan2012");
+                Console.WriteLine("Albums:");
+                foreach (var result in results)
+                {
+                    Console.WriteLine(result.AlbumTitle + "by:" + result.Artist.ArtistName);
+                }
+                Console.ReadLine();
             }
-            Console.Read();
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
         }
         static void EverySongFromAlbumBetterThan(string entity)
         {
-            Console.Write("Enter a number (The rating is between 1-5):");
-            double better = Convert.ToDouble(Console.ReadLine());
-            var results = rest.GetEverySongFromAlbumBetterThan<Song>(entity, "EverySongFromAlbumBetterThan", better);
-            Console.WriteLine("Songs:");
-            foreach (var result in results)
+            try
             {
-                Console.WriteLine(result.SongTitle+ "in:" + result.Album.AlbumTitle);
+                Console.Write("Enter a number (The rating is between 1-5):");
+                double better = Convert.ToDouble(Console.ReadLine());
+                var results = rest.GetEverySongFromAlbumBetterThan<Song>(entity, "EverySongFromAlbumBetterThan", better);
+                Console.WriteLine("Songs:");
+                foreach (var result in results)
+                {
+                    Console.WriteLine(result.SongTitle + "in:" + result.Album.AlbumTitle);
+                }
+                Console.ReadLine();
             }
-            Console.Read();
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
         }
 
         static void MostAmountOfAlbums(string entity)
         {
-            var results = rest.GetMostAmountOfAlbums<string>(entity, "MostAmountOfAlbums");
-            Console.WriteLine("The who has the most amout of Albums:");
-            foreach (var result in results)
+            try
             {
-                Console.WriteLine(result);
+                var results = rest.GetMostAmountOfAlbums<string>(entity, "MostAmountOfAlbums");
+                Console.WriteLine("The who has the most amout of Albums:");
+                foreach (var result in results)
+                {
+                    Console.WriteLine(result);
+                }
+                Console.ReadLine();
             }
-            Console.Read();
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
         }
 
 

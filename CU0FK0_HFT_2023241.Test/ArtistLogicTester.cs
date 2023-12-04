@@ -351,6 +351,17 @@ namespace CU0FK0_HFT_2023241.Test
             Assert.That(album, Is.EqualTo(expectedResult));
         }
         [Test]
+        public void AnArtistsBestAlbumTest_WithInCorrectID()
+        {
+            //ARRANGE
+            int inputArtistID = 3;
+            
+            //ACT
+            
+            //ASSERT 
+            Assert.That(()=> Artistlogic.AnArtistsBestAlbum(inputArtistID),Throws.TypeOf<ArgumentException>());
+        }
+        [Test]
         public void AnArtistsBestAlbumTest_WithNullID()
         {
             //ARRANGE
