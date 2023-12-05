@@ -38,6 +38,7 @@ namespace CU0FK0_HFT_2023241.Client
             {
 
                 Console.WriteLine(e.Message);
+                Console.ReadLine();
             }
         }
         static void List(string entity)
@@ -109,6 +110,8 @@ namespace CU0FK0_HFT_2023241.Client
             {
 
                 Console.WriteLine(e.Message);
+                Console.ReadLine();
+
             }
         }
         static void Delete(string entity)
@@ -139,6 +142,7 @@ namespace CU0FK0_HFT_2023241.Client
             {
 
                 Console.WriteLine(e.Message);
+                Console.ReadLine();
             }
         }
 
@@ -168,6 +172,7 @@ namespace CU0FK0_HFT_2023241.Client
             catch (ArgumentException e)
             {
                 Console.WriteLine(e.Message);
+                Console.ReadLine();
             }
         }
         static void ArtistsAvarageRating(string entity)
@@ -183,12 +188,13 @@ namespace CU0FK0_HFT_2023241.Client
                 {
                     Console.WriteLine(artist.ArtistName + ": " + result);
                 }
+                Console.ReadLine();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                Console.ReadLine();
             }
-            Console.ReadLine();
         }
 
         static void AnAlbumsBestSong(string entity)
@@ -210,6 +216,7 @@ namespace CU0FK0_HFT_2023241.Client
             {
 
                 Console.WriteLine(e.Message);
+                Console.ReadLine();
             }
         }
 
@@ -229,6 +236,7 @@ namespace CU0FK0_HFT_2023241.Client
             {
 
                 Console.WriteLine(e.Message);
+                Console.ReadLine();
             }
         }
         static void EverySongFromAlbumBetterThan(string entity)
@@ -249,6 +257,7 @@ namespace CU0FK0_HFT_2023241.Client
             {
 
                 Console.WriteLine(e.Message);
+                Console.ReadLine();
             }
         }
 
@@ -268,6 +277,7 @@ namespace CU0FK0_HFT_2023241.Client
             {
 
                 Console.WriteLine(e.Message);
+                Console.ReadLine();
             }
         }
 
