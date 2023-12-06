@@ -22,7 +22,7 @@ namespace CU0FK0_HFT_2023241.Logic
         {
             if (item?.ArtistName.Length <= 2 || item is null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Artist is null or the name is too short!");
             }
             else
             {
@@ -34,7 +34,7 @@ namespace CU0FK0_HFT_2023241.Logic
             var artist = repo.Read(id);
             if (artist == null)
             {
-                throw new ArgumentException();//Exception handling
+                throw new ArgumentException("Artist does not exits!");//Exception handling
             }
             else
             {
@@ -46,7 +46,7 @@ namespace CU0FK0_HFT_2023241.Logic
             var artist = repo.Read(id);
             if (artist == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Artist does not exits!");
             }
             return repo.Read(id);
         }

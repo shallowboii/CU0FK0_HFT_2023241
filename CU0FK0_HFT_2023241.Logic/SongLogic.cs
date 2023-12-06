@@ -81,7 +81,7 @@ namespace CU0FK0_HFT_2023241.Logic
             }
             else
             {
-                throw new ArgumentException();
+                throw new ArgumentException("The Album does not exits or it contains zero song!");
             }
         }
     }
