@@ -1,3 +1,4 @@
+using CU0FK0_HFT_2023241.Endpoint.Services;
 using CU0FK0_HFT_2023241.Logic;
 using CU0FK0_HFT_2023241.Models;
 using CU0FK0_HFT_2023241.Repository;
@@ -31,6 +32,8 @@ namespace CU0FK0_HFT_2023241.Endpoint
             services.AddTransient<IAlbumLogic, AlbumLogic>();
             services.AddTransient<IArtistLogic, ArtistLogic>();
             services.AddTransient<ISongLogic, SongLogic>();
+
+            services.AddSignalR();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -66,6 +69,7 @@ namespace CU0FK0_HFT_2023241.Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
             });
 
         }
