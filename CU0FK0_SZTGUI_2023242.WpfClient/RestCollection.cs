@@ -238,6 +238,25 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
             response.EnsureSuccessStatusCode();
         }
 
+        #region SONG_NONCRUD
+        public List<T> GetAnAlbumsBestSong<T>(string endpoint, string method, int id)
+        {
+            List<T> items = new List<T>();
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + method + "/" + id.ToString()).GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+            {
+                items = response.Content.ReadAsAsync<List<T>>().GetAwaiter().GetResult();
+
+            }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
+            return items;
+        }
+        #endregion
+
     }
     public class RestExceptionInfo
     {
@@ -409,6 +428,26 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
                 });
             }
 
+        }
+        public List<T> GetAnAlbumsBestSong<T>(int id)
+        {
+            if (hasSignalR)
+            {
+                return this.rest.GetAnAlbumsBestSong<T>(typeof(T).Name, "AnAlbumsBestSong", id);
+            }
+            else
+            {
+                return this.rest.GetAnAlbumsBestSong<T>(typeof(T).Name,"AnAlbumsBestSong", id).ContinueWith((t) =>
+                {
+                    Init().ContinueWith(z =>
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+                        });
+                    });
+                });
+            }
         }
 
 

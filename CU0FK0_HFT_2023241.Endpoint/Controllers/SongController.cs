@@ -26,7 +26,7 @@ namespace CU0FK0_HFT_2023241.Endpoint.Controllers
         [HttpGet]
         public IEnumerable<Song> ReadAll()
         {
-            return this.    logic.ReadAll();
+            return this.logic.ReadAll();
         }
 
         [HttpGet("{id}")]
@@ -46,7 +46,6 @@ namespace CU0FK0_HFT_2023241.Endpoint.Controllers
         public void Update([FromBody] Song value)
         {
             this.logic.Update(value);
-
             this.hub.Clients.All.SendAsync("SongUpdated", value);
         }
         [HttpDelete("{id}")]
@@ -54,7 +53,6 @@ namespace CU0FK0_HFT_2023241.Endpoint.Controllers
         {
             var actorToDelete = this.logic.Read(id);
             this.logic.Delete(id);
-
             this.hub.Clients.All.SendAsync("SongDeleted", actorToDelete);
 
         }

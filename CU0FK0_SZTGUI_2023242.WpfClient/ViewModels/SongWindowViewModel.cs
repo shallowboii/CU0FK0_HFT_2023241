@@ -7,12 +7,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
+using System.Windows;
 
-namespace CU0FK0_SZTGUI_2023242.WpfClient
+namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
 {
-    public class MainWindowViewModel : ObservableRecipient
+    public class SongWindowViewModel : ObservableRecipient
     {
         private Song selectedSong;
 
@@ -34,10 +34,16 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
             }
         }
 
+
+
         public RestCollection<Song> Songs { get; set; }
 
         public ICommand CreateSongCommand { get; set; }
         public ICommand UpdateSongCommand { get; set; }
+
+        public ICommand DeleteSongCommand { get; set; }
+
+        public ICommand GetAnAlbumsBestSongCommand { get; set; }
         public static bool IsInDesignMode
         {
             get
@@ -46,14 +52,13 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
                 return (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
             }
         }
-        public ICommand DeleteSongCommand { get; set; }
 
-        public MainWindowViewModel()
+        public SongWindowViewModel()
         {
-            
+
             if (!IsInDesignMode)
             {
-                Songs = new RestCollection<Song>("http://localhost:17161/", "song","hub");
+                Songs = new RestCollection<Song>("http://localhost:17161/", "song", "hub");
                 CreateSongCommand = new RelayCommand(() =>
                 {
                     Songs.Add(new Song()
@@ -75,6 +80,11 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
                 {
                     Songs.Update(SelectedSong);
                 });
+                GetAnAlbumsBestSongCommand = new RelayCommand(() =>
+                {
+                    Songs.GetAnAlbumsBestSong
+                }
+
                 SelectedSong = new Song();
             }
         }
