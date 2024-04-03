@@ -54,10 +54,14 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
             }
         }
 
+        public SongWindowViewModel()
+        {
 
+        }
 
         public RestCollection<Song> Songs { get; set; }
         
+
 
         public ICommand CreateSongCommand { get; set; }
         public ICommand UpdateSongCommand { get; set; }
@@ -74,13 +78,13 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
             }
         }
 
-        public SongWindowViewModel()
+        public SongWindowViewModel(RestCollection<Song> songs)
         {
 
             if (!IsInDesignMode)
             {
-                Songs = new RestCollection<Song>("http://localhost:17161/", "song", "hub");
-                
+
+                Songs = songs;
                 CreateSongCommand = new RelayCommand(() =>
                 {
                     Songs.Add(new Song()

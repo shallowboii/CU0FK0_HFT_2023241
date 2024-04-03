@@ -51,9 +51,9 @@ namespace CU0FK0_HFT_2023241.Endpoint.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var actorToDelete = this.logic.Read(id);
+            var songToDelete = this.logic.Read(id);
             this.logic.Delete(id);
-            this.hub.Clients.All.SendAsync("SongDeleted", actorToDelete);
+            this.hub.Clients.All.SendAsync("SongDeleted", songToDelete);
 
         }
     }

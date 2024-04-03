@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CU0FK0_HFT_2023241.Models;
+using CU0FK0_SZTGUI_2023242.WpfClient.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,11 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
     /// </summary>
     public partial class AlbumWindow : Window
     {
-        public AlbumWindow()
+        public AlbumWindow(RestCollection<Album> albums)
         {
             InitializeComponent();
+            var vm = new AlbumWindowViewModel(albums);
+            this.DataContext = vm;
         }
     }
 }

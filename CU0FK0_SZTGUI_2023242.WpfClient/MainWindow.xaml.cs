@@ -24,19 +24,5 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
         {
             InitializeComponent();
         }
-
-        private void SongWindow(object sender, RoutedEventArgs e)
-        {
-            new SongWindow().Show();
-
-        }
-        private void AlbumWindow(object sender, RoutedEventArgs e)
-        {
-            new AlbumWindow().Show();
-        }
-        private void ArtistWindow(object sender, RoutedEventArgs e)
-        {
-            new ArtistWindow().Show();
-        }
     }
 }

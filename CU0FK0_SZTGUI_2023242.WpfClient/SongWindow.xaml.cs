@@ -1,4 +1,5 @@
-﻿using CU0FK0_SZTGUI_2023242.WpfClient.ViewModels;
+﻿using CU0FK0_HFT_2023241.Models;
+using CU0FK0_SZTGUI_2023242.WpfClient.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +21,12 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
     /// </summary>
     public partial class SongWindow : Window
     {
-        public SongWindow()
+        public SongWindow(RestCollection<Song> songs)
         {
             InitializeComponent();
+            var vm = new SongWindowViewModel(songs);
+            this.DataContext = vm;
+
             
         }
     }

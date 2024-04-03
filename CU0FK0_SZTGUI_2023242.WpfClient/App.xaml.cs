@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using CU0FK0_SZTGUI_2023242.WpfClient.Services;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +16,15 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            Ioc.Default.ConfigureServices(
+                new ServiceCollection()
+                .AddSingleton<ISongService, SongServiceViaWindow>()
+                .AddSingleton<IAlbumService,AlbumServiceViaWindow>()
+                .BuildServiceProvider()
+
+                );
+        }
     }
 }

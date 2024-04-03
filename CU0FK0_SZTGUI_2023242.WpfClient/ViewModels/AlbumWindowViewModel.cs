@@ -50,13 +50,17 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                 return (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
             }
         }
-
         public AlbumWindowViewModel()
+        {
+
+        }
+
+        public AlbumWindowViewModel(RestCollection<Album> albums)
         {
 
             if (!IsInDesignMode)
             {
-                Albums = new RestCollection<Album>("http://localhost:17161/", "album", "hub");
+                this.Albums = albums;
                 CreateAlbumCommand = new RelayCommand(() =>
                 {
                     Albums.Add(new Album()
