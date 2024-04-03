@@ -13,8 +13,8 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Button Background="AliceBlue" BorderThickness="5" FontSize="30" FontStretch="Condensed" FontWeight="Bold" Grid.Column="0">Artist</Button>
-        <Button Background="AliceBlue" BorderThickness="5" FontSize="30" FontStretch="Condensed" FontWeight="Bold" Grid.Column="1">Album</Button>
-        <Button Background="AliceBlue" BorderThickness="5" FontSize="30" FontStretch="Condensed" FontWeight="Bold" Grid.Column="2">Song</Button>
+        <Button Click="ArtistWindow" Background="AliceBlue" BorderThickness="5" FontSize="30" FontStretch="Condensed" FontWeight="Bold" Grid.Column="0">Artist</Button>
+        <Button Click="AlbumWindow"  Background="AliceBlue" BorderThickness="5" FontSize="30" FontStretch="Condensed" FontWeight="Bold" Grid.Column="1">Album</Button>
+        <Button Click="SongWindow" Background="AliceBlue" BorderThickness="5" FontSize="30" FontStretch="Condensed" FontWeight="Bold" Grid.Column="2">Song</Button>
     </Grid>
 </Window>

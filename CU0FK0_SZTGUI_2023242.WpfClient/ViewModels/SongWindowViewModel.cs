@@ -26,10 +26,30 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                     selectedSong = new Song()
                     {
                         SongID = value.SongID,
-                        SongTitle = value.SongTitle
+                        SongTitle = value.SongTitle,
+                        AlbumID = value.AlbumID
                     };
                     OnPropertyChanged();
                     (DeleteSongCommand as RelayCommand).NotifyCanExecuteChanged();
+                }
+            }
+        }
+        private Song result;
+
+        public Song Result
+        {
+            get { return result; }
+            set
+            {
+                if (value != null)
+                {
+                    result = new Song()
+                    {
+                        SongID = value.SongID,
+                        SongTitle = value.SongTitle
+                    };
+                    OnPropertyChanged();
+                    (GetAnAlbumsBestSongCommand as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
         }
@@ -37,6 +57,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
 
 
         public RestCollection<Song> Songs { get; set; }
+        
 
         public ICommand CreateSongCommand { get; set; }
         public ICommand UpdateSongCommand { get; set; }
@@ -59,6 +80,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
             if (!IsInDesignMode)
             {
                 Songs = new RestCollection<Song>("http://localhost:17161/", "song", "hub");
+                
                 CreateSongCommand = new RelayCommand(() =>
                 {
                     Songs.Add(new Song()
@@ -82,10 +104,15 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                 });
                 GetAnAlbumsBestSongCommand = new RelayCommand(() =>
                 {
-                    Songs.GetAnAlbumsBestSong
-                }
+                    Result=Songs.GetAnAlbumsBestSong<Song>(SelectedSong.AlbumID).FirstOrDefault();
+                },
+                () =>
+                {
+                    return SelectedSong != null;
+                });
 
                 SelectedSong = new Song();
+                Result = new Song();
             }
         }
 

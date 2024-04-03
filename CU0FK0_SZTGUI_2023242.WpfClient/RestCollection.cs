@@ -433,21 +433,22 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
         {
             if (hasSignalR)
             {
-                return this.rest.GetAnAlbumsBestSong<T>(typeof(T).Name, "AnAlbumsBestSong", id);
+                return this.rest.GetAnAlbumsBestSong<T>(typeof(T).Name + "NonCrud", "AnAlbumsBestSong", id);
             }
-            else
-            {
-                return this.rest.GetAnAlbumsBestSong<T>(typeof(T).Name,"AnAlbumsBestSong", id).ContinueWith((t) =>
-                {
-                    Init().ContinueWith(z =>
-                    {
-                        Application.Current.Dispatcher.Invoke(() =>
-                        {
-                            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-                        });
-                    });
-                });
-            }
+            else return new List<T>();
+            //else
+            //{
+            //    return this.rest.GetAnAlbumsBestSong<T>(typeof(T).Name,"AnAlbumsBestSong", id).ContinueWith((t) =>
+            //    {
+            //        Init().ContinueWith(z =>
+            //        {
+            //            Application.Current.Dispatcher.Invoke(() =>
+            //            {
+            //                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            //            });
+            //        });
+            //    });
+            //}
         }
 
 
