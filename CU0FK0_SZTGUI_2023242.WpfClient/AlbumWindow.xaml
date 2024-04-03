@@ -5,29 +5,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CU0FK0_SZTGUI_2023242.WpfClient"
         xmlns:vms="clr-namespace:CU0FK0_SZTGUI_2023242.WpfClient.ViewModels"
+        xmlns:hlpr="clr-namespace:CU0FK0_SZTGUI_2023242.WpfClient.Helpers"
         mc:Ignorable="d"
         Title="AlbumWindow" Height="450" Width="800">
     <Window.DataContext>
         <vms:AlbumWindowViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <hlpr:SimpleConverter x:Key="MyConverter"/>
+    </Window.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <ListBox ItemsSource="{Binding Albums}" SelectedItem="{Binding SelectedAlbum}" Grid.Column="0">
+        <Label Grid.Column="0" Grid.Row="0" Content="Albums" Background="CornflowerBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" FontWeight="Black" Foreground="White"></Label>
+        <ListBox ItemsSource="{Binding Albums}" SelectedItem="{Binding SelectedAlbum}" Grid.Column="0" Grid.Row="1" Background="LightBlue">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Label Content="{Binding AlbumTitle}"></Label>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Column="1">
-            <Label Content="Name" Background="DarkTurquoise" Padding="10"></Label>
-            <TextBox Text="{Binding SelectedAlbum.AlbumTitle}" Padding="10" Margin="0,0,0,30"></TextBox>
-            <Button Content="Create Album" Command="{Binding CreateAlbumCommand}" Margin="10" Padding="10"></Button>
-            <Button Content="Delete Album" Command="{Binding DeleteAlbumCommand}" Margin="10" Padding="10"></Button>
-            <Button Content="Update Album" Command="{Binding UpdateAlbumCommand}" Margin="10" Padding="10"></Button>
+        <Label Grid.Column="1" Grid.Row="0" Content="Female Albums" Background="CornflowerBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" FontWeight="Black" Foreground="White"></Label>
+        <ListBox ItemsSource="{Binding FemaleAlbums}" SelectedItem="{Binding SelectedAlbum}" Grid.Column="1" Grid.Row="1" Background="LightBlue" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding AlbumTitle}"></Label>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Label Grid.Column="2" Grid.Row="0" Content="Better Songs" Background="CornflowerBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" FontWeight="Black" Foreground="White"></Label>
+        <ListBox ItemsSource="{Binding FemaleAlbums}" SelectedItem="{Binding SelectedAlbum}" Grid.Column="2" Grid.Row="1" Background="LightBlue" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding AlbumTitle}"></Label>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Label Content="Name of the selected Album" Padding="10" Grid.Column="4" Grid.Row="0" Background="DeepSkyBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" FontWeight="Black" Foreground="White"></Label>
+        <StackPanel Grid.Column="4" Grid.Row="1" Background="LightSteelBlue" >
+            
+            <TextBox Text="{Binding SelectedAlbum.AlbumTitle}" Padding="10" Margin="0,0,0,10"></TextBox>
+            <Button Content="Create Album" Command="{Binding CreateAlbumCommand}" Margin="5" Padding="10"></Button>
+            <Button Content="Delete Album" Command="{Binding DeleteAlbumCommand}" Margin="5" Padding="10"></Button>
+            <Button Content="Update Album" Command="{Binding UpdateAlbumCommand}" Margin="5" Padding="10"></Button>
+            <Button Content="Female Albums 2012(2)" Command="{Binding FemaleAlbumsLaterThan2012}" Margin="5" Padding="10"></Button>
+            <TextBox Text="{Binding BetterThan,Converter={StaticResource MyConverter},UpdateSourceTrigger=Explicit}" Margin="5" Padding="5"></TextBox>
+            <Button Content="EverySongFromAlbumBetterThan(3)" Command="{Binding EverySongFromAlbumBetterThanCommand}" Margin="5" Padding="10" Foreground="White" Background="DodgerBlue"></Button>
         </StackPanel>
     </Grid>
 </Window>

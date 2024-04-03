@@ -33,6 +33,52 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                 }
             }
         }
+        private List<Album> femaleAlbums;
+
+        public List<Album> FemaleAlbums
+        {
+            get { return femaleAlbums; }
+            set
+            {
+                if (value != null)
+                {
+                    femaleAlbums = value;
+                    OnPropertyChanged();
+                    
+                }
+            }
+        }
+
+        private List<Song> everySongFrom;
+
+        public List<Song> EverySongFrom
+        {
+            get { return everySongFrom; }
+            set
+            {
+                if (value != null)
+                {
+                    everySongFrom = value;
+                    OnPropertyChanged();
+
+                }
+            }
+        }
+
+        private double betterThan;
+
+        public double BetterThan
+        {
+            get { return betterThan; }
+            set
+            {
+                if (value != null)
+                {
+                    betterThan = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
 
 
@@ -42,6 +88,10 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
         public ICommand UpdateAlbumCommand { get; set; }
 
         public ICommand DeleteAlbumCommand { get; set; }
+
+        public ICommand FemaleAlbumsLaterThan2012 { get; set; }
+
+        public ICommand EverySongFromAlbumBetterThanCommand { get; set; }
         public static bool IsInDesignMode
         {
             get
@@ -82,7 +132,26 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                 {
                     Albums.Update(SelectedAlbum);
                 });
+                
+                FemaleAlbumsLaterThan2012 = new RelayCommand(() =>
+                {
+                    FemaleAlbums = Albums.GetFemaleAlbumsLaterThan2012<Album>();
+                },
+                () =>
+                {
+                    return FemaleAlbums != null;
+                });
+                EverySongFromAlbumBetterThanCommand = new RelayCommand(() =>
+                {
+                    EverySongFrom = Albums.GetEverySongFromAlbumBetterThan<Song>(BetterThan);
+                },
+                () =>
+                {
+                    return EverySongFrom != null;
+                });
                 SelectedAlbum = new Album();
+                FemaleAlbums = new List<Album>();
+                EverySongFrom = new List<Song>();
             }
         }
 

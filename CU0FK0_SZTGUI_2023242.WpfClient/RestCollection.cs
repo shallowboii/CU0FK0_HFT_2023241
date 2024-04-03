@@ -15,6 +15,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
 {
     public class RestService
     {
+        #region RestService
         HttpClient client;
 
         public RestService(string baseurl, string pingableEndpoint = "swagger")
@@ -238,6 +239,8 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
             response.EnsureSuccessStatusCode();
         }
 
+        #endregion
+
         #region SONG_NONCRUD
         public List<T> GetAnAlbumsBestSong<T>(string endpoint, string method, int id)
         {
@@ -255,6 +258,43 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
             }
             return items;
         }
+        #endregion
+
+        #region Album_NonCrud
+        public List<T> GetFemaleAlbumsLaterThan2012<T>(string endpoint, string method)
+        {
+            List<T> items = new List<T>();
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + method).GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+            {
+                items = response.Content.ReadAsAsync<List<T>>().GetAwaiter().GetResult();
+
+            }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
+            return items;
+        }
+
+        public List<T> GetEverySongFromAlbumBetterThan<T>(string endpoint, string method, double number)
+        {
+            List<T> items = new List<T>();
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + method + "/" + number.ToString()).GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+            {
+                items = response.Content.ReadAsAsync<List<T>>().GetAwaiter().GetResult();
+
+            }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
+            return items;
+        }
+
         #endregion
 
     }
@@ -436,19 +476,23 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
                 return this.rest.GetAnAlbumsBestSong<T>(typeof(T).Name + "NonCrud", "AnAlbumsBestSong", id);
             }
             else return new List<T>();
-            //else
-            //{
-            //    return this.rest.GetAnAlbumsBestSong<T>(typeof(T).Name,"AnAlbumsBestSong", id).ContinueWith((t) =>
-            //    {
-            //        Init().ContinueWith(z =>
-            //        {
-            //            Application.Current.Dispatcher.Invoke(() =>
-            //            {
-            //                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-            //            });
-            //        });
-            //    });
-            //}
+        }
+
+        public List<T> GetFemaleAlbumsLaterThan2012<T>()
+        {
+            if (hasSignalR)
+            {
+                return this.rest.GetFemaleAlbumsLaterThan2012<T>(typeof(T).Name + "NonCrud", "FemaleAlbumsLaterThan2012");
+            }
+            else return new List<T>();
+        }
+        public List<T> GetEverySongFromAlbumBetterThan<T>(double rating)
+        {
+            if (hasSignalR)
+            {
+                return this.rest.GetEverySongFromAlbumBetterThan<T>("AlbumNonCrud", "EverySongFromAlbumBetterThan",rating);
+            }
+            else return new List<T>();
         }
 
 
