@@ -57,21 +57,21 @@ namespace CU0FK0_HFT_2023241.Repository
                 new Album(4, "good kid, m.A.A.d city", 4,  4.8,  2012),//done
                 new Album(5, "To Pimp a Butterfly",  4,  4.9, 2015),//done
                 new Album(6, "DAMN.",  4,  4.7,  2017),//done
-                new Album(7, "Invasion of Privacy", 5, 4.6, 2018),//done
-                new Album(8, "Take Care", 6, 4.5, 2011),//done
-                new Album(9, "Views", 6, 4.4, 2016),//done
-                new Album(10, "Scorpion", 6, 4.3, 2018),//done
-                new Album(11, "Good News", 7, 4.7, 2020),//done
+                new Album(7, "Invasion of Privacy", 5, 3.2, 2018),//done
+                new Album(8, "Take Care", 6, 3.8, 2011),//done
+                new Album(9, "Views", 6, 3.2, 2016),//done
+                new Album(10, "Scorpion", 6, 4.1, 2018),//done
+                new Album(11, "Good News", 7, 3.4, 2020),//done
                 new Album(12, "Rodeo", 8, 4.5, 2015),//done
                 new Album(13, "Astroworld", 8, 4.8, 2018),//done
-                new Album(14, "Pink Friday", 9, 4.4, 2010),//done
-                new Album(15, "The Pinkprint", 9, 4.5, 2014),//done
+                new Album(14, "Pink Friday", 9, 3.3, 2010),//done
+                new Album(15, "The Pinkprint", 9, 4.1, 2014),//done
                 new Album(16, "2014 Forest Hills Drive", 10, 4.6, 2014),//done
-                new Album(17, "KOD", 10, 4.7, 2018),//done
-                new Album(18, "Cuz I Love You", 11, 4.6, 2019),//done
-                new Album(19, "Montero", 12, 4.5, 2021),//done
-                new Album(20, "Stoney", 13, 4.3, 2016),//done
-                new Album(21, "Hollywood's Bleeding", 13, 4.4, 2019)
+                new Album(17, "KOD", 10, 4.3, 2018),//done
+                new Album(18, "Cuz I Love You", 11, 2.8, 2019),//done
+                new Album(19, "Montero", 12, 2.4, 2021),//done
+                new Album(20, "Stoney", 13, 2.5, 2016),//done
+                new Album(21, "Hollywood's Bleeding", 13, 2.7, 2019)
 
 
 

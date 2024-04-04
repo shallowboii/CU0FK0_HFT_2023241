@@ -280,8 +280,9 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
 
         public List<T> GetEverySongFromAlbumBetterThan<T>(string endpoint, string method, double number)
         {
+            
             List<T> items = new List<T>();
-            HttpResponseMessage response = client.GetAsync(endpoint + "/" + method + "/" + number.ToString()).GetAwaiter().GetResult();
+            HttpResponseMessage response = client.GetAsync($"{endpoint}/{method}/{number.ToString().Replace(",", ".")}").GetAwaiter().GetResult();
             if (response.IsSuccessStatusCode)
             {
                 items = response.Content.ReadAsAsync<List<T>>().GetAwaiter().GetResult();

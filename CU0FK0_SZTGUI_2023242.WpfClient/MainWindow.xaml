@@ -16,7 +16,7 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Button  Background="AliceBlue" BorderThickness="5" FontSize="30" FontStretch="Condensed" FontWeight="Bold" Grid.Column="0">Artist</Button>
+        <Button Command="{Binding ArtistOpenerCommand}"  Background="AliceBlue" BorderThickness="5" FontSize="30" FontStretch="Condensed" FontWeight="Bold" Grid.Column="0">Artist</Button>
         <Button  Command="{Binding AlbumOpenerCommand}" Background="AliceBlue" BorderThickness="5" FontSize="30" FontStretch="Condensed" FontWeight="Bold" Grid.Column="1">Album</Button>
         <Button Command="{Binding SongOpenerCommand}" Background="AliceBlue" BorderThickness="5" FontSize="30" FontStretch="Condensed" FontWeight="Bold" Grid.Column="2">Song</Button>
     </Grid>

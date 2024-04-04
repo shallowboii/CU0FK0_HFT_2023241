@@ -24,11 +24,10 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Label Grid.Column="0" Grid.Row="0" Content="Albums" Background="CornflowerBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" FontWeight="Black" Foreground="White"></Label>
-        <ListBox ItemsSource="{Binding Albums}" SelectedItem="{Binding SelectedAlbum}" Grid.Column="0" Grid.Row="1" Background="LightBlue">
+        <ListBox ItemsSource="{Binding Albums}" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectedItem="{Binding SelectedAlbum}" Grid.Column="0" Grid.Row="1" Background="LightBlue">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Label Content="{Binding AlbumTitle}"></Label>
@@ -36,7 +35,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Label Grid.Column="1" Grid.Row="0" Content="Female Albums" Background="CornflowerBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" FontWeight="Black" Foreground="White"></Label>
-        <ListBox ItemsSource="{Binding FemaleAlbums}" SelectedItem="{Binding SelectedAlbum}" Grid.Column="1" Grid.Row="1" Background="LightBlue" >
+        <ListBox ScrollViewer.VerticalScrollBarVisibility="Hidden" ItemsSource="{Binding FemaleAlbums}" SelectedItem="{Binding SelectedAlbum}" Grid.Column="1" Grid.Row="1" Background="LightBlue" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Label Content="{Binding AlbumTitle}"></Label>
@@ -44,22 +43,21 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Label Grid.Column="2" Grid.Row="0" Content="Better Songs" Background="CornflowerBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" FontWeight="Black" Foreground="White"></Label>
-        <ListBox ItemsSource="{Binding FemaleAlbums}" SelectedItem="{Binding SelectedAlbum}" Grid.Column="2" Grid.Row="1" Background="LightBlue" >
+        <ListBox ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" ItemsSource="{Binding EverySongFrom}" SelectedItem="{Binding SelectedAlbum}" Grid.Column="2" Grid.Row="1" Background="LightBlue" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding AlbumTitle}"></Label>
+                    <Label Content="{Binding SongTitle}"></Label>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <Label Content="Name of the selected Album" Padding="10" Grid.Column="4" Grid.Row="0" Background="DeepSkyBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" FontWeight="Black" Foreground="White"></Label>
         <StackPanel Grid.Column="4" Grid.Row="1" Background="LightSteelBlue" >
-            
-            <TextBox Text="{Binding SelectedAlbum.AlbumTitle}" Padding="10" Margin="0,0,0,10"></TextBox>
+            <TextBox Text="{Binding SelectedAlbum.AlbumTitle}" Padding="10" Margin="0,0,0,10" Background="AliceBlue"></TextBox>
             <Button Content="Create Album" Command="{Binding CreateAlbumCommand}" Margin="5" Padding="10"></Button>
             <Button Content="Delete Album" Command="{Binding DeleteAlbumCommand}" Margin="5" Padding="10"></Button>
             <Button Content="Update Album" Command="{Binding UpdateAlbumCommand}" Margin="5" Padding="10"></Button>
             <Button Content="Female Albums 2012(2)" Command="{Binding FemaleAlbumsLaterThan2012}" Margin="5" Padding="10"></Button>
-            <TextBox Text="{Binding BetterThan,Converter={StaticResource MyConverter},UpdateSourceTrigger=Explicit}" Margin="5" Padding="5"></TextBox>
+            <TextBox Text="{Binding Better,Converter={StaticResource MyConverter},UpdateSourceTrigger=LostFocus}" Margin="5" Padding="5" Background="AliceBlue"></TextBox>
             <Button Content="EverySongFromAlbumBetterThan(3)" Command="{Binding EverySongFromAlbumBetterThanCommand}" Margin="5" Padding="10" Foreground="White" Background="DodgerBlue"></Button>
         </StackPanel>
     </Grid>

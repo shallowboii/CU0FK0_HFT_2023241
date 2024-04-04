@@ -22,8 +22,8 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
                 new ServiceCollection()
                 .AddSingleton<ISongService, SongServiceViaWindow>()
                 .AddSingleton<IAlbumService,AlbumServiceViaWindow>()
+                .AddSingleton<IArtistService, ArtistServiceViaWindow>()
                 .BuildServiceProvider()
-
                 );
         }
     }

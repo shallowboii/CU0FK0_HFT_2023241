@@ -50,13 +50,18 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                 return (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
             }
         }
-
         public ArtistWindowViewModel()
         {
 
+        }
+        public ArtistWindowViewModel(RestCollection<Artist> artists)
+        {
+
+            
             if (!IsInDesignMode)
             {
-                Artists = new RestCollection<Artist>("http://localhost:17161/", "artist");
+                
+                this.Artists = artists;
                 CreateArtistCommand = new RelayCommand(() =>
                 {
                     Artists.Add(new Artist()
@@ -67,18 +72,19 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
 
                 DeleteArtistCommand = new RelayCommand(() =>
                 {
-                    Artists.Delete(selectedArtist.ArtistID);
+                    Artists.Delete(SelectedArtist.ArtistID);
+                    SelectedArtist.ArtistID = 0;
                 },
                 () =>
                 {
-                    return selectedArtist != null;
+                    return SelectedArtist.ArtistID != 0;
                 });
 
                 UpdateArtistCommand = new RelayCommand(() =>
                 {
                     Artists.Update(SelectedArtist);
                 });
-                SelectedArtist = new Artist();
+                SelectedArtist = new Artist() { ArtistID = 0 };
             }
         }
 

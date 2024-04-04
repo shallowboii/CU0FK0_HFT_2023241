@@ -65,16 +65,16 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
             }
         }
 
-        private double betterThan;
+        private double better;
 
-        public double BetterThan
+        public double Better
         {
-            get { return betterThan; }
+            get { return better; }
             set
             {
                 if (value != null)
                 {
-                    betterThan = value;
+                    better = value;
                     OnPropertyChanged();
                 }
             }
@@ -143,7 +143,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                 });
                 EverySongFromAlbumBetterThanCommand = new RelayCommand(() =>
                 {
-                    EverySongFrom = Albums.GetEverySongFromAlbumBetterThan<Song>(BetterThan);
+                    EverySongFrom = Albums.GetEverySongFromAlbumBetterThan<Song>(Better);
                 },
                 () =>
                 {
