@@ -4,7 +4,6 @@ using CU0FK0_HFT_2023241.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System.Collections.Generic;
-using System.Threading;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -53,7 +52,7 @@ namespace CU0FK0_HFT_2023241.Endpoint.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var artistToDelete = logic.Read(id); // ha readelesnel meglatom a dolgot akkor mukszik a cascade
+            var artistToDelete = this.logic.Read(id);
             this.logic.Delete(id);
             this.hub.Clients.All.SendAsync("ArtistDeleted", artistToDelete);
 

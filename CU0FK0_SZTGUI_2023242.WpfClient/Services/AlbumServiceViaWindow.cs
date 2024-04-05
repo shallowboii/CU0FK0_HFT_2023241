@@ -9,9 +9,9 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.Services
 {
     internal class AlbumServiceViaWindow : IAlbumService
     {
-        public void Open(RestCollection<Album> albums,RestCollection<Song>songs)
+        public void Open(RestCollection<Album> albums )
         {
-            new AlbumWindow(albums,songs).Show();
+            new AlbumWindow(albums).Show();
         }
     }
 }

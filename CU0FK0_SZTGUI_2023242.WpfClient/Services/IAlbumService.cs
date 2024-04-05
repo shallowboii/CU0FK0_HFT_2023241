@@ -9,6 +9,6 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.Services
 {
     public interface IAlbumService
     {
-        void Open(RestCollection<Album> albums,RestCollection<Song>songs);
+        void Open(RestCollection<Album> albums);
     }
 }
