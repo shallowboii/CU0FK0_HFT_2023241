@@ -68,8 +68,8 @@ namespace CU0FK0_HFT_2023241.Endpoint
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
                 endpoints.MapHub<SignalRHub>("/hub");
+                endpoints.MapControllers(); 
             });
 
         }

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="MusicDB_log.ldf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.14" />
@@ -17,6 +21,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CU0FK0_HFT_2023241.Models\CU0FK0_HFT_2023241.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="MusicDB_log.ldf" />
   </ItemGroup>
 
 </Project>

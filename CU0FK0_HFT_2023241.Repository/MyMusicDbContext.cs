@@ -20,8 +20,8 @@ namespace CU0FK0_HFT_2023241.Repository
         {
             if (!builder.IsConfigured)
             {
-               
-                builder.UseInMemoryDatabase("database")
+                string conn = "";
+                builder./*UseInMemoryDatabase("database")*/UseSqlServer(conn)
                     .UseLazyLoadingProxies();
                     
             }

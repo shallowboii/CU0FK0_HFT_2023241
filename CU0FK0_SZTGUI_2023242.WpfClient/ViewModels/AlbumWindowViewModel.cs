@@ -14,6 +14,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
 {
     public class AlbumWindowViewModel : ObservableRecipient
     {
+        public bool IsSelected { get; set; } = false;
         private Album selectedAlbum;
 
         public Album SelectedAlbum
@@ -28,9 +29,17 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                         AlbumID = value.AlbumID,
                         AlbumTitle = value.AlbumTitle
                     };
+                    IsSelected = true;
                     OnPropertyChanged();
-                    (DeleteAlbumCommand as RelayCommand).NotifyCanExecuteChanged();
+                    
                 }
+                else
+                {
+                    IsSelected = false;
+                    selectedAlbum = new Album();
+                }
+                (DeleteAlbumCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                (UpdateAlbumCommand as RelayCommand)?.NotifyCanExecuteChanged();
             }
         }
         private List<Album> femaleAlbums;
@@ -120,17 +129,21 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                 });
 
                 DeleteAlbumCommand = new RelayCommand(() =>
-                {
-                    Albums.Delete(selectedAlbum.AlbumID);
+                {    
+                    Albums.Delete(SelectedAlbum.AlbumID);
                 },
                 () =>
                 {
-                    return selectedAlbum != null;
+                    return IsSelected == true;
                 });
 
                 UpdateAlbumCommand = new RelayCommand(() =>
                 {
                     Albums.Update(SelectedAlbum);
+                },
+                () =>
+                {
+                    return IsSelected == true;
                 });
                 
                 FemaleAlbumsLaterThan2012 = new RelayCommand(() =>
@@ -149,7 +162,6 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                 {
                     return EverySongFrom != null;
                 });
-                SelectedAlbum = new Album();
                 FemaleAlbums = new List<Album>();
                 EverySongFrom = new List<Song>();
             }
