@@ -92,6 +92,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
 
 
         public RestCollection<Album> Albums { get; set; }
+        public RestCollection<Song> Songs { get; set; }
 
         public ICommand CreateAlbumCommand { get; set; }
         public ICommand UpdateAlbumCommand { get; set; }
@@ -114,12 +115,13 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
 
         }
 
-        public AlbumWindowViewModel(RestCollection<Album> albums)
+        public AlbumWindowViewModel(RestCollection<Album> albums,RestCollection<Song> songs)
         {
 
             if (!IsInDesignMode)
             {
                 this.Albums = albums;
+                this.Songs = songs;
                 CreateAlbumCommand = new RelayCommand(() =>
                 {
                     Albums.Add(new Album()
@@ -131,10 +133,19 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                 DeleteAlbumCommand = new RelayCommand(() =>
                 {    
                     Albums.Delete(SelectedAlbum.AlbumID);
+                {
+                    foreach (Song song in Songs)
+                    {
+                        if (song.AlbumID == SelectedAlbum.AlbumID)
+                        {
+                            Songs.Delete(song.SongID);
+                        }
+                    }
+                    Albums.Delete(SelectedAlbum.AlbumID);
                 },
                 () =>
                 {
-                    return IsSelected == true;
+                    return SelectedAlbum != null;
                 });
 
                 UpdateAlbumCommand = new RelayCommand(() =>

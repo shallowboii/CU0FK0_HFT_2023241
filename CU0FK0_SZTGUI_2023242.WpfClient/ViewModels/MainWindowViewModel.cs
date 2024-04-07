@@ -43,7 +43,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
             ()=> true);
             AlbumOpenerCommand = new RelayCommand(() =>
             {
-                albumService.Open(AlbumCollection);
+                albumService.Open(AlbumCollection,SongCollection);
             },
             () => true);
             ArtistOpenerCommand = new RelayCommand(() =>

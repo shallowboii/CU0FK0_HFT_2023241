@@ -11,31 +11,25 @@
         <vms:SongWindowViewModel/>
     </Window.DataContext>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="10*"/>
-        </Grid.RowDefinitions>
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Grid.Row="0" Content="Song" Background="#353535" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" FontWeight="Black" Foreground="White"></Label>
-        <ListBox ItemsSource="{Binding Songs}" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectedItem="{Binding SelectedSong}" Grid.Column="0" Grid.Row="1" Background="#3c6e71">
+        <ListBox ItemsSource="{Binding Songs}" SelectedItem="{Binding SelectedSong}" Grid.Column="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Label FontWeight="Black" Foreground="White" Content="{Binding SongTitle}"></Label>
+                    <Label Content="{Binding SongTitle}"></Label>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Label Content="Name of the selected Song" Padding="10" Grid.Column="4" Grid.Row="0" Background="#284b63" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" FontWeight="Black" Foreground="White"></Label>
-        <StackPanel Grid.Column="4" Grid.Row="1" Background="#d9d9d9" >
-            <TextBox Text="{Binding SelectedSong.SongTitle}"  Padding="10" Margin="0,0,0,10" Background="#f1faee"></TextBox>
-            <Button Foreground="White" Background="#0081a7" BorderThickness="2" FontSize="15" Content="Create Song" Command="{Binding CreateSongCommand}" Margin="10" Padding="10"></Button>
-            <Button Foreground="White" Background="#0081a7" BorderThickness="2" FontSize="15" Content="Delete Song" Command="{Binding DeleteSongCommand}" Margin="10" Padding="10"></Button>
-            <Button Foreground="White" Background="#0081a7" BorderThickness="2" FontSize="15" Content="Update Song" Command="{Binding UpdateSongCommand}" Margin="10" Padding="10"></Button>
-            <Button Foreground="White" Background="#0081a7" BorderThickness="2" FontSize="15" Content="An Albums Best Song" Command="{Binding GetAnAlbumsBestSongCommand}" Margin="10" Padding="10"></Button>
-            <Label Foreground="Black" FontSize="15" FontStyle="Oblique" Content="Selected Song's Album ID:"></Label>
+        <StackPanel Grid.Column="1">
+            <Label Content="Name" Background="DarkTurquoise" Padding="10"></Label>
+            <TextBox Text="{Binding SelectedSong.SongTitle}" Padding="10" Margin="0,0,0,30"></TextBox>
+            <Button Content="Create Song" Command="{Binding CreateSongCommand}" Margin="10" Padding="10"></Button>
+            <Button Content="Delete Song" Command="{Binding DeleteSongCommand}" Margin="10" Padding="10"></Button>
+            <Button Content="Update Song" Command="{Binding UpdateSongCommand}" Margin="10" Padding="10"></Button>
+            <Button Content="An Albums Best Song" Command="{Binding GetAnAlbumsBestSongCommand}" Margin="10" Padding="10"></Button>
+            <Label Content="Selected Song's Album ID:"></Label>
             <TextBlock Text="{Binding SelectedSong.AlbumID}"></TextBlock>
             <TextBox Text="{Binding Result.SongTitle}" Padding="10"></TextBox>
         </StackPanel>
