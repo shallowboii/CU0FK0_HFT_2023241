@@ -63,6 +63,11 @@ namespace CU0FK0_HFT_2023241.Endpoint
             }));
 
             app.UseRouting();
+            app.UseCors(x => x
+                    .AllowCredentials()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithOrigins("http://localhost:42855"));
 
             app.UseAuthorization();
 
