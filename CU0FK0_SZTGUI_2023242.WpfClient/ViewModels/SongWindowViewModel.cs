@@ -30,7 +30,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                         AlbumID = value.AlbumID
                     };
                     OnPropertyChanged();
-                    (DeleteSongCommand as RelayCommand).NotifyCanExecuteChanged();
+                    (DeleteSongCommand as RelayCommand)?.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -49,7 +49,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                         SongTitle = value.SongTitle
                     };
                     OnPropertyChanged();
-                    (GetAnAlbumsBestSongCommand as RelayCommand).NotifyCanExecuteChanged();
+                    (GetAnAlbumsBestSongCommand as RelayCommand)?.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -95,7 +95,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
 
                 DeleteSongCommand = new RelayCommand(() =>
                 {
-                    Songs.Delete(selectedSong.SongID);
+                    Songs.Delete(SelectedSong.SongID);
                 },
                 () =>
                 {

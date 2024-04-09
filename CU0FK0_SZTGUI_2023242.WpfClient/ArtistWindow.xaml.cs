@@ -21,10 +21,10 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
     /// </summary>
     public partial class ArtistWindow : Window
     {
-        public ArtistWindow(RestCollection<Artist> artists)
+        public ArtistWindow(RestCollection<Artist> artists, RestCollection<Album> albums)
         {
             InitializeComponent();
-            var vm = new ArtistWindowViewModel(artists);
+            var vm = new ArtistWindowViewModel(artists,albums);
             this.DataContext = vm;
         }
     }

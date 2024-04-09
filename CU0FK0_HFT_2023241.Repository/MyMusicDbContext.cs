@@ -20,8 +20,11 @@ namespace CU0FK0_HFT_2023241.Repository
         {
             if (!builder.IsConfigured)
             {
-
-                builder.UseInMemoryDatabase("database").UseLazyLoadingProxies();
+                string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\musicasd.mdf;Integrated Security=True;";
+                builder
+                    .UseSqlServer(conn)
+                    //.UseInMemoryDatabase("database")
+                    .UseLazyLoadingProxies();
                     
             }
         }

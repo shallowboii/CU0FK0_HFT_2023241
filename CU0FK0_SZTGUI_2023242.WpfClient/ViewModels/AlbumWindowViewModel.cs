@@ -31,13 +31,14 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                     };
                     IsSelected = true;
                     OnPropertyChanged();
-                    
+
                 }
                 else
                 {
                     IsSelected = false;
                     selectedAlbum = new Album();
                 }
+                
                 (DeleteAlbumCommand as RelayCommand)?.NotifyCanExecuteChanged();
                 (UpdateAlbumCommand as RelayCommand)?.NotifyCanExecuteChanged();
             }
@@ -110,11 +111,11 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                 return (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
             }
         }
+
         public AlbumWindowViewModel()
         {
 
         }
-
         public AlbumWindowViewModel(RestCollection<Album> albums,RestCollection<Song> songs)
         {
 
@@ -130,22 +131,17 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                     });
                 });
 
-                DeleteAlbumCommand = new RelayCommand(() =>
-                {    
-                    Albums.Delete(SelectedAlbum.AlbumID);
+                DeleteAlbumCommand = new RelayCommand(async() =>
                 {
-                    foreach (Song song in Songs)
-                    {
-                        if (song.AlbumID == SelectedAlbum.AlbumID)
-                        {
-                            Songs.Delete(song.SongID);
-                        }
-                    }
-                    Albums.Delete(SelectedAlbum.AlbumID);
+                    await Albums.Delete(SelectedAlbum.AlbumID);
+                    await Albums.Refresh();//ez sufni tuning
+                    await Songs.Refresh();
+                    IsSelected = false;
+                    
                 },
                 () =>
                 {
-                    return SelectedAlbum != null;
+                    return IsSelected == true;
                 });
 
                 UpdateAlbumCommand = new RelayCommand(() =>

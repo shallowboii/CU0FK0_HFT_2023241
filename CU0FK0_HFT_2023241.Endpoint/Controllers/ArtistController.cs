@@ -58,6 +58,6 @@ namespace CU0FK0_HFT_2023241.Endpoint.Controllers
             this.hub.Clients.All.SendAsync("ArtistDeleted", artistToDelete);
 
         }
-        
+        //
     }
 }

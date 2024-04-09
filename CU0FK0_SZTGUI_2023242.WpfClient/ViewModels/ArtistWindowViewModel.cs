@@ -14,6 +14,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
 {
     public class ArtistWindowViewModel : ObservableRecipient
     {
+        public bool IsSelected { get; set; }
         private Artist selectedArtist;
 
         public Artist SelectedArtist
@@ -28,14 +29,22 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                         ArtistID = value.ArtistID,
                         ArtistName = value.ArtistName
                     };
+                    IsSelected = true;
                     OnPropertyChanged();
-                    (DeleteArtistCommand as RelayCommand).NotifyCanExecuteChanged();
+                    
                 }
+                else
+                {
+                    IsSelected = false;
+                    selectedArtist = new Artist();
+                }
+                (DeleteArtistCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                (UpdateArtistCommand as RelayCommand)?.NotifyCanExecuteChanged();
             }
         }
 
 
-
+        public RestCollection<Album> Albums { get; set; }
         public RestCollection<Artist> Artists { get; set; }
 
         public ICommand CreateArtistCommand { get; set; }
@@ -54,13 +63,13 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
         {
 
         }
-        public ArtistWindowViewModel(RestCollection<Artist> artists)
+        public ArtistWindowViewModel(RestCollection<Artist> artists, RestCollection<Album> albums)
         {
 
             
             if (!IsInDesignMode)
             {
-                
+                this.Albums = albums;
                 this.Artists = artists;
                 CreateArtistCommand = new RelayCommand(() =>
                 {
@@ -70,21 +79,28 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                     });
                 });
 
-                DeleteArtistCommand = new RelayCommand(() =>
+                DeleteArtistCommand = new RelayCommand(async() =>
                 {
-                    Artists.Delete(SelectedArtist.ArtistID);
-                    SelectedArtist.ArtistID = 0;
+                    await Artists.Delete(SelectedArtist.ArtistID);
+                    await Artists.Refresh();
+                    await Albums.Refresh();
+                    IsSelected = false;
                 },
                 () =>
                 {
-                    return SelectedArtist.ArtistID != 0;
+                    return IsSelected == true;
                 });
 
                 UpdateArtistCommand = new RelayCommand(() =>
                 {
                     Artists.Update(SelectedArtist);
+                },
+                () =>
+                {
+                    return IsSelected == true;
                 });
-                SelectedArtist = new Artist() { ArtistID = 0 };
+                SelectedArtist = null;
+               
             }
         }
 

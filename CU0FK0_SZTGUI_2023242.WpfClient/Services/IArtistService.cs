@@ -9,6 +9,6 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.Services
 {
     internal interface IArtistService
     {
-        void Open(RestCollection<Artist> artist);
+        void Open(RestCollection<Artist> artist,RestCollection<Album> albums);
     }
 }

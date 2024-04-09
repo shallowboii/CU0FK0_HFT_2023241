@@ -385,7 +385,10 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
         private async Task Init()
         {
             items = await rest.GetAsync<T>(typeof(T).Name);
-            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            });
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -449,24 +452,15 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
             }
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             if (hasSignalR)
             {
-                this.rest.DeleteAsync(id, typeof(T).Name);
+               await this.rest.DeleteAsync(id, typeof(T).Name);
             }
             else
             {
-                this.rest.DeleteAsync(id, typeof(T).Name).ContinueWith((t) =>
-                {
-                    Init().ContinueWith(z =>
-                    {
-                        Application.Current.Dispatcher.Invoke(() =>
-                        {
-                            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-                        });
-                    });
-                });
+                
             }
 
         }
@@ -494,6 +488,11 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
                 return this.rest.GetEverySongFromAlbumBetterThan<T>("AlbumNonCrud", "EverySongFromAlbumBetterThan",rating);
             }
             else return new List<T>();
+        }
+
+        public async Task Refresh()
+        {
+            await Init();
         }
 
 

@@ -9,9 +9,9 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.Services
 {
     public class ArtistServiceViaWindow : IArtistService
     {
-        public void Open(RestCollection<Artist> artists)
+        public void Open(RestCollection<Artist> artists,RestCollection<Album> albums)
         {
-            new ArtistWindow(artists).Show();
+            new ArtistWindow(artists,albums).Show();
         }
     }
 }
