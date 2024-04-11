@@ -23,11 +23,14 @@ namespace CU0FK0_HFT_2023241.Repository
             var old = Read(item.AlbumID);
             foreach ( var prop in old.GetType().GetProperties())
             {
-                if (prop.GetAccessors().FirstOrDefault(t=>t.IsVirtual)==null)
+                var acc = prop.GetAccessors();
+                var isvr = acc.FirstOrDefault(t => t.IsVirtual);
+                if (isvr==null && acc.First().Name != "get_ArtistID")
                 {
                     prop.SetValue(old, prop.GetValue(item));
                 }
             }
+
             ctx.SaveChanges();
         }
     }

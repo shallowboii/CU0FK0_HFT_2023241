@@ -3,14 +3,43 @@
 <head>
     <meta charset="utf-8" />
     <title>MainWindow</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
     <link rel="stylesheet" href="style.css" />
+    
 </head>
 <body>
     <h1>Song Database</h1>
-    <button class="button" onclick="openScriptPage('index.html')">Artist</button>
-    <button class="button" onclick="openScriptPage('script2.html')">Button 2</button>
+    <button class="button" onclick="showArtist()">Artist</button>
+    <button class="button" onclick="showAlbum()">Album</button>
     <button class="button" onclick="openScriptPage('script3.html')">Button 3</button>
 
+    <div id="updateArtistformdiv">
+        <label>Artist Name</label>
+        <input type="text" id="artistNameToUpdate" />
+        <button type="button" onclick="updateArtist()">Add Artist</button>
+    </div>
+    <div id="updateAlbumformdiv">
+        <label>Album Name</label>
+        <input type="text" id="albumNameToUpdate" />
+        <button type="button" onclick="updateAlbum()">Add Album</button>
+    </div>
+    <div id="formdiv">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="resultarea">
+            </tbody>
+        </table>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="MainScript.js"></script>
 </body>
 </html>

@@ -50,9 +50,9 @@ namespace CU0FK0_HFT_2023241.Endpoint.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            //var albumToDelete = this.logic.Read(id);
+            var albumToDelete = this.logic.Read(id);
             this.logic.Delete(id);
-            //this.hub.Clients.All.SendAsync("AlbumDeleted", albumToDelete);
+            this.hub.Clients.All.SendAsync("AlbumDeleted", albumToDelete);
         }
     }
 }
