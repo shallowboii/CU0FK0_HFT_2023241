@@ -77,6 +77,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                     {
                         ArtistName = SelectedArtist.ArtistName
                     });
+                    IsSelected = false;
                 });
 
                 DeleteArtistCommand = new RelayCommand(async() =>

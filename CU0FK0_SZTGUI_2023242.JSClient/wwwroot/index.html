@@ -9,10 +9,16 @@
     <h1>Artist Catalog</h1>
     <div id="formdiv">
         <label>Artist Name</label>
-        <input type="text" id="artistName"/>
+        <input type="text" id="artistName" />
         <button type="button" onclick="create()">Add Artist</button>
     </div>
-    
+
+    <div id="updateformdiv">
+        <label>Artist Name</label>
+        <input type="text" id="artistNameToUpdate" />
+        <button type="button" onclick="update()">Add Artist</button>
+    </div>
+
     <table>
         <thead>
             <tr>
@@ -22,12 +28,11 @@
             </tr>
         </thead>
         <tbody id="resultarea">
-            
         </tbody>
     </table>
 
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

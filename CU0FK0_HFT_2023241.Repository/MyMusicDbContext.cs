@@ -43,7 +43,7 @@ namespace CU0FK0_HFT_2023241.Repository
             .HasForeignKey(song => song.AlbumID)
             .OnDelete(DeleteBehavior.Cascade));
 
-
+           
             //modelBuilder.Entity<Artist>(artist => artist
             //.HasMany(artist => artist.Albums)
             //.WithOne(album => album.Artist)
