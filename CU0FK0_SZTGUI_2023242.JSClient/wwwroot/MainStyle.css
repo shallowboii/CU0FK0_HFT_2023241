@@ -36,25 +36,6 @@ th {
     }
 
 
-#updateformdiv {
-    display: none;
-    flex-direction: column;
-    margin-bottom: 20px;
-}
-
-    #updateformdiv label, button, input {
-        margin: 10px;
-        padding: 7px;
-    }
-
-    #updateformdiv label {
-        font-weight: bolder;
-    }
-
-table button {
-    padding: 2px;
-}
-
 #updateAlbumformdiv {
     display: none;
     flex-direction: column;
@@ -65,3 +46,24 @@ table button {
     flex-direction: column;
     margin-bottom: 20px;
 }
+#updateSongformdiv {
+    display: none;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+#createArtistformdiv {
+    display: none;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+#createAlbumformdiv {
+    display: none;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+#createSongformdiv {
+    display: none;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+

@@ -5,8 +5,10 @@ let connection = null;
 
 let artistIdToUpdate = -1;
 let albumIdToUpdate = -1;
+let songIdToUpdate = -1;
 getArtist();
 getAlbum();
+getSong();
 setupSignalR();
 
 function setupSignalR() {
@@ -27,14 +29,24 @@ function setupSignalR() {
     });
 
     connection.on("AlbumCreated", (user, message) => {
-        getArtist();
+        getAlbum();
     });
 
     connection.on("AlbumDeleted", (user, message) => {
-        getArtist();
+        getAlbum();
     });
     connection.on("AlbumUpdated", (user, message) => {
-        getArtist();
+        getAlbum();
+    });
+    connection.on("SongCreated", (user, message) => {
+        getSong();
+    });
+
+    connection.on("SongDeleted", (user, message) => {
+        getSong();
+    });
+    connection.on("SongUpdated", (user, message) => {
+        getSong();
     });
 
     connection.onclose(async () => {
@@ -42,6 +54,8 @@ function setupSignalR() {
     });
     start();
 }
+
+
 
 async function start() {
     try {
@@ -70,6 +84,16 @@ async function getAlbum() {
             console.log(albums);
         });
 }
+async function getSong() {
+    await fetch('http://localhost:17161/Song')
+        .then(x => x.json())
+        .then(y => {
+            songs = y;
+            console.log(songs);
+        });
+}
+
+
  function removeArtist(id) {
     fetch('http://localhost:17161/Artist/' + id,
         {
@@ -83,12 +107,27 @@ async function getAlbum() {
             return getArtist();
         })
         .then(() => showArtist() )
-        .then(()=> getAlbum())
+        //elobb get data es utana display
+        .catch((error) => { console.error('Error', error); });
+}
+function removeSong(id) {
+    fetch('http://localhost:17161/Song/' + id,
+        {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json', },
+            body: null,
+        })
+        .then(response => response)
+        .then(data => {
+            console.log('Success', data);
+            return getSong();
+        })
+        .then(() => showSong())
         //elobb get data es utana display
         .catch((error) => { console.error('Error', error); });
 }
 function removeAlbum(id) {
-    fetch('http://localhost:17161/Album' + id,
+    fetch('http://localhost:17161/Album/' + id,
         {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json', },
@@ -105,8 +144,14 @@ function removeAlbum(id) {
         .catch((error) => { console.error('Error', error); });
 }
 
+
+
 function showAlbum() {
+    document.getElementById('createArtistformdiv').style.display = 'none';
+    document.getElementById('createSongformdiv').style.display = 'none';
     document.getElementById('resultarea').innerHTML = "";
+    document.getElementById('formdiv').style.display = 'flex';
+    document.getElementById('createAlbumformdiv').style.display = 'flex';
     albums.forEach(t => {
         document.getElementById('resultarea').innerHTML +=
             "<tr><td>" + t.albumID + "</td><td>" +
@@ -117,11 +162,28 @@ function showAlbum() {
     });
     
 }
-
-
-function showArtist() {
+function showSong() {
+    document.getElementById('createArtistformdiv').style.display = 'none';
+    document.getElementById('createAlbumformdiv').style.display = 'none';
     document.getElementById('resultarea').innerHTML = "";
     document.getElementById('formdiv').style.display = 'flex';
+    document.getElementById('createSongformdiv').style.display = 'flex';
+    songs.forEach(t => {
+        document.getElementById('resultarea').innerHTML +=
+            "<tr><td>" + t.songID + "</td><td>" +
+            t.songTitle + "</td><td>" +
+            `<button type=button onclick="removeSong(${t.songID})">Delete</button>` +
+            `<button type=button onclick="showSongupdate(${t.songID})">Update</button>`
+            + "</td></tr>";
+    });
+
+}
+function showArtist() {
+    document.getElementById('createAlbumformdiv').style.display = 'none';
+    document.getElementById('createSongformdiv').style.display = 'none';
+    document.getElementById('resultarea').innerHTML = "";
+    document.getElementById('formdiv').style.display = 'flex';
+    document.getElementById('createArtistformdiv').style.display = 'flex';
     artists.forEach(t => {
         document.getElementById('resultarea').innerHTML +=
             "<tr><td>" + t.artistID + "</td><td>" +
@@ -144,7 +206,7 @@ function updateArtist() {
     document.getElementById('updateArtistformdiv').style.display = 'none';
     let name = document.getElementById('artistNameToUpdate').value;
 
-    fetch('http://localhost:17161/Artist',
+    fetch('http://localhost:17161/Artist/',
         {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', },
@@ -161,6 +223,32 @@ function updateArtist() {
 
 }
 
+function showSongupdate(id) {
+    document.getElementById('songNameToUpdate').value = songs.find(t => t['songID'] == id)['songTitle'];
+    document.getElementById('updateSongformdiv').style.display = 'flex';
+    songIdToUpdate = id;
+}
+function updateSong() {
+    document.getElementById('updateSongformdiv').style.display = 'none';
+    let name = document.getElementById('songNameToUpdate').value;
+
+    fetch('http://localhost:17161/Song/',
+        {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', },
+            body: JSON.stringify({ songTitle: name, songID: songIdToUpdate }),
+        })
+        .then(response => response)
+        .then(data => {
+            console.log('Success', data);
+            return getSong();
+        })
+        .then(() => showSong())
+        .catch((error) => { console.error('Error', error); });
+
+
+}
+
 
 function showAlbumupdate(id) {
     document.getElementById('albumNameToUpdate').value = albums.find(t => t['albumID'] == id)['albumTitle'];
@@ -171,7 +259,7 @@ function updateAlbum() {
     document.getElementById('updateAlbumformdiv').style.display = 'none';
     let name = document.getElementById('albumNameToUpdate').value;
 
-    fetch('http://localhost:17161/Album',
+    fetch('http://localhost:17161/Album/',
         {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', },
@@ -190,9 +278,9 @@ function updateAlbum() {
 
 
 
-function create() {
+function createArtist() {
     let name = document.getElementById('artistName').value;
-    fetch('http://localhost:17161/Artist',
+    fetch('http://localhost:17161/Artist/',
         {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', },
@@ -201,7 +289,42 @@ function create() {
         .then(response => response)
         .then(data => {
             console.log('Success', data);
-            getdata();
+            return getArtist();
         })
+        .then(()=>showArtist())
+        .catch((error) => { console.error('Error', error); });
+}
+
+function createAlbum() {
+    let name = document.getElementById('albumName').value;
+    fetch('http://localhost:17161/Album/',
+        {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', },
+            body: JSON.stringify({ albumTitle: name }),
+        })
+        .then(response => response)
+        .then(data => {
+            console.log('Success', data);
+            getAlbum();
+        })
+        .then(()=>showAlbum())
+        .catch((error) => { console.error('Error', error); });
+}
+
+function createSong() {
+    let name = document.getElementById('songName').value;
+    fetch('http://localhost:17161/Song/',
+        {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', },
+            body: JSON.stringify({ songTitle: name }),
+        })
+        .then(response => response)
+        .then(data => {
+            console.log('Success', data);
+            getSong();
+        })
+        .then(() => showSong())
         .catch((error) => { console.error('Error', error); });
 }
