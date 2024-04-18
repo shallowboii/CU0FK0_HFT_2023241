@@ -127,8 +127,9 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                 {
                     Albums.Add(new Album()
                     {
-                        AlbumTitle = SelectedAlbum.AlbumTitle
-                    });
+                        AlbumTitle = SelectedAlbum.AlbumTitle,
+                        ArtistID = SelectedAlbum.ArtistID
+                    }) ;
                 });
 
                 DeleteAlbumCommand = new RelayCommand(async() =>

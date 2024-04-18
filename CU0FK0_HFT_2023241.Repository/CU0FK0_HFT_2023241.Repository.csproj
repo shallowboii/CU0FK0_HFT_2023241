@@ -5,17 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="musicasd.mdf" />
-    <None Remove="musicasd_log.ldf" />
-    <None Remove="MusicDB.mdf" />
-    <None Remove="MusicDB_log.ldf" />
+    <None Remove="MusicDatabase.mdf" />
+    <None Remove="MusicDatabase_log.ldf" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="musicasd.mdf">
+    <Content Include="MusicDatabase.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="musicasd_log.ldf">
+    <Content Include="MusicDatabase_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -35,12 +33,9 @@
     <ProjectReference Include="..\CU0FK0_HFT_2023241.Models\CU0FK0_HFT_2023241.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="MusicDB_log.ldf" />
-  </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="xcopy /y &quot;$(ProjectDir)musicasd.mdf&quot; &quot;$(OutDir)\&quot;" />
+    <Exec Command="xcopy /y &quot;$(ProjectDir)MusicDatabase.mdf&quot; &quot;$(OutDir)\&quot;" />
   </Target>
 
 </Project>

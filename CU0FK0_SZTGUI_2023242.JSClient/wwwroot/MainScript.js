@@ -16,6 +16,7 @@ function setupSignalR() {
         .withUrl("http://localhost:17161/hub")
         .configureLogging(signalR.LogLevel.Information)
         .build();
+    
 
     connection.on("ArtistCreated", (user, message) => {
         getArtist();
@@ -146,52 +147,66 @@ function removeAlbum(id) {
 
 
 
-function showAlbum() {
+ function showAlbum() {   
     document.getElementById('createArtistformdiv').style.display = 'none';
     document.getElementById('createSongformdiv').style.display = 'none';
-    document.getElementById('resultarea').innerHTML = "";
+    
     document.getElementById('formdiv').style.display = 'flex';
     document.getElementById('createAlbumformdiv').style.display = 'flex';
-    albums.forEach(t => {
-        document.getElementById('resultarea').innerHTML +=
-            "<tr><td>" + t.albumID + "</td><td>" +
-            t.albumTitle + "</td><td>" +
-            `<button type=button onclick="removeAlbum(${t.albumID})">Delete</button>` +
-            `<button type=button onclick="showAlbumupdate(${t.albumID})">Update</button>`
-            + "</td></tr>";
-    });
+     return getAlbum().then(() => {
+         document.getElementById('resultarea').innerHTML = "";
+         albums.forEach(t => {
+             document.getElementById('resultarea').innerHTML +=
+                 "<tr><td>" + t.albumID + "</td><td>" +
+                 t.albumTitle + "</td><td>" +
+                 `<button type=button onclick="removeAlbum(${t.albumID})">Delete</button>` +
+                 `<button type=button onclick="showAlbumupdate(${t.albumID})">Update</button>`
+                 + "</td></tr>";
+         });
+     });
+     
     
 }
 function showSong() {
+    
     document.getElementById('createArtistformdiv').style.display = 'none';
     document.getElementById('createAlbumformdiv').style.display = 'none';
-    document.getElementById('resultarea').innerHTML = "";
+    
     document.getElementById('formdiv').style.display = 'flex';
     document.getElementById('createSongformdiv').style.display = 'flex';
-    songs.forEach(t => {
-        document.getElementById('resultarea').innerHTML +=
-            "<tr><td>" + t.songID + "</td><td>" +
-            t.songTitle + "</td><td>" +
-            `<button type=button onclick="removeSong(${t.songID})">Delete</button>` +
-            `<button type=button onclick="showSongupdate(${t.songID})">Update</button>`
-            + "</td></tr>";
+
+    return getSong().then(() => {
+        document.getElementById('resultarea').innerHTML = "";
+        songs.forEach(t => {
+            document.getElementById('resultarea').innerHTML +=
+                "<tr><td>" + t.songID + "</td><td>" +
+                t.songTitle + "</td><td>" +
+                `<button type=button onclick="removeSong(${t.songID})">Delete</button>` +
+                `<button type=button onclick="showSongupdate(${t.songID})">Update</button>`
+                + "</td></tr>";
+        });
     });
 
 }
 function showArtist() {
     document.getElementById('createAlbumformdiv').style.display = 'none';
     document.getElementById('createSongformdiv').style.display = 'none';
-    document.getElementById('resultarea').innerHTML = "";
+    
     document.getElementById('formdiv').style.display = 'flex';
     document.getElementById('createArtistformdiv').style.display = 'flex';
-    artists.forEach(t => {
-        document.getElementById('resultarea').innerHTML +=
-            "<tr><td>" + t.artistID + "</td><td>" +
-            t.artistName + "</td><td>" +
-            `<button type=button onclick="removeArtist(${t.artistID})">Delete</button>` +
-            `<button type=button onclick="showArtistupdate(${t.artistID})">Update</button>`
-            + "</td></tr>";
+
+    return getArtist().then(() => {
+        document.getElementById('resultarea').innerHTML = "";
+        artists.forEach(t => {
+            document.getElementById('resultarea').innerHTML +=
+                "<tr><td>" + t.artistID + "</td><td>" +
+                t.artistName + "</td><td>" +
+                `<button type=button onclick="removeArtist(${t.artistID})">Delete</button>` +
+                `<button type=button onclick="showArtistupdate(${t.artistID})">Update</button>`
+                + "</td></tr>";
+        });
     });
+    
     
 }
 
@@ -249,7 +264,6 @@ function updateSong() {
 
 }
 
-
 function showAlbumupdate(id) {
     document.getElementById('albumNameToUpdate').value = albums.find(t => t['albumID'] == id)['albumTitle'];
     document.getElementById('updateAlbumformdiv').style.display = 'flex';
@@ -280,7 +294,7 @@ function updateAlbum() {
 
 function createArtist() {
     let name = document.getElementById('artistName').value;
-    fetch('http://localhost:17161/Artist/',
+    fetch('http://localhost:17161/artist',
         {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', },
@@ -294,14 +308,17 @@ function createArtist() {
         .then(()=>showArtist())
         .catch((error) => { console.error('Error', error); });
 }
-
 function createAlbum() {
     let name = document.getElementById('albumName').value;
-    fetch('http://localhost:17161/Album/',
+    let id = document.getElementById('artistId').value;
+    fetch('http://localhost:17161/album',
         {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', },
-            body: JSON.stringify({ albumTitle: name }),
+            body: JSON.stringify({
+                albumTitle: name,
+                artistId: id
+            }),
         })
         .then(response => response)
         .then(data => {
@@ -311,14 +328,14 @@ function createAlbum() {
         .then(()=>showAlbum())
         .catch((error) => { console.error('Error', error); });
 }
-
 function createSong() {
     let name = document.getElementById('songName').value;
-    fetch('http://localhost:17161/Song/',
+    let id = document.getElementById('albumId').value;
+    fetch('http://localhost:17161/song',
         {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', },
-            body: JSON.stringify({ songTitle: name }),
+            body: JSON.stringify({ songTitle: name,albumID: id }),
         })
         .then(response => response)
         .then(data => {

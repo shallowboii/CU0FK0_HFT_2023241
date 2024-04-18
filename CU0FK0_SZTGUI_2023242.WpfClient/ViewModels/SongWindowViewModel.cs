@@ -14,6 +14,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
 {
     public class SongWindowViewModel : ObservableRecipient
     {
+        public bool IsSelected { get; set; }
         private Song selectedSong;
 
         public Song SelectedSong
@@ -29,8 +30,15 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                         SongTitle = value.SongTitle,
                         AlbumID = value.AlbumID
                     };
+                    IsSelected = true;
                     OnPropertyChanged();
+                    
+                }
+                else
+                {
+                    IsSelected = false;
                     (DeleteSongCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                    (UpdateSongCommand as RelayCommand)?.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -89,22 +97,29 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                 {
                     Songs.Add(new Song()
                     {
-                        SongTitle = SelectedSong.SongTitle
+                        SongTitle = SelectedSong.SongTitle,
+                        AlbumID = SelectedSong.AlbumID, 
                     });
                 });
 
-                DeleteSongCommand = new RelayCommand(() =>
+                DeleteSongCommand = new RelayCommand(async() =>
                 {
-                    Songs.Delete(SelectedSong.SongID);
+                    await Songs.Delete(SelectedSong.SongID);
+                    await Songs.Refresh();
+                    IsSelected = false;
                 },
                 () =>
                 {
-                    return selectedSong != null;
+                    return IsSelected == true;
                 });
 
                 UpdateSongCommand = new RelayCommand(() =>
                 {
                     Songs.Update(SelectedSong);
+                },
+                () =>
+                {
+                    return IsSelected == true;
                 });
                 GetAnAlbumsBestSongCommand = new RelayCommand(() =>
                 {

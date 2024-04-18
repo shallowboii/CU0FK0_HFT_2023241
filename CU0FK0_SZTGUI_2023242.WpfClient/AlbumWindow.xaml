@@ -52,7 +52,9 @@
         </ListBox>
         <Label Content="Name of the selected Album" Padding="10" Grid.Column="4" Grid.Row="0" Background="DeepSkyBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" FontWeight="Black" Foreground="White"></Label>
         <StackPanel Grid.Column="4" Grid.Row="1" Background="LightSteelBlue" >
-            <TextBox Text="{Binding SelectedAlbum.AlbumTitle}" Padding="10" Margin="0,0,0,10" Background="AliceBlue"></TextBox>
+            <TextBox Text="{Binding SelectedAlbum.AlbumTitle}" Padding="10" Background="AliceBlue"></TextBox>
+            <Label Content="Artist's id" Background="DeepSkyBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" FontWeight="Black" Foreground="White"></Label>
+            <TextBox Text="{Binding SelectedAlbum.ArtistID}" Padding="10" Margin="0,0,0,10" Background="AliceBlue"></TextBox>
             <Button Content="Create Album" Command="{Binding CreateAlbumCommand}" Margin="5" Padding="10"></Button>
             <Button Content="Delete Album" Command="{Binding DeleteAlbumCommand}" Margin="5" Padding="10"></Button>
             <Button Content="Update Album" Command="{Binding UpdateAlbumCommand}" Margin="5" Padding="10"></Button>
