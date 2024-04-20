@@ -113,9 +113,10 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                     return IsSelected == true;
                 });
 
-                UpdateSongCommand = new RelayCommand(() =>
+                UpdateSongCommand = new RelayCommand(async () =>
                 {
                     Songs.Update(SelectedSong);
+                    await Songs.Refresh();
                 },
                 () =>
                 {

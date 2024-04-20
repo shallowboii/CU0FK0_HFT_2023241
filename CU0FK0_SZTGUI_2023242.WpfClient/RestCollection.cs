@@ -336,7 +336,12 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
 
     }
 
-    public class RestCollection<T> : INotifyCollectionChanged, IEnumerable<T>
+    public abstract class RestCollection
+    {
+        abstract public Task Refresh();
+    }
+
+    public class RestCollection<T> : RestCollection,INotifyCollectionChanged, IEnumerable<T>
     {
         public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
@@ -346,7 +351,9 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
         bool hasSignalR;
         Type type = typeof(T);
 
-        public RestCollection(string baseurl, string endpoint, string hub = null)
+        public IList<RestCollection> Dependent { get; }
+
+        public RestCollection(string baseurl, string endpoint, string hub = null,IList<RestCollection> dependent = null)
         {
             hasSignalR = hub != null;
             this.rest = new RestService(baseurl, endpoint);
@@ -364,12 +371,16 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
                     if (element != null)
                     {
                         items.Remove(item);
-                        CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-                    }
-                    else
-                    {
                         Init();
+                        if (Dependent != null)
+                        {
+                            foreach (var dep in Dependent)
+                            {
+                                dep.Refresh();
+                            }
+                        }
                     }
+                    
 
                 });
                 this.notify.AddHandler<T>(type.Name + "Updated", (T item) =>
@@ -380,6 +391,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
                 this.notify.Init();
             }
             Init();
+            Dependent = dependent;
         }
 
         private async Task Init()
@@ -490,7 +502,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
             else return new List<T>();
         }
 
-        public async Task Refresh()
+        public override async Task Refresh()
         {
             await Init();
         }

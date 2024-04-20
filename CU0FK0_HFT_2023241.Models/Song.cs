@@ -39,6 +39,23 @@ namespace CU0FK0_HFT_2023241.Models
             AlbumID = albumID;
             SongRating = songRating;
         }
+        public override bool Equals(object obj)
+        {
+            Song b = obj as Song;
+            if (b == null)
+            {
+                return false;
+            }
+            else
+            {
+                return this.SongID == b.SongID && this.SongTitle == b.SongTitle;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.SongID, this.SongTitle);
+        }
 
     }
 }

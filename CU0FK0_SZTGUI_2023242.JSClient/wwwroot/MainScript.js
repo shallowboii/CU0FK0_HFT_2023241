@@ -19,35 +19,35 @@ function setupSignalR() {
     
 
     connection.on("ArtistCreated", (user, message) => {
-        getArtist();
+        showArtist();
     });
 
     connection.on("ArtistDeleted", (user, message) => {
-        getArtist();
+        showArtist();
     });
     connection.on("ArtistUpdated", (user, message) => {
-        getArtist();
+        showArtist();
     });
 
     connection.on("AlbumCreated", (user, message) => {
-        getAlbum();
+        showAlbum();
     });
 
     connection.on("AlbumDeleted", (user, message) => {
-        getAlbum();
+        showAlbum();
     });
     connection.on("AlbumUpdated", (user, message) => {
-        getAlbum();
+        showAlbum();
     });
     connection.on("SongCreated", (user, message) => {
-        getSong();
+        showSong();
     });
 
     connection.on("SongDeleted", (user, message) => {
-        getSong();
+        showSong();
     });
     connection.on("SongUpdated", (user, message) => {
-        getSong();
+        showSong();
     });
 
     connection.onclose(async () => {

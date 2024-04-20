@@ -30,6 +30,23 @@ namespace CU0FK0_HFT_2023241.Models
             this.ArtistName = ArtistName;
             this.Gender = Gender;
         }
+        public override bool Equals(object obj)
+        {
+            Artist b = obj as Artist;
+            if (b == null)
+            {
+                return false;
+            }
+            else
+            {
+                return this.ArtistID == b.ArtistID && this.ArtistName == b.ArtistName && this.Gender == b.Gender;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.ArtistID, this.ArtistName,this.Gender);
+        }
 
 
     }

@@ -34,8 +34,8 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
             albumService = Ioc.Default.GetRequiredService<IAlbumService>();
             artistService = Ioc.Default.GetRequiredService<IArtistService>();
             SongCollection = new RestCollection<Song>("http://localhost:17161/", "song", "hub");
-            AlbumCollection = new RestCollection<Album>("http://localhost:17161/", "album", "hub");
-            ArtistCollection = new RestCollection<Artist>("http://localhost:17161/", "artist","hub");
+            AlbumCollection = new RestCollection<Album>("http://localhost:17161/", "album", "hub", new List<RestCollection>() { SongCollection});
+            ArtistCollection = new RestCollection<Artist>("http://localhost:17161/", "artist","hub",new List<RestCollection>() { AlbumCollection,SongCollection });
             SongOpenerCommand = new RelayCommand(() =>
             {
                 songservice.Open(SongCollection);
