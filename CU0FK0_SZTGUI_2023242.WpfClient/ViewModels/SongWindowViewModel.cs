@@ -10,7 +10,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
 {
     public class SongWindowViewModel : ObservableRecipient
     {
-        public bool IsSelected { get; set; }
+        public bool IsSelected { get; set; } = false;
         private Song selectedSong;
 
         public Song SelectedSong
@@ -33,9 +33,10 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                 else
                 {
                     IsSelected = false;
-                    (DeleteSongCommand as RelayCommand)?.NotifyCanExecuteChanged();
-                    (UpdateSongCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                    selectedSong = new Song();
                 }
+                 (DeleteSongCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                (UpdateSongCommand as RelayCommand)?.NotifyCanExecuteChanged();
             }
         }
         private Song result;
@@ -88,7 +89,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
             if (!IsInDesignMode)
             {
 
-                Songs = songs;
+                this.Songs = songs;
                 CreateSongCommand = new RelayCommand(() =>
                 {
                     Songs.Add(new Song()
@@ -120,7 +121,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                 });
                 GetAnAlbumsBestSongCommand = new RelayCommand(() =>
                 {
-                    Result = Songs.GetAnAlbumsBestSong<Song>(SelectedSong.AlbumID).FirstOrDefault();
+                    Result = Songs.GetAnAlbumsBestSong<Song>(SelectedSong.AlbumID).First();
                 },
                 () =>
                 {

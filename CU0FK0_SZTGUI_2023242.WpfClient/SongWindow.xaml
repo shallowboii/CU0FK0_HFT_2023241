@@ -30,7 +30,9 @@
         </ListBox>
         <Label Content="Name of the selected Song" Padding="10" Grid.Column="4" Grid.Row="0" Background="#284b63" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" FontWeight="Black" Foreground="White"></Label>
         <StackPanel Grid.Column="4" Grid.Row="1" Background="#d9d9d9" >
-            <TextBox Text="{Binding SelectedSong.SongTitle}"  Padding="10" Margin="0,0,0,10" Background="#f1faee"></TextBox>
+            <TextBox Text="{Binding SelectedSong.SongTitle}"  Padding="10"  Background="#f1faee"></TextBox>
+            <Label Content="Album's id" Background="#284b63" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" FontWeight="Black" Foreground="White"></Label>
+            <TextBox Text="{Binding SelectedSong.AlbumID}" Padding="10" Margin="0,0,0,10" Background="#f1faee"></TextBox>
             <Button Foreground="White" Background="#0081a7" BorderThickness="2" FontSize="15" Content="Create Song" Command="{Binding CreateSongCommand}" Margin="10" Padding="10"></Button>
             <Button Foreground="White" Background="#0081a7" BorderThickness="2" FontSize="15" Content="Delete Song" Command="{Binding DeleteSongCommand}" Margin="10" Padding="10"></Button>
             <Button Foreground="White" Background="#0081a7" BorderThickness="2" FontSize="15" Content="Update Song" Command="{Binding UpdateSongCommand}" Margin="10" Padding="10"></Button>
