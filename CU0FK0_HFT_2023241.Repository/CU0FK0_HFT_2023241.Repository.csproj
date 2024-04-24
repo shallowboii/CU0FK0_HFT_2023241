@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -32,7 +32,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CU0FK0_HFT_2023241.Models\CU0FK0_HFT_2023241.Models.csproj" />
   </ItemGroup>
-
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="xcopy /y &quot;$(ProjectDir)MusicDatabase.mdf&quot; &quot;$(OutDir)\&quot;" />

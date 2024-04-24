@@ -21,6 +21,7 @@ namespace CU0FK0_HFT_2023241.Repository
             if (!builder.IsConfigured)
             {
                 string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\MusicDatabase.mdf;Integrated Security=True;MultipleActiveResultSets=True";
+
                 builder
                     .UseSqlServer(conn)
                     //.UseInMemoryDatabase("database")

@@ -386,6 +386,13 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
                 this.notify.AddHandler<T>(type.Name + "Updated", (T item) =>
                 {
                     Init();
+                    if (Dependent != null)
+                    {
+                        foreach (var dep in Dependent)
+                        {
+                            dep.Refresh();
+                        }
+                    }
                 });
 
                 this.notify.Init();
@@ -443,15 +450,15 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
 
         }
 
-        public void Update(T item)
+        public async Task Update(T item)
         {
             if (hasSignalR)
             {
-                this.rest.PutAsync(item, typeof(T).Name);
+               await this.rest.PutAsync(item, typeof(T).Name);
             }
             else
             {
-                this.rest.PutAsync(item, typeof(T).Name).ContinueWith((t) =>
+               await this.rest.PutAsync(item, typeof(T).Name).ContinueWith((t) =>
                 {
                     Init().ContinueWith(z =>
                     {

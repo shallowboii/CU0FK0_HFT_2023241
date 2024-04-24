@@ -94,15 +94,13 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
 
                 UpdateArtistCommand = new RelayCommand(async () =>
                 {
-                    Artists.Update(SelectedArtist);
+                    await Artists.Update(SelectedArtist);
                     await Artists.Refresh();
                 },
                 () =>
                 {
                     return IsSelected == true;
-                });
-                SelectedArtist = null;
-               
+                });               
             }
         }
 

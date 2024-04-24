@@ -135,7 +135,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                 DeleteAlbumCommand = new RelayCommand(async() =>
                 {
                     await Albums.Delete(SelectedAlbum.AlbumID);
-                    await Albums.Refresh();//ez sufni tuning
+                    await Albums.Refresh();
                     await Songs.Refresh();
                     IsSelected = false;
                     
@@ -147,7 +147,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
 
                 UpdateAlbumCommand = new RelayCommand(async () =>
                 {
-                    Albums.Update(SelectedAlbum);
+                    await Albums.Update(SelectedAlbum);
                     await Albums.Refresh();
                 },
                 () =>

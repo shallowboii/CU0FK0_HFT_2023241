@@ -1,14 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CU0FK0_HFT_2023241.Models;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using System.Windows;
+using System.Windows.Input;
 
 namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
 {
@@ -32,7 +28,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                     };
                     IsSelected = true;
                     OnPropertyChanged();
-                    
+
                 }
                 else
                 {
@@ -68,7 +64,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
         }
 
         public RestCollection<Song> Songs { get; set; }
-        
+
 
 
         public ICommand CreateSongCommand { get; set; }
@@ -98,11 +94,11 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                     Songs.Add(new Song()
                     {
                         SongTitle = SelectedSong.SongTitle,
-                        AlbumID = SelectedSong.AlbumID, 
+                        AlbumID = SelectedSong.AlbumID,
                     });
                 });
 
-                DeleteSongCommand = new RelayCommand(async() =>
+                DeleteSongCommand = new RelayCommand(async () =>
                 {
                     await Songs.Delete(SelectedSong.SongID);
                     await Songs.Refresh();
@@ -115,7 +111,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
 
                 UpdateSongCommand = new RelayCommand(async () =>
                 {
-                    Songs.Update(SelectedSong);
+                    await Songs.Update(SelectedSong);
                     await Songs.Refresh();
                 },
                 () =>
@@ -124,7 +120,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                 });
                 GetAnAlbumsBestSongCommand = new RelayCommand(() =>
                 {
-                    Result=Songs.GetAnAlbumsBestSong<Song>(SelectedSong.AlbumID).FirstOrDefault();
+                    Result = Songs.GetAnAlbumsBestSong<Song>(SelectedSong.AlbumID).FirstOrDefault();
                 },
                 () =>
                 {
