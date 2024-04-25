@@ -380,6 +380,7 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient
                             }
                         }
                     }
+                    Init();
                     
 
                 });

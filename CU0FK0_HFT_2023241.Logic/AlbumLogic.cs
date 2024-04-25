@@ -21,9 +21,9 @@ namespace CU0FK0_HFT_2023241.Logic
 
         public void Create(Album item) //3 tests done
         {
-            if (item?.AlbumTitle.Length <= 2 || item is null)
+            if (item?.AlbumTitle.Length <= 2 || item is null || item.ArtistID == 0)
             {
-                throw new ArgumentException("Title is too short or none existent");
+                throw new ArgumentException("Title is too short or none existent artist's id");
             }
             else
             {

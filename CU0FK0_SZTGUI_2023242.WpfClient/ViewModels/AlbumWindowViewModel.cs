@@ -27,7 +27,8 @@ namespace CU0FK0_SZTGUI_2023242.WpfClient.ViewModels
                     selectedAlbum = new Album()
                     {
                         AlbumID = value.AlbumID,
-                        AlbumTitle = value.AlbumTitle
+                        AlbumTitle = value.AlbumTitle,
+                        ArtistID = value.ArtistID
                     };
                     IsSelected = true;
                     OnPropertyChanged();

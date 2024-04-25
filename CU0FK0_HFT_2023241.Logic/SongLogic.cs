@@ -19,9 +19,9 @@ namespace CU0FK0_HFT_2023241.Logic
 
         public void Create(Song item)
         {
-            if (item?.SongTitle.Length <= 2 || item is null)
+            if (item?.SongTitle.Length <= 2 || item is null ||item.AlbumID == 0)
             {
-                throw new ArgumentException("Song does not exits or the title is too short!");
+                throw new ArgumentException("Song's album does not exits or the title is too short!");
             }
             else
             {
